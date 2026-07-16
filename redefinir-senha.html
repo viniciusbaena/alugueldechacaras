@@ -94,7 +94,7 @@
       const msgLower = (error.message || '').toLowerCase();
       const linkExpirado = msgLower.includes('jwt') || msgLower.includes('expired') || msgLower.includes('invalid') || msgLower.includes('sub claim') || msgLower.includes('not exist');
       if (linkExpirado) {
-        erro.innerHTML = 'Este link de recuperação expirou ou já foi usado (cada link só funciona uma vez). <a href="/?recuperar=1" style="color:#b91c1c;font-weight:700;text-decoration:underline;">Solicitar um novo link</a>.';
+        erro.innerHTML = 'Este link de recuperação expirou ou já foi usado (cada link só funciona uma vez). <a href="/alugueldechacaras/?recuperar=1" style="color:#b91c1c;font-weight:700;text-decoration:underline;">Solicitar um novo link</a>.';
       } else {
         erro.textContent = 'Erro ao redefinir senha: ' + error.message;
       }
@@ -109,10 +109,10 @@
 
     // Descobre se é fornecedor ou proprietário pelo e-mail para redirecionar ao painel certo
     const email = userData?.user?.email;
-    let destino = '/painel-proprietario.html';
+    let destino = '/alugueldechacaras/painel-proprietario.html';
     if (email) {
       const { data: sup } = await _supa.from('suppliers').select('id').eq('email', email).maybeSingle();
-      if (sup) destino = '/painel-fornecedor.html';
+      if (sup) destino = '/alugueldechacaras/painel-fornecedor.html';
     }
 
     setTimeout(() => {
