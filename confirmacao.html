@@ -77,14 +77,14 @@
 </head>
 <body>
 
-<a class="logo" href="/">🌿 AluguelDeChácaras</a>
+<a class="logo" href="/alugueldechacaras/">🌿 AluguelDeChácaras</a>
 
 <div class="card" id="card">
   <div class="icon" id="icon">⏳</div>
   <div class="badge" id="badge">Processando...</div>
   <h1 id="title">Verificando pagamento</h1>
   <p id="desc">Aguarde um momento enquanto confirmamos seu pagamento.</p>
-  <a href="/" class="btn" id="cta">Voltar ao início</a>
+  <a href="/alugueldechacaras/" class="btn" id="cta">Voltar ao início</a>
   <p class="help">Dúvidas? Entre em contato: <a href="mailto:contato@alugueldechacaras.com">contato@alugueldechacaras.com</a></p>
 </div>
 
@@ -110,7 +110,7 @@
       titleText: 'Reserva confirmada!',
       descText: 'Seu pagamento foi confirmado. Em instantes você receberá no WhatsApp e e-mail o <strong>endereço completo</strong> da chácara e todos os detalhes da sua estadia.',
       ctaText: 'Explorar outras chacaras',
-      ctaHref: '/'
+      ctaHref: '/alugueldechacaras/'
     },
     pending: {
       cls: 'pending',
@@ -120,7 +120,7 @@
       titleText: 'Pagamento em processamento',
       descText: 'Seu pagamento está sendo processado. Assim que for aprovado, você receberá uma confirmação por WhatsApp e e-mail com os detalhes da reserva.',
       ctaText: 'Voltar ao início',
-      ctaHref: '/'
+      ctaHref: '/alugueldechacaras/'
     },
     in_process: {
       cls: 'pending',
@@ -130,7 +130,7 @@
       titleText: 'Pagamento em processamento',
       descText: 'Seu pagamento está sendo processado. Isso pode levar alguns minutos. Você será notificado por WhatsApp e e-mail quando for confirmado.',
       ctaText: 'Voltar ao início',
-      ctaHref: '/'
+      ctaHref: '/alugueldechacaras/'
     },
     rejected: {
       cls: 'failure',
@@ -150,7 +150,7 @@
       titleText: 'Pagamento cancelado',
       descText: 'O pagamento foi cancelado. Se foi um engano, você pode voltar e tentar novamente.',
       ctaText: 'Voltar',
-      ctaHref: '/'
+      ctaHref: '/alugueldechacaras/'
     }
   };
 
@@ -162,7 +162,7 @@
     titleText: 'Verificando seu pagamento',
     descText: 'Não foi possível verificar o status do pagamento automaticamente. Se você completou o pagamento, aguarde a confirmação por WhatsApp e e-mail.',
     ctaText: 'Voltar ao início',
-    ctaHref: '/'
+    ctaHref: '/alugueldechacaras/'
   };
 
   card.className = 'card ' + state.cls;

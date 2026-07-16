@@ -1111,7 +1111,7 @@
       <div class="section-eyebrow">Disponíveis agora</div>
       <h2 class="section-title">Chácaras em destaque</h2>
     </div>
-    <a href="/#chacaras" class="btn btn-outline">Ver todas →</a>
+    <a href="/alugueldechacaras/#chacaras" class="btn btn-outline">Ver todas →</a>
   </div>
 
   <div class="chacaras-grid" id="chacaras-grid">
@@ -1142,7 +1142,7 @@
     const desc = p.description ? p.description.slice(0,120) + (p.description.length>120?'\u2026':'') : '';
     const cap = p.max_guests ? ('\uD83D\uDC65 At\u00e9 ' + p.max_guests + ' pessoas') : '';
     const card = document.createElement('a');
-    card.href = '/' + slug + '/';
+    card.href = '/alugueldechacaras/' + slug + '/';
     card.className = 'chacara-card';
     card.style.cssText = 'text-decoration:none;color:inherit;display:block;';
     card.innerHTML = `
@@ -1293,7 +1293,7 @@
         const aval  = f.rating ? `⭐ ${f.rating} (${f.rating_count || 0})` : '';
 
         const card = document.createElement('a');
-        card.href  = `/fornecedor.html?slug=${encodeURIComponent(f.slug)}`;
+        card.href  = `/alugueldechacaras/fornecedor.html?slug=${encodeURIComponent(f.slug)}`;
         card.className = 'chacara-card';
         card.style.cssText = 'text-decoration:none;color:inherit;display:block;';
         card.innerHTML = `
@@ -1404,31 +1404,31 @@
   <div>
     <div class="footer-col-title">Chácaras</div>
     <ul class="footer-links">
-      <li><a href="/#chacaras">Ver todas</a></li>
-      <li><a href="/#chacaras">Maringá</a></li>
-      <li><a href="/#chacaras">Sarandi</a></li>
-      <li><a href="/#chacaras">Paiçandu</a></li>
-      <li><a href="/#chacaras">Marialva</a></li>
+      <li><a href="/alugueldechacaras/#chacaras">Ver todas</a></li>
+      <li><a href="/alugueldechacaras/#chacaras">Maringá</a></li>
+      <li><a href="/alugueldechacaras/#chacaras">Sarandi</a></li>
+      <li><a href="/alugueldechacaras/#chacaras">Paiçandu</a></li>
+      <li><a href="/alugueldechacaras/#chacaras">Marialva</a></li>
     </ul>
   </div>
   <div>
     <div class="footer-col-title">Fornecedores</div>
     <ul class="footer-links">
-      <li><a href="/#fornecedores">Brinquedos Infantis</a></li>
-      <li><a href="/#fornecedores">Churrasqueiros</a></li>
-      <li><a href="/#fornecedores">Decoração e Balões</a></li>
-      <li><a href="/#fornecedores">Buffets</a></li>
-      <li><a href="/#fornecedores">DJ e Música</a></li>
+      <li><a href="/alugueldechacaras/#fornecedores">Brinquedos Infantis</a></li>
+      <li><a href="/alugueldechacaras/#fornecedores">Churrasqueiros</a></li>
+      <li><a href="/alugueldechacaras/#fornecedores">Decoração e Balões</a></li>
+      <li><a href="/alugueldechacaras/#fornecedores">Buffets</a></li>
+      <li><a href="/alugueldechacaras/#fornecedores">DJ e Música</a></li>
     </ul>
   </div>
   <div>
     <div class="footer-col-title">Plataforma</div>
     <ul class="footer-links">
-      <li><a href="/#como-funciona">Como funciona</a></li>
+      <li><a href="/alugueldechacaras/#como-funciona">Como funciona</a></li>
       <li><a href="#anuncie">Anuncie sua chácara</a></li>
       <li><a href="#" onclick="abrirModal('login')">Entrar</a></li>
       <li><a href="mailto:contato@alugueldechacaras.com">Contato</a></li>
-      <li><a href="/termos.html">Termos</a></li>
+      <li><a href="/alugueldechacaras/termos.html">Termos</a></li>
     </ul>
   </div>
 </footer>
@@ -1469,7 +1469,7 @@
       sub: 'Preencha seus dados e enviaremos sua solicitação ao proprietário.',
       campos: `
         <p style="text-align:center;font-size:14px;color:#374151;margin-bottom:16px;">Você será redirecionado para a página da chácara com o formulário completo de reserva.</p>
-        <button class="btn btn-verde" style="width:100%;justify-content:center;margin-top:4px;" onclick="window.location.href='/espaco-verde-festas/'">Ver detalhes e solicitar reserva →</button>
+        <button class="btn btn-verde" style="width:100%;justify-content:center;margin-top:4px;" onclick="window.location.href='/alugueldechacaras/espaco-verde-festas/'">Ver detalhes e solicitar reserva →</button>
         <p style="text-align:center;margin-top:12px;font-size:12px;color:#6b7280;">🔒 Endereço e contato liberados somente após confirmação e pagamento.</p>
       `
     },
@@ -1493,7 +1493,7 @@
         <div style="font-size:12px;color:#6b7280;margin-top:-8px;margin-bottom:8px;">Você vai usar seu e-mail e essa senha pra entrar no painel depois.</div>
         <label class="field" style="display:flex;flex-direction:row;align-items:flex-start;gap:8px;font-weight:400;font-size:13px;color:#374151;margin-top:6px;cursor:pointer;">
           <input type="checkbox" id="cad-chacara-termos" style="margin-top:3px;flex-shrink:0;width:auto;"/>
-          <span>Li e aceito os <a href="/termos-de-uso.html" target="_blank" style="color:var(--verde);font-weight:600;">Termos de Uso</a>, a <a href="/politica-de-privacidade.html" target="_blank" style="color:var(--verde);font-weight:600;">Política de Privacidade</a> e o <a href="/termo-responsabilidade-proprietario.html" target="_blank" style="color:var(--verde);font-weight:600;">Termo de Responsabilidade do Proprietário</a>.</span>
+          <span>Li e aceito os <a href="/alugueldechacaras/termos-de-uso.html" target="_blank" style="color:var(--verde);font-weight:600;">Termos de Uso</a>, a <a href="/alugueldechacaras/politica-de-privacidade.html" target="_blank" style="color:var(--verde);font-weight:600;">Política de Privacidade</a> e o <a href="/alugueldechacaras/termo-responsabilidade-proprietario.html" target="_blank" style="color:var(--verde);font-weight:600;">Termo de Responsabilidade do Proprietário</a>.</span>
         </label>
         <div id="cad-chacara-erro" style="display:none;color:#b91c1c;background:#fee2e2;padding:10px 12px;border-radius:8px;font-size:13px;margin-top:8px;"></div>
         <button class="btn btn-verde" id="cad-chacara-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="enviarCadastro('chacara')">Quero me cadastrar!</button>
@@ -1534,7 +1534,7 @@
         <div style="font-size:12px;color:#6b7280;margin-top:-8px;margin-bottom:8px;">Você vai usar seu e-mail e essa senha pra entrar no painel depois.</div>
         <label class="field" style="display:flex;flex-direction:row;align-items:flex-start;gap:8px;font-weight:400;font-size:13px;color:#374151;margin-top:6px;cursor:pointer;">
           <input type="checkbox" id="cad-fornecedor-termos" style="margin-top:3px;flex-shrink:0;width:auto;"/>
-          <span>Li e aceito os <a href="/termos-de-uso.html" target="_blank" style="color:var(--verde);font-weight:600;">Termos de Uso</a>, a <a href="/politica-de-privacidade.html" target="_blank" style="color:var(--verde);font-weight:600;">Política de Privacidade</a> e o <a href="/termo-responsabilidade-fornecedor.html" target="_blank" style="color:var(--verde);font-weight:600;">Termo de Responsabilidade do Fornecedor</a>.</span>
+          <span>Li e aceito os <a href="/alugueldechacaras/termos-de-uso.html" target="_blank" style="color:var(--verde);font-weight:600;">Termos de Uso</a>, a <a href="/alugueldechacaras/politica-de-privacidade.html" target="_blank" style="color:var(--verde);font-weight:600;">Política de Privacidade</a> e o <a href="/alugueldechacaras/termo-responsabilidade-fornecedor.html" target="_blank" style="color:var(--verde);font-weight:600;">Termo de Responsabilidade do Fornecedor</a>.</span>
         </label>
         <div id="cad-fornecedor-erro" style="display:none;color:#b91c1c;background:#fee2e2;padding:10px 12px;border-radius:8px;font-size:13px;margin-top:8px;"></div>
         <button class="btn btn-primary" id="cad-fornecedor-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="enviarCadastro('fornecedor')">Quero me cadastrar!</button>
@@ -1587,8 +1587,8 @@
     if (!session) return;
     const cta = document.querySelector('.nav-cta');
     if (!cta) return;
-    let painel = '/painel-proprietario.html';
-    try { const { data: sup } = await supa.from('suppliers').select('id').eq('email', session.user.email).maybeSingle(); if (sup) painel = '/painel-fornecedor.html'; } catch (e) {}
+    let painel = '/alugueldechacaras/painel-proprietario.html';
+    try { const { data: sup } = await supa.from('suppliers').select('id').eq('email', session.user.email).maybeSingle(); if (sup) painel = '/alugueldechacaras/painel-fornecedor.html'; } catch (e) {}
     cta.innerHTML = '<a href="' + painel + '" class="btn btn-primary">Meu painel</a> <a href="#" class="btn btn-outline" onclick="sairHome(event)">Sair</a>';
   }
   async function sairHome(ev) {
@@ -1628,7 +1628,7 @@
       return;
     }
     const { data: sup } = await supa.from('suppliers').select('id').eq('email', email).maybeSingle();
-    window.location.href = sup ? '/painel-fornecedor.html' : '/painel-proprietario.html';
+    window.location.href = sup ? '/alugueldechacaras/painel-fornecedor.html' : '/alugueldechacaras/painel-proprietario.html';
   }
 
   if (new URLSearchParams(window.location.search).get('recuperar') === '1') {
@@ -1763,7 +1763,7 @@
       if (!r.ok || !data.ok) {
         const msg = data.erro || 'Não foi possível enviar seu cadastro. Tente novamente.';
         if (msg.includes('já possui cadastro')) {
-          const emailEsc = email.replace(/'/g, "\\'");
+          const emailEsc = email.replace(/'/alugueldechacaras/g, "\\'");
           erroEl.innerHTML = msg + ' <a href="#" onclick="fecharModal();abrirModal(\'login\');return false;" style="color:#b91c1c;font-weight:700;text-decoration:underline;">Fazer login</a> · <a href="#" onclick="abrirRecuperacaoSenha(\'' + emailEsc + '\');return false;" style="color:#b91c1c;font-weight:700;text-decoration:underline;">Esqueci minha senha</a>';
         } else {
           erroEl.textContent = msg;
@@ -1789,7 +1789,7 @@
         return;
       }
 
-      window.location.href = tipo === 'chacara' ? '/painel-proprietario.html?editar=1' : '/painel-fornecedor.html?editar=1';
+      window.location.href = tipo === 'chacara' ? '/alugueldechacaras/painel-proprietario.html?editar=1' : '/alugueldechacaras/painel-fornecedor.html?editar=1';
     } catch (e) {
       erroEl.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
       erroEl.style.display = 'block';

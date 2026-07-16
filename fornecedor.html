@@ -196,8 +196,8 @@
 <body>
 
 <nav>
-  <a href="/" class="nav-logo">🌿 Aluguel de <span>Chácaras</span></a>
-  <a href="/#fornecedores" class="nav-back">← Voltar para fornecedores</a>
+  <a href="/alugueldechacaras/" class="nav-logo">🌿 Aluguel de <span>Chácaras</span></a>
+  <a href="/alugueldechacaras/#fornecedores" class="nav-back">← Voltar para fornecedores</a>
 </nav>
 
 <!-- HERO -->
@@ -211,7 +211,7 @@
     <div style="font-size:48px;">😕</div>
     <div style="font-size:22px;font-weight:700;margin:16px 0 8px;">Fornecedor não encontrado</div>
     <div style="color:#6b7280;font-size:14px;margin-bottom:24px;">O link pode estar incorreto ou o perfil foi desativado.</div>
-    <a href="/" style="background:var(--terra);color:#fff;padding:12px 24px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;">← Voltar ao início</a>
+    <a href="/alugueldechacaras/" style="background:var(--terra);color:#fff;padding:12px 24px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;">← Voltar ao início</a>
   </div>
 </div>
 <div class="hero-fornecedor">
@@ -499,7 +499,7 @@
 
   async function carregarAvaliacoes(supplierId, slug) {
     const linkAvaliar = document.getElementById('link-avaliar');
-    if (linkAvaliar) linkAvaliar.href = `/avaliar.html?fornecedor=${encodeURIComponent(slug)}`;
+    if (linkAvaliar) linkAvaliar.href = `/alugueldechacaras/avaliar.html?fornecedor=${encodeURIComponent(slug)}`;
 
     const lista = document.getElementById('avaliacoes-lista');
     if (!lista) return;
