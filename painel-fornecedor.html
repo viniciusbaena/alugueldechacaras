@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<base href="/alugueldechacaras/">
+  <script>if(location.protocol==='http:')location.replace(location.href.replace('http:','https:'));</script>
+  <meta charset="UTF-8"/>
+  <!-- SEGURANÇA -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.googletagmanager.com https://js.mercadopago.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://tathqoyhcuxthsrghrzx.supabase.co https://api.mercadopago.com https://n8n.alugueldechacaras.com; frame-ancestors 'none';"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Fornecedor — AluguelDeChácaras.com</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --terra: #c8622a;
+      --terra-escuro: #9c4a1a;
+      --terra-claro: #fdf0e8;
+      --terra-mid: #e8874d;
+      --verde: #2d7a45;
+      --verde-claro: #e8f5ed;
+      --creme: #faf8f3;
+      --cinza: #6b7280;
+      --cinza-bg: #f3f4f6;
+      --cinza-borda: #e5e7eb;
+      --preto: #111827;
+      --branco: #ffffff;
+      --vermelho: #ef4444;
+      --amarelo: #f59e0b;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--cinza-bg); color: var(--preto); min-height: 100vh; }
+
+    /* LOGIN */
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--terra-escuro) 0%, var(--terra) 100%);
+      padding: 24px;
+    }
+
+    .login-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+    }
+
+    .login-logo { font-family: 'Fraunces', serif; font-size: 22px; color: var(--terra-escuro); margin-bottom: 6px; text-align: center; }
+    .login-logo span { color: var(--verde); }
+    .login-sub { text-align: center; font-size: 13px; color: var(--cinza); margin-bottom: 36px; }
+    .login-title { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .field label { font-size: 13px; font-weight: 600; }
+    .field input, .field select, .field textarea {
+      border: 1.5px solid var(--cinza-borda); border-radius: 10px; padding: 11px 14px;
+      font-size: 14px; font-family: 'Inter', sans-serif; outline: none; transition: border 0.15s; color: var(--preto);
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--terra); }
+    .sidebar-picker { margin-bottom: 20px; position: relative; }
+    .picker-atual { width: 100%; display:flex; align-items:center; justify-content:space-between; gap:8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; padding: 10px 12px; cursor:pointer; color:#fff; font-size: 13px; font-weight:600; text-align:left; font-family:'Inter',sans-serif; }
+    .picker-atual:hover { background: rgba(255,255,255,0.16); }
+    .picker-atual-nome { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .picker-arrow { font-size:10px; color:rgba(255,255,255,0.6); flex-shrink:0; transition:transform 0.15s; }
+    .picker-arrow.aberto { transform:rotate(180deg); }
+    .picker-lista { position:absolute; top:calc(100% + 6px); left:0; right:0; background:#fff; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); padding:6px; z-index:100; max-height:280px; overflow-y:auto; display:none; }
+    .picker-lista.aberto { display:block; }
+    .picker-item { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:9px 10px; border-radius:7px; cursor:pointer; font-size:13px; color:var(--terra-escuro); }
+    .picker-item:hover { background:var(--terra-claro); }
+    .picker-item.ativo { background:var(--terra-claro); font-weight:700; }
+    .picker-item-nome { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .picker-item-status { font-size:9px; padding:2px 7px; border-radius:20px; font-weight:700; flex-shrink:0; }
+    .picker-item-status.on { background:#dcfce7; color:#166534; }
+    .picker-item-status.off { background:#f3f4f6; color:#6b7280; }
+    .picker-nova { display:flex; align-items:center; gap:8px; padding:9px 10px; border-radius:7px; cursor:pointer; font-size:13px; color:var(--terra); font-weight:700; border-top:1px solid #eee; margin-top:4px; padding-top:11px; }
+    .picker-nova:hover { background:var(--terra-claro); }
+    .modal { background: #fff; border-radius: 16px; padding: 28px; width: 100%; max-width: 440px; animation: slideUp 0.2s ease; }
+    .modal-titulo { font-family: 'Fraunces', serif; font-size: 18px; color: var(--terra-escuro); margin-bottom: 6px; }
+    .modal-sub { font-size: 13px; color: var(--cinza); margin-bottom: 20px; }
+    .field textarea { resize: vertical; min-height: 100px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 700;
+      cursor: pointer; border: none; transition: all 0.15s; font-family: 'Inter', sans-serif; text-decoration: none;
+    }
+    .btn-terra { background: var(--terra); color: #fff; width: 100%; }
+    .btn-terra:hover { background: var(--terra-escuro); }
+    .btn-terra-sm { background: var(--terra); color: #fff; }
+    .btn-terra-sm:hover { background: var(--terra-escuro); }
+    .btn-outline { background: transparent; color: var(--terra-escuro); border: 1.5px solid var(--terra); }
+    .btn-outline:hover { background: var(--terra-claro); }
+    .btn-verde { background: var(--verde); color: #fff; }
+    .btn-verde:hover { background: #1e5c33; }
+    .btn-danger { background: #fff; color: var(--vermelho); border: 1.5px solid #fecaca; }
+    .btn-danger:hover { background: #fff5f5; }
+    .btn-sm { padding: 7px 14px; font-size: 13px; }
+
+    /* PAINEL */
+    .painel { display: none; }
+    .painel.ativo { display: flex; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px; background: var(--terra-escuro); display: flex; flex-direction: column;
+      padding: 28px 16px; position: fixed; top: 0; left: 0; height: 100vh; z-index: 50;
+    }
+    .sidebar-logo { font-family: 'Fraunces', serif; font-size: 18px; color: #fff; margin-bottom: 4px; padding: 0 8px; }
+    .sidebar-logo span { color: #fbd38d; }
+    .sidebar-sub { font-size: 11px; color: rgba(255,255,255,0.4); padding: 0 8px; margin-bottom: 32px; text-transform: uppercase; letter-spacing: 1px; }
+    .sidebar-section { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px; padding: 0 8px; margin: 20px 0 8px; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px;
+      color: rgba(255,255,255,0.65); font-size: 14px; font-weight: 500; cursor: pointer;
+      border: none; background: none; width: 100%; text-align: left; transition: all 0.15s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .nav-item.ativo { background: rgba(255,255,255,0.15); color: #fff; }
+    .nav-icon { font-size: 16px; width: 22px; text-align: center; }
+
+    .sidebar-bottom { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .user-info { display: flex; align-items: center; gap: 10px; padding: 8px; }
+    .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: #fbd38d; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--terra-escuro); font-size: 14px; flex-shrink: 0; }
+    .user-nome { color: #fff; font-size: 13px; font-weight: 600; }
+    .user-plano { color: rgba(255,255,255,0.4); font-size: 11px; }
+
+    /* MAIN */
+    .main { margin-left: 240px; flex: 1; padding: 32px; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .page-title { font-size: 20px; font-weight: 700; }
+    .page-sub { font-size: 13px; color: var(--cinza); margin-top: 2px; }
+
+    .tabs { display: none; }
+    .tabs.ativo { display: block; }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid var(--cinza-borda); }
+    .stat-label { font-size: 12px; color: var(--cinza); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .stat-value { font-size: 26px; font-weight: 700; font-family: 'Fraunces', serif; color: var(--terra-escuro); }
+    .stat-tag { display: inline-block; margin-top: 6px; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+    .tag-terra { background: var(--terra-claro); color: var(--terra-escuro); }
+    .tag-verde { background: var(--verde-claro); color: var(--verde); }
+    .tag-cinza { background: #f3f4f6; color: #6b7280; }
+    .tag-amarelo { background: #fef3c7; color: #92400e; }
+
+    /* CARD */
+    .card { background: #fff; border-radius: 14px; border: 1px solid var(--cinza-borda); padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; color: var(--terra-escuro); display: flex; align-items: center; gap: 8px; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-full { grid-column: 1 / -1; }
+
+    /* TAGS */
+    .tags-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .tag-check {
+      display: flex; align-items: center; gap: 6px; background: var(--creme);
+      border: 1.5px solid var(--cinza-borda); border-radius: 8px; padding: 7px 12px;
+      cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.15s; user-select: none;
+    }
+    .tag-check.selecionado { background: var(--terra-claro); border-color: var(--terra); color: var(--terra-escuro); font-weight: 600; }
+    .tag-check input { display: none; }
+
+    /* UPLOAD */
+    .upload-area {
+      border: 2px dashed var(--cinza-borda); border-radius: 12px; padding: 32px;
+      text-align: center; cursor: pointer; transition: all 0.15s; background: var(--creme);
+    }
+    .upload-area:hover { border-color: var(--terra); background: var(--terra-claro); }
+    .upload-icon { font-size: 36px; margin-bottom: 10px; }
+    .upload-title { font-weight: 600; font-size: 15px; color: var(--terra-escuro); margin-bottom: 4px; }
+    .upload-sub { font-size: 13px; color: var(--cinza); }
+
+    .fotos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+    .foto-item { aspect-ratio: 1; border-radius: 10px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+    .foto-remove { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.55); color: #fff; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+    .foto-principal-badge { position: absolute; bottom: 4px; left: 4px; background: var(--terra-escuro); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 700; }
+
+    /* PREVIEW CARD */
+    .preview-card { background: var(--creme); border: 1.5px solid var(--cinza-borda); border-radius: 14px; overflow: hidden; }
+    .preview-foto { height: 140px; background: linear-gradient(135deg, #fbd38d, #ed8936); display: flex; align-items: center; justify-content: center; font-size: 56px; }
+    .preview-info { padding: 14px; }
+    .preview-cat { font-size: 11px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .preview-nome { font-family: 'Fraunces', serif; font-size: 17px; color: var(--terra-escuro); margin-bottom: 4px; }
+    .preview-local { font-size: 12px; color: var(--cinza); }
+
+    /* STATUS */
+    .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .status-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; }
+    .badge-ativo { background: var(--verde-claro); color: var(--verde); }
+    .badge-ativo::before { background: var(--verde); }
+
+    /* DICAS */
+    .dicas-box {
+      background: linear-gradient(135deg, #fff7ed, #fef3c7);
+      border: 1.5px solid #f59e0b;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .dicas-header { display: flex; align-items: center; gap:10px; margin-bottom: 16px; }
+    .dicas-titulo { font-size: 15px; font-weight: 700; color: #92400e; }
+    .dicas-sub { font-size: 13px; color: #b45309; }
+    .dicas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .dica-item { background: #fff; border-radius: 10px; padding: 14px; border: 1px solid #fde68a; }
+    .dica-item-titulo { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+    .dica-item ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .dica-item li { font-size: 12px; color: #374151; line-height: 1.5; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--terra-escuro); color: #fff; padding: 14px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; display: none; align-items: center; gap: 8px; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+    .toast.show { display: flex; }
+
+    /* CATEGORIAS LISTA */
+    .cat-lista { display: flex; flex-direction: column; gap: 8px; }
+    .cat-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      background: var(--creme); border: 1.5px solid var(--cinza-borda); border-radius: 10px;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .cat-item:hover { border-color: var(--terra); background: var(--terra-claro); }
+    .cat-item.selecionado { border-color: var(--terra); background: var(--terra-claro); }
+    .cat-item-icon { font-size: 24px; width: 36px; text-align: center; }
+    .cat-item-nome { font-size: 14px; font-weight: 600; color: var(--terra-escuro); }
+    .cat-item-desc { font-size: 12px; color: var(--cinza); margin-top: 2px; }
+    .cat-check { margin-left: auto; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--cinza-borda); display: flex; align-items: center; justify-content: center; font-size: 11px; }
+    .cat-item.selecionado .cat-check { background: var(--terra); border-color: var(--terra); color: #fff; }
+
+    /* MODAL OVERLAY */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 20px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .fotos-grid { grid-template-columns: repeat(3, 1fr); }
+      .dicas-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-page" id="login-page">
+  <div class="login-card">
+    <div class="login-logo">🌿 Aluguel de <span>Chácaras</span></div>
+    <div class="login-sub">Painel do Fornecedor</div>
+    <div class="login-title">Bem-vindo de volta!</div>
+    <div class="field">
+      <label for="login-email">E-mail</label>
+      <input type="email" id="login-email"  placeholder="seuemail@exemplo.com"/>
+    </div>
+    <div class="field">
+      <label for="login-senha">Senha</label>
+      <input type="password" id="login-senha"  placeholder="••••••••"/>
+    </div>
+    <button class="btn btn-terra" onclick="fazerLogin()" style="margin-top:8px;">Entrar no painel</button>
+    <div style="display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; font-size:13px; color:var(--cinza); margin-top:20px;">
+      <span>Ainda não tem conta? <a href="/#anuncie" style="color:var(--terra); font-weight:600;">Cadastre-se</a></span>
+      <a href="#" onclick="mostrarRecuperarSenha();return false;" style="color:var(--cinza);font-weight:600;">Esqueci minha senha</a>
+    </div>
+
+    <div id="recuperar-senha-box" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid var(--cinza-borda);">
+      <div class="field">
+        <label for="recuperar-email">Informe seu e-mail cadastrado</label>
+        <input type="email" id="recuperar-email" placeholder="seuemail@exemplo.com" />
+      </div>
+      <button class="btn btn-outline" onclick="enviarRecuperacaoSenha()" style="width:100%;justify-content:center;">Enviar link de recuperação</button>
+      <div id="recuperar-msg" style="display:none; margin-top:12px; padding:10px 12px; border-radius:8px; font-size:13px; text-align:center;"></div>
+    </div>
+
+    <div id="login-erro" style="display:none; margin-top:16px; padding:12px; background:#fee2e2; border-radius:8px; font-size:13px; color:#b91c1c; text-align:center;"></div>
+    <div id="login-loading" style="display:none; margin-top:16px; text-align:center; color:var(--cinza); font-size:13px;">⏳ Entrando...</div>
+  </div>
+</div>
+
+<!-- PAINEL -->
+<div class="painel" id="painel">
+  <aside class="sidebar">
+    <a href="/index.html" title="Voltar ao site" style="text-decoration:none;color:inherit;display:block;cursor:pointer;"><div class="sidebar-logo">🌿 Aluguel de <span>Chácaras</span></div></a>
+    <div class="sidebar-sub">Painel do Fornecedor</div>
+    <div class="sidebar-picker" id="sidebar-picker-forn">
+      <button class="picker-atual" id="picker-atual-btn-forn" onclick="togglePickerServicos(event)">
+        <span class="picker-atual-nome" id="picker-nome-atual-forn">Carregando...</span>
+        <span class="picker-arrow" id="picker-arrow-forn">▾</span>
+      </button>
+      <div class="picker-lista" id="picker-lista-forn"></div>
+    </div>
+
+    <div class="sidebar-section">Meu Anúncio</div>
+    <button class="nav-item ativo" onclick="mostrarTab('visao-geral', this)">
+      <span class="nav-icon">📊</span> Visão Geral
+    </button>
+    <button class="nav-item" onclick="mostrarTab('meu-servico', this)">
+      <span class="nav-icon">🎯</span> Meu Serviço
+    </button>
+
+    <div class="sidebar-section">Conta</div>
+    <button class="nav-item" onclick="mostrarTab('configuracoes', this)">
+      <span class="nav-icon">⚙️</span> Configurações
+    </button>
+    <button class="nav-item" onclick="mostrarTab('plano', this)">
+      <span class="nav-icon">⭐</span> Minha Conta
+    </button>
+
+    <div class="sidebar-bottom">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebar-avatar-forn">DM</div>
+        <div>
+          <div class="user-nome" id="sidebar-nome-forn">Fornecedor</div>
+          <div class="user-plano">Cadastro gratuito</div>
+        </div>
+      </div>
+      <button class="nav-item" onclick="fazerLogout()" style="margin-top:8px; color:rgba(255,255,255,0.4);">
+        <span class="nav-icon">🚪</span> Sair
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- VISÃO GERAL -->
+    <div class="tabs ativo" id="tab-visao-geral">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Visão Geral</div>
+          <div class="page-sub">Acompanhe o desempenho do seu anúncio</div>
+        </div>
+        <span class="status-badge badge-ativo" id="badge-status-forn">Anúncio ativo</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Visualizações</div>
+          <div class="stat-value">0</div>
+          <span class="stat-tag tag-terra">este mês</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Contatos recebidos</div>
+          <div class="stat-value">0</div>
+          <span class="stat-tag tag-verde">este mês</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Eventos atendidos</div>
+          <div class="stat-value">0</div>
+          <span class="stat-tag tag-amarelo">em junho</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Avaliação média</div>
+          <div class="stat-value">—</div>
+          <span class="stat-tag tag-verde">⭐ de 5</span>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr; gap:20px;">
+        <div class="card">
+          <div class="card-title">🎯 Status do seu anúncio</div>
+          <div style="background:var(--cinza-bg); border-radius:10px; padding:16px; display:flex; align-items:center; gap:14px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:var(--terra-claro);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🎵</div>
+            <div>
+              <div id="stat-categoria" style="font-size:11px;font-weight:700;color:var(--terra);text-transform:uppercase;letter-spacing:0.5px;">—</div>
+              <div id="stat-nome-servico" style="font-size:16px;font-weight:700;color:var(--terra-escuro);margin-top:2px;">—</div>
+              <div id="stat-cidade" style="font-size:12px;color:var(--cinza);margin-top:2px;">📍 Maringá — PR</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:16px;">
+            <button class="btn btn-outline btn-sm" onclick="mostrarTab('meu-servico', document.querySelectorAll('.nav-item')[1])">✏️ Editar anúncio</button>
+            <button class="btn btn-outline btn-sm" onclick="mostrarTab('meu-servico', document.querySelectorAll('.nav-item')[1])">📷 Fotos e serviço</button>
+            <button class="btn btn-sm" id="btn-toggle-forn-vg" onclick="toggleAnuncioForn()" style="background:var(--vermelho);color:#fff;margin-left:auto;">⏸ Pausar anúncio</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- MODAL NOVO SERVIÇO -->
+    <div class="modal-overlay" id="modal-novo-servico" onclick="if(event.target===this)fecharNovoServico()">
+      <div class="modal">
+        <div class="modal-titulo">🎯 Cadastrar novo serviço</div>
+        <div class="modal-sub">Ele entrará com o mesmo login. Depois é só preencher os detalhes.</div>
+        <div class="field">
+          <label for="novo-servico-nome">Nome do negócio</label>
+          <input type="text" id="novo-servico-nome" placeholder="Ex: Buffet Sabor & Arte" />
+        </div>
+        <div class="field">
+          <label for="novo-servico-categoria">Categoria</label>
+          <select id="novo-servico-categoria">
+            <option value="">Selecione...</option>
+            <option value="buffet">Buffet e Alimentação</option>
+            <option value="dj">DJ e Música</option>
+            <option value="decoracao">Decoração</option>
+            <option value="fotografia">Fotografia e Vídeo</option>
+            <option value="bar">Bar e Bebidas</option>
+            <option value="doces">Doces e Bolos</option>
+            <option value="cerimonial">Cerimonial e Organização</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="novo-servico-cidade">Cidade</label>
+          <input type="text" id="novo-servico-cidade" placeholder="Ex: Maringá" />
+        </div>
+        <div class="field">
+          <label for="novo-servico-whatsapp">WhatsApp de contato</label>
+          <input type="text" id="novo-servico-whatsapp" placeholder="(44) 99999-9999" />
+        </div>
+        <label class="field" style="display:flex;flex-direction:row;align-items:flex-start;gap:8px;font-weight:400;font-size:12px;color:#374151;cursor:pointer;">
+          <input type="checkbox" id="novo-servico-termos" style="margin-top:3px;flex-shrink:0;width:auto;"/>
+          <span>Li e aceito o <a href="/termo-responsabilidade-fornecedor.html" target="_blank" style="color:var(--verde-escuro);font-weight:600;">Termo de Responsabilidade do Fornecedor</a> para este serviço.</span>
+        </label>
+        <div id="novo-servico-erro" style="display:none; margin-bottom:12px; padding:10px 12px; background:#fee2e2; border-radius:8px; font-size:13px; color:#b91c1c; text-align:center;"></div>
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+          <button onclick="fecharNovoServico()" style="background:#f3f4f6;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Cancelar</button>
+          <button id="btn-confirmar-novo-servico" onclick="confirmarNovoServico()" style="background:var(--terra-escuro);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">Cadastrar serviço</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEU SERVIÇO -->
+    <div class="tabs" id="tab-meu-servico">
+      <div class="topbar">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <button class="btn btn-outline btn-sm" onclick="mostrarTab('visao-geral', document.querySelector('.nav-item'))">← Voltar</button>
+          <div>
+            <div class="page-title">Meu Serviço</div>
+            <div class="page-sub">Edite as informações do seu anúncio</div>
+          </div>
+        </div>
+        <button class="btn btn-terra-sm btn-sm" onclick="salvar('servico')">💾 Salvar alterações</button>
+      </div>
+
+      <!-- DICAS -->
+      <div class="dicas-box">
+        <div class="dicas-header">
+          <span style="font-size:24px;">💡</span>
+          <div>
+            <div class="dicas-titulo">Dicas para um anúncio de sucesso</div>
+            <div class="dicas-sub">Fornecedores com perfil completo recebem até 4x mais contatos</div>
+          </div>
+        </div>
+        <div class="dicas-grid">
+          <div class="dica-item">
+            <div class="dica-item-titulo">📝 Descrição que convence</div>
+            <ul>
+              <li>✅ Descreva <strong>exatamente o que está incluso</strong> no serviço</li>
+              <li>✅ Informe a <strong>área de atuação:</strong> ex. "Atendo Maringá, Sarandi e Paiçandu"</li>
+              <li>✅ Mencione sua <strong>experiência:</strong> ex. "10 anos atendendo eventos na região"</li>
+              <li>✅ Cite <strong>diferenciais:</strong> ex. "entrega e montagem inclusa", "kit completo"</li>
+              <li>✅ Informe se tem <strong>pacotes ou combos</strong> disponíveis</li>
+            </ul>
+          </div>
+          <div class="dica-item">
+            <div class="dica-item-titulo">💰 Valores e condições</div>
+            <ul>
+              <li>✅ Informe um <strong>valor mínimo ou a partir de</strong> — evita contatos sem perfil</li>
+              <li>✅ Explique <strong>como funciona o pagamento:</strong> sinal, Pix, cartão</li>
+              <li>✅ Mencione se há <strong>taxa de deslocamento</strong> para cidades distantes</li>
+              <li>✅ Informe <strong>antecedência mínima</strong> para reserva</li>
+            </ul>
+          </div>
+          <div class="dica-item">
+            <div class="dica-item-titulo">📷 Fotos e portfólio</div>
+            <ul>
+              <li>✅ Use fotos de <strong>eventos reais que você atendeu</strong></li>
+              <li>✅ Mostre seu <strong>equipamento ou produto</strong> com qualidade</li>
+              <li>✅ Inclua fotos <strong>antes e depois</strong> (decoração, buffet, etc.)</li>
+              <li>✅ Foto de capa: <strong>a mais impactante e representativa</strong></li>
+              <li>❌ Evite fotos de catálogo ou banco de imagens genéricas</li>
+            </ul>
+          </div>
+          <div class="dica-item">
+            <div class="dica-item-titulo">🎬 Vídeo faz diferença</div>
+            <ul>
+              <li>✅ Grave um vídeo curto <strong>mostrando seu trabalho em ação</strong></li>
+              <li>✅ Para DJ: grave um trecho de uma festa que você tocou</li>
+              <li>✅ Para bolo/doces: mostre o processo de decoração</li>
+              <li>✅ Para brinquedos: mostre as crianças usando</li>
+              <li>✅ Pode ser feito no <strong>celular</strong> — o conteúdo é o que importa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORIA -->
+      <div class="card">
+        <div class="card-title">🗂️ Categoria do serviço</div>
+        <div class="field" style="margin-bottom:0;">
+          <label for="select-categoria">Selecione a categoria que melhor descreve seu serviço</label>
+          <select id="select-categoria" style="font-size:14px; padding:12px 14px;">
+            <optgroup label="🎵 Música e Entretenimento">
+              <option value="dj">🎵 DJ</option>
+              <option value="banda">🎸 Banda</option>
+              <option value="musico">🎹 Músico / Instrumentista</option>
+              <option value="trio_dupla">🎶 Trio / Dupla / Solo</option>
+              <option value="karaoke">🎤 Karaokê</option>
+            </optgroup>
+            <optgroup label="📸 Foto e Vídeo">
+              <option value="fotografo">📷 Fotógrafo</option>
+              <option value="filmagem">🎬 Filmagem / Videógrafo</option>
+              <option value="drone">🚁 Drone / Filmagem aérea</option>
+              <option value="cabine_foto">🤳 Cabine de Fotos / Totem</option>
+            </optgroup>
+            <optgroup label="🍽️ Alimentação e Bebidas">
+              <option value="buffet">🍽️ Buffet completo</option>
+              <option value="churrasqueiro">🥩 Churrasqueiro profissional</option>
+              <option value="salgados">🍡 Salgados</option>
+              <option value="bolos_doces">🎂 Bolos e Doces</option>
+              <option value="cozinheiro">👨‍🍳 Cozinheiro / Chef</option>
+              <option value="chopeira">🍺 Chopeira / Serviço de Chope</option>
+              <option value="bebidas">🥤 Fornecedor de Bebidas</option>
+              <option value="bartender">🍹 Bartender / Bar móvel</option>
+              <option value="pizzaria">🍕 Pizzaria / Forno a lenha</option>
+              <option value="food_truck">🚚 Food Truck</option>
+            </optgroup>
+            <optgroup label="🎈 Decoração e Ambientação">
+              <option value="decoracao">🎈 Decorador(a) de Festas</option>
+              <option value="baloes">🎊 Balões / Baloeiros</option>
+              <option value="flores">💐 Flores e Arranjos florais</option>
+              <option value="cenografia">🎭 Cenografia / Painéis</option>
+              <option value="iluminacao">💡 Iluminação Cênica / LED</option>
+              <option value="som_iluminacao">🔊 Som e Iluminação (pacote)</option>
+            </optgroup>
+            <optgroup label="🎠 Infantil">
+              <option value="brinquedos">🎠 Brinquedos Infantis (pula-pula, tobogã)</option>
+              <option value="recreador">🤹 Recreador Infantil</option>
+              <option value="animador">🎪 Animador de Festa</option>
+              <option value="personagem">🦸 Personagens Fantasiados</option>
+              <option value="magico">🪄 Mágico</option>
+              <option value="palhaco">🤡 Palhaço</option>
+            </optgroup>
+            <optgroup label="👗 Beleza e Estética">
+              <option value="maquiador">💄 Maquiador(a)</option>
+              <option value="cabeleireiro">💇 Cabeleireiro(a)</option>
+              <option value="salao_beleza">💅 Salão de Beleza (equipe)</option>
+              <option value="manicure">💅 Manicure / Pedicure</option>
+            </optgroup>
+            <optgroup label="💃 Atrações e Shows">
+              <option value="dancarina">💃 Dançarina(o) / Grupo de dança</option>
+              <option value="show">🎤 Show ao vivo / Cantor(a)</option>
+              <option value="stand_up">😂 Stand-up Comedy</option>
+              <option value="drag">🌟 Drag Queen / Artista</option>
+              <option value="fogo">🔥 Show de Fogo / Malabares</option>
+            </optgroup>
+            <optgroup label="🧑‍🤝‍🧑 Equipe e Staff">
+              <option value="garcom">🍷 Garçom / Garçonete</option>
+              <option value="recepcao">👋 Recepcionista</option>
+              <option value="manobrista">🚗 Manobrista</option>
+              <option value="porteiro">🚪 Porteiro</option>
+              <option value="seguranca">🔒 Segurança / Vigilância</option>
+              <option value="copeira">☕ Copeira / Auxiliar de serviço</option>
+            </optgroup>
+            <optgroup label="🏗️ Estrutura e Locação">
+              <option value="tendas">⛺ Tendas e Coberturas</option>
+              <option value="mesas_cadeiras">🪑 Mesas, Cadeiras e Móveis</option>
+              <option value="geradores">⚡ Geradores de energia</option>
+              <option value="banheiros">🚻 Banheiros químicos / Trailers</option>
+              <option value="pista_danca">🕺 Pista de dança / Tablado</option>
+              <option value="palco">🎤 Palco / Estrutura de palco</option>
+              <option value="carro_luxo">🚘 Carro de luxo / Limusine</option>
+            </optgroup>
+            <optgroup label="🎁 Lembranças e Presentes">
+              <option value="lembrancas">🎁 Lembranças personalizadas</option>
+              <option value="convites">📨 Convites e Papelaria</option>
+              <option value="grafica">🖨️ Gráfica / Impressão</option>
+              <option value="bem_casado">🍬 Bem-casados / Docinhos</option>
+            </optgroup>
+            <optgroup label="🐾 Outros">
+              <option value="cerimonialista">📋 Cerimonialista / Wedding Planner</option>
+              <option value="assessoria">🗂️ Assessoria de eventos</option>
+              <option value="transporte">🚌 Transporte / Van / Ônibus</option>
+              <option value="pet">🐾 Pet sitter / Cuidador de animais</option>
+              <option value="outros">➕ Outro serviço não listado</option>
+            </optgroup>
+          </select>
+        </div>
+        <div style="margin-top:10px; padding:10px 14px; background:var(--terra-claro); border-radius:8px; font-size:12px; color:var(--terra-escuro);">
+          💡 Não encontrou sua categoria? Selecione <strong>"Outro serviço não listado"</strong> e descreva no campo de descrição abaixo.
+        </div>
+      </div>
+
+      <!-- INFORMAÇÕES -->
+      <div class="card">
+        <div class="card-title">📝 Informações do serviço</div>
+        <div class="form-grid">
+          <div class="field form-full">
+            <label for="ff-nome">Nome do negócio / serviço</label>
+            <input type="text" id="ff-nome" value=""/>
+          </div>
+          <div class="field">
+            <label for="ff-whatsapp">WhatsApp para contato</label>
+            <input type="text" id="ff-whatsapp" value=""/>
+          </div>
+          <div class="field">
+            <label for="ff-instagram">Instagram (opcional)</label>
+            <input type="text" id="ff-instagram" placeholder="@seuperfil"/>
+          </div>
+          <div class="field form-full">
+            <label for="ff-descricao">Descrição do serviço</label>
+            <textarea id="ff-descricao">Som profissional para festas e eventos de todos os tamanhos. Iluminação LED inclusa em todos os pacotes. Sistema de som potente para até 500 pessoas. Atendo Maringá, Sarandi, Paiçandu e região.</textarea>
+          </div>
+          <div class="field form-full">
+            <label for="ff-area">Área de atuação</label>
+            <input type="text" id="ff-area" value="Maringá, Sarandi, Paiçandu, Marialva e região"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- VALORES -->
+      <div class="card">
+        <div class="card-title">💰 Valores e condições</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="ff-valor">Valor mínimo (R$)</label>
+            <input type="text" id="ff-valor" placeholder="Ex: 800" value="800"/>
+          </div>
+          <div class="field">
+            <label for="ff-formato-valor">Como informar o valor</label>
+            <select id="ff-formato-valor">
+              <option>A partir de R$ 800</option>
+              <option>Sob consulta</option>
+              <option>Pacotes a partir de R$ 800</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ff-pagamento">Pagamento aceito</label>
+            <select id="ff-pagamento">
+              <option>Pix e transferência</option>
+              <option>Pix, transferência e dinheiro</option>
+              <option>Cartão de crédito</option>
+              <option>Qualquer forma</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ff-antecedencia">Antecedência mínima para reserva</label>
+            <input type="text" id="ff-antecedencia" placeholder="Ex: 1 semana, 15 dias, 1 mês, sem restrição..."/>
+          </div>
+          <div class="field form-full">
+            <label for="ff-obs-valores">Observações sobre valores (opcional)</label>
+            <input type="text" id="ff-obs-valores" placeholder="Ex: Taxa de deslocamento para cidades acima de 30km, sinal de 30% na reserva"/>
+          </div>
+        </div>
+        <button class="btn btn-terra-sm btn-sm" style="margin-top:14px;" onclick="salvar('servico')">💾 Salvar valores</button>
+      </div>
+
+      <!-- DIFERENCIAIS -->
+      <div class="card">
+        <div class="card-title">⭐ Diferenciais do serviço</div>
+        <div class="tags-grid">
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 🚚 Entrega e montagem inclusa</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 💡 Iluminação inclusa</label>
+          <label class="tag-check"><input type="checkbox"/> 🎤 Microfone sem fio</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 📻 Playlist personalizada</label>
+          <label class="tag-check"><input type="checkbox"/> 🏆 Mais de 5 anos de experiência</label>
+          <label class="tag-check"><input type="checkbox"/> 📋 Contrato de serviço</label>
+          <label class="tag-check"><input type="checkbox"/> 🔄 Reposição em caso de problema</label>
+          <label class="tag-check"><input type="checkbox"/> 🎓 Profissional certificado</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 📍 Atende toda a região</label>
+          <label class="tag-check"><input type="checkbox"/> 💳 Aceita parcelamento</label>
+        </div>
+        <button class="btn btn-terra-sm btn-sm" style="margin-top:14px;" onclick="salvar('servico')">💾 Salvar diferenciais</button>
+      </div>
+
+      <!-- FOTOS INCORPORADAS -->
+      <div class="card">
+        <div class="card-title">📷 Fotos do serviço / portfólio</div>
+        <div style="font-size:12px; color:var(--cinza); margin-bottom:14px;">💡 A primeira foto é a capa do anúncio. Use fotos de eventos reais que você atendeu.</div>
+        <div class="upload-area" onclick="document.getElementById('input-fotos').click()">
+          <div class="upload-icon">📸</div>
+          <div class="upload-title">Clique para adicionar fotos</div>
+          <div class="upload-sub">JPG, PNG ou WEBP • Até 10MB cada • Máximo 15 fotos</div>
+          <input type="file" id="input-fotos" multiple accept="image/*" style="display:none" onchange="adicionarFotos(this)"/>
+        </div>
+        <div class="fotos-grid" id="fotos-grid" style="margin-top:14px;">
+          <div class="foto-item" id="foto-vazia" style="background:var(--cinza-bg); border:2px dashed var(--cinza-borda); cursor:pointer;" onclick="document.getElementById('input-fotos').click()">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cinza);">
+              <span style="font-size:28px;">📸</span>
+              <span style="font-size:11px;font-weight:600;text-align:center;">Adicionar fotos</span>
+            </div>
+          </div>
+        </div>
+        <button id="btn-salvar-fotos" class="btn" style="display:none; margin-top:14px; width:100%; justify-content:center; background:var(--terra); color:#fff;" onclick="salvar('fotos')">
+          💾 Salvar fotos
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎬 Vídeo do serviço</div>
+        <div class="field">
+          <label for="ff-video">Link do vídeo (YouTube ou Instagram)</label>
+          <input type="text" id="ff-video" placeholder="https://youtube.com/watch?v=..."/>
+        </div>
+        <div style="font-size:12px; color:var(--cinza); margin-top:4px;">
+          Mostre seu trabalho em ação! Um vídeo curto aumenta muito a confiança do cliente.
+        </div>
+        <button class="btn btn-terra-sm btn-sm" style="margin-top:14px;" onclick="salvar('video')">💾 Salvar vídeo</button>
+      </div>
+
+      <!-- BOTÕES FINAIS -->
+      <div style="display:flex; justify-content:center; align-items:center; gap:12px; flex-wrap:wrap; margin-top:8px;">
+        <button class="btn btn-outline btn-sm" onclick="abrirPreviewForn('pre')">👁️ Pré-visualizar (visão do cliente)</button>
+        <button class="btn btn-terra-sm" onclick="salvar('servico')">💾 Salvar alterações</button>
+        <button class="btn btn-sm" id="btn-toggle-forn" onclick="toggleAnuncioForn()" style="background:var(--vermelho);color:#fff;">⏸ Pausar anúncio</button>
+      </div>
+    </div>
+
+    <!-- CONFIGURAÇÕES -->
+    <div class="tabs" id="tab-configuracoes">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Configurações</div>
+          <div class="page-sub">Dados da sua conta</div>
+        </div>
+        <button class="btn btn-terra-sm btn-sm" onclick="salvar('config')">💾 Salvar</button>
+      </div>
+      <div class="card">
+        <div class="card-title">👤 Dados pessoais</div>
+        <div class="form-grid">
+          <div class="field"><label for="perfil-nome">Nome completo</label><input type="text" id="perfil-nome" value=""/></div>
+          <div class="field"><label for="perfil-cpf">CPF</label><input type="text" id="perfil-cpf" value="000.000.000-00"/></div>
+          <div class="field"><label for="perfil-email">E-mail</label><input type="email" id="perfil-email" /></div>
+          <div class="field"><label for="perfil-whatsapp">WhatsApp</label><input type="text" id="perfil-whatsapp" value=""/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔒 Alterar senha</div>
+        <div class="form-grid">
+          <div class="field"><label for="senha-atual-input">Senha atual</label><input type="password" id="senha-atual-input" placeholder="••••••••"/></div>
+          <div class="field"><label for="senha-nova-input">Nova senha</label><input type="password" id="senha-nova-input" placeholder="••••••••"/></div>
+        </div>
+        <button class="btn btn-outline btn-sm" style="margin-top:4px;" onclick="salvar('senha')">Alterar senha</button>
+      </div>
+    </div>
+
+    <!-- PLANO -->
+    <div class="tabs" id="tab-plano">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Minha Conta</div>
+          <div class="page-sub">Informações sobre seu cadastro na plataforma</div>
+        </div>
+      </div>
+
+      <div class="card" style="border:2px solid var(--terra);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div class="card-title" style="margin-bottom:0;">🎉 Cadastro de Fornecedor</div>
+          <span class="status-badge badge-ativo">Ativo</span>
+        </div>
+        <div style="font-size:14px; color:var(--cinza); margin-bottom:20px; line-height:1.7;">
+          Seu cadastro como fornecedor na plataforma é <strong>completamente gratuito</strong>. Mantenha suas informações atualizadas para aparecer nas buscas dos clientes que estão planejando eventos.
+        </div>
+        <div style="background:var(--terra-claro); border-radius:10px; padding:16px; font-size:13px; color:var(--terra-escuro); line-height:1.6;">
+          💡 <strong>Como funciona:</strong> seu serviço aparece para clientes que estão alugando chácaras na região. O contato é feito diretamente entre você e o cliente — sem taxas ou comissões para fornecedores.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">✅ O que você ganha estando cadastrado</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>🎯</span><span>Aparece para clientes que já estão planejando eventos em chácaras da região</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>📍</span><span>Listado por categoria e cidade — fácil de encontrar</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>📷</span><span>Portfólio com fotos e vídeos do seu trabalho</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>💬</span><span>Contato direto com o cliente — sem intermediários</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>⭐</span><span>Avaliações de clientes que aumentam sua credibilidade</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>🆓</span><span>Sem mensalidade, sem taxa, sem comissão sobre seus serviços</span></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL PREVIEW FORNECEDOR -->
+<div class="modal-overlay" id="modal-preview-forn" onclick="if(event.target===this)fecharPreviewForn()" style="z-index:300;">
+  <div style="background:#fff; border-radius:20px; width:100%; max-width:640px; max-height:90vh; overflow-y:auto; animation:slideUp 0.2s ease; position:relative;">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:1px solid var(--cinza-borda); position:sticky; top:0; background:#fff; z-index:1; border-radius:20px 20px 0 0;">
+      <div>
+        <div style="font-size:15px; font-weight:700; color:var(--terra-escuro);" class="prev-forn-titulo">👁️ Pré-visualização</div>
+        <div style="font-size:12px; color:var(--cinza); margin-top:2px;" class="prev-forn-sub">Rascunho com alterações ainda não salvas</div>
+      </div>
+      <button onclick="fecharPreviewForn()" style="background:#f3f4f6;border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="padding:24px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <div id="prev-forn-avatar" style="width:56px;height:56px;border-radius:12px;background:var(--terra-claro);border:2px solid var(--terra);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">🎵</div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--terra);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;" id="prev-forn-cat">—</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--terra-escuro);line-height:1.2;" id="prev-forn-nome">—</div>
+          <div style="color:var(--cinza);font-size:12px;margin-top:2px;" id="prev-forn-local">📍 —</div>
+        </div>
+      </div>
+      <div style="margin-bottom:18px;">
+        <div style="font-size:15px;font-weight:700;color:var(--terra-escuro);margin-bottom:8px;">Sobre o serviço</div>
+        <div style="font-size:13px;color:#374151;line-height:1.7;" id="prev-forn-desc">—</div>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--cinza-borda);margin-bottom:18px;"/>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
+        <div style="background:var(--cinza-bg);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--cinza);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Valor</div>
+          <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--terra-escuro);font-weight:700;" id="prev-forn-valor">R$ —</div>
+        </div>
+        <div style="background:var(--cinza-bg);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--cinza);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Pagamento</div>
+          <div style="font-size:13px;font-weight:600;" id="prev-forn-pagamento">—</div>
+        </div>
+        <div style="background:var(--cinza-bg);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--cinza);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Antecedência</div>
+          <div style="font-size:13px;font-weight:600;" id="prev-forn-antec">—</div>
+        </div>
+        <div style="background:var(--cinza-bg);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--cinza);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Área de atuação</div>
+          <div style="font-size:13px;font-weight:600;" id="prev-forn-area">—</div>
+        </div>
+      </div>
+      <hr style="border:none;border-top:1px solid var(--cinza-borda);margin-bottom:18px;"/>
+      <div style="margin-bottom:18px;">
+        <div style="font-size:15px;font-weight:700;color:var(--terra-escuro);margin-bottom:10px;">Diferenciais</div>
+        <div id="prev-forn-diferenciais" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      </div>
+
+      <div style="background:var(--terra-claro);border:1.5px solid var(--terra);border-radius:12px;padding:16px;text-align:center;">
+        <div style="background:var(--terra);color:#fff;border-radius:8px;padding:11px;font-size:14px;font-weight:700;">💬 Entrar em contato</div>
+        <div style="font-size:11px;color:var(--cinza);margin-top:8px;">Contato direto — sem taxas para o cliente</div>
+      </div>
+    </div>
+    <div style="padding:14px 24px;border-top:1px solid var(--cinza-borda);display:flex;justify-content:flex-end;position:sticky;bottom:0;background:#fff;border-radius:0 0 20px 20px;">
+      <button onclick="fecharPreviewForn()" class="btn btn-sm" style="background:var(--terra);color:#fff;">✕ Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // PREVIEW FORNECEDOR
+  function abrirPreviewForn(modo) {
+    // Coletar dados pelos IDs
+    const nome  = document.getElementById('ff-nome')?.value || 'Nome do serviço';
+    const area  = document.getElementById('ff-area')?.value || 'Não informada';
+    const valor = document.getElementById('ff-valor')?.value || '';
+    const desc  = document.querySelector('#tab-meu-servico textarea')?.value || 'Descrição não preenchida.';
+
+    // Categoria
+    const catEl = document.getElementById('select-categoria');
+    const cat   = catEl ? catEl.options[catEl.selectedIndex]?.text : '—';
+
+    // Pagamento e antecedência (por id, não por índice)
+    const pagEl = document.getElementById('ff-pagamento');
+    const pagamento = pagEl ? pagEl.options[pagEl.selectedIndex]?.text : '—';
+    const antec = document.getElementById('ff-antecedencia')?.value || '—';
+
+    // Preencher preview
+    document.getElementById('prev-forn-nome').textContent  = nome;
+    document.getElementById('prev-forn-cat').textContent   = cat;
+    document.getElementById('prev-forn-local').textContent = '📍 ' + area;
+    document.getElementById('prev-forn-desc').textContent  = desc;
+    document.getElementById('prev-forn-valor').textContent = valor ? 'R$ ' + Number(valor).toLocaleString('pt-BR') : 'Sob consulta';
+    document.getElementById('prev-forn-pagamento').textContent = pagamento;
+    document.getElementById('prev-forn-antec').textContent = antec || '—';
+    document.getElementById('prev-forn-area').textContent  = area;
+
+    // Diferenciais selecionados
+    const difs = [];
+    document.querySelectorAll('.tag-check.selecionado').forEach(t => difs.push(t.textContent.trim()));
+    const divDif = document.getElementById('prev-forn-diferenciais');
+    divDif.innerHTML = difs.length
+      ? difs.map(d => `<span style="background:var(--terra-claro);color:var(--terra-escuro);padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;">${d}</span>`).join('')
+      : '<span style="font-size:13px;color:var(--cinza);">Nenhum diferencial selecionado.</span>';
+
+    // Foto no avatar
+    const primeiraFoto = document.querySelector('#fotos-grid .foto-item:not(#foto-vazia) img');
+    const avatar = document.getElementById('prev-forn-avatar');
+    if (primeiraFoto) {
+      avatar.innerHTML = `<img src="${primeiraFoto.src}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"/>`;
+      avatar.style.fontSize = '0';
+    } else {
+      avatar.textContent = '🎵';
+      avatar.style.fontSize = '28px';
+    }
+
+    // Título do modal
+    const titulo = document.querySelector('.prev-forn-titulo');
+    const sub    = document.querySelector('.prev-forn-sub');
+    if (modo === 'publicado') {
+      if (titulo) titulo.textContent = '🔗 Ver como o cliente vê';
+      if (sub)    sub.textContent    = 'Visualização do anúncio com as alterações salvas';
+    } else {
+      if (titulo) titulo.textContent = '👁️ Pré-visualização';
+      if (sub)    sub.textContent    = 'Rascunho com alterações ainda não salvas';
+    }
+
+    document.getElementById('modal-preview-forn').classList.add('open');
+  }
+
+  function fecharPreviewForn() {
+    document.getElementById('modal-preview-forn').classList.remove('open');
+  }
+
+  function mostrarToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // TOGGLE ANÚNCIO FORNECEDOR
+  let anuncioFornAtivo = true;
+  let perfilAtual = null;
+  let meusPerfis = [];
+  const MAPA_DIFERENCIAIS = {"🚚 Entrega e montagem inclusa": "entrega e montagem inclusa", "💡 Iluminação inclusa": "iluminação inclusa", "🎤 Microfone sem fio": "microfone sem fio", "📻 Playlist personalizada": "playlist personalizada", "🏆 Mais de 5 anos de experiência": "mais de 5 anos de experiência", "📋 Contrato de serviço": "contrato de serviço", "🔄 Reposição em caso de problema": "reposição em caso de problema", "🎓 Profissional certificado": "profissional certificado", "📍 Atende toda a região": "atende toda a região", "💳 Aceita parcelamento": "aceita parcelamento"};
+
+  function sincronizarBotoesAnuncioForn() {
+    const btns = [document.getElementById('btn-toggle-forn'), document.getElementById('btn-toggle-forn-vg')].filter(Boolean);
+    const badge = document.getElementById('badge-status-forn');
+    if (anuncioFornAtivo) {
+      btns.forEach(b => { b.textContent = '⏸ Pausar anúncio'; b.style.background = 'var(--vermelho)'; });
+      if (badge) { badge.className = 'status-badge badge-ativo'; badge.textContent = 'Anúncio ativo'; }
+    } else {
+      btns.forEach(b => { b.textContent = '▶ Publicar anúncio'; b.style.background = 'var(--verde)'; });
+      if (badge) { badge.className = 'status-badge badge-inativo'; badge.textContent = 'Anúncio pausado'; }
+    }
+  }
+
+  async function toggleAnuncioForn() {
+    if (!perfilAtual) { mostrarToast('⚠️ Não foi possível identificar seu perfil.'); return; }
+    const novoEstado = !anuncioFornAtivo;
+    const { data, error } = await _supa.from('suppliers').update({ active: novoEstado }).eq('id', perfilAtual.id).select().maybeSingle();
+    if (error) { mostrarToast('⚠️ Erro ao atualizar anúncio: ' + error.message); return; }
+    anuncioFornAtivo = novoEstado;
+    perfilAtual = { ...perfilAtual, ...data };
+    window._meuPerfil = perfilAtual;
+    sincronizarBotoesAnuncioForn();
+    mostrarToast(anuncioFornAtivo ? '✅ Anúncio reativado! Já aparece nas buscas.' : '⏸ Anúncio pausado. Clique em "Publicar anúncio" para reativar.');
+  }
+
+  // SUPABASE
+  const SUPA_URL  = 'https://tathqoyhcuxthsrghrzx.supabase.co';
+  const SUPA_ANON = 'sb_publishable_fLpPGAodcCvJxPkQ223ABQ_ApJKDLRU';
+  const TERMOS_VERSAO = '3.1';
+  const _supa = window.supabase.createClient(SUPA_URL, SUPA_ANON);
+
+  async function fazerLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const senha = document.getElementById('login-senha').value;
+    const erro = document.getElementById('login-erro');
+    const loading = document.getElementById('login-loading');
+    erro.style.display = 'none';
+    loading.style.display = 'block';
+
+    const { data, error } = await _supa.auth.signInWithPassword({ email, password: senha });
+    loading.style.display = 'none';
+    if (error) {
+      erro.textContent = 'E-mail ou senha incorretos. Tente novamente.';
+      erro.style.display = 'block';
+      return;
+    }
+    await abrirPainel(data.user);
+  }
+
+  function mostrarRecuperarSenha() {
+    const box = document.getElementById('recuperar-senha-box');
+    const visivel = box.style.display === 'block';
+    box.style.display = visivel ? 'none' : 'block';
+    if (!visivel) {
+      const emailAtual = document.getElementById('login-email').value.trim();
+      if (emailAtual) document.getElementById('recuperar-email').value = emailAtual;
+    }
+  }
+
+  async function enviarRecuperacaoSenha() {
+    const email = document.getElementById('recuperar-email').value.trim();
+    const msg = document.getElementById('recuperar-msg');
+    if (!email) {
+      msg.textContent = 'Informe seu e-mail.';
+      msg.style.background = '#fee2e2';
+      msg.style.color = '#b91c1c';
+      msg.style.display = 'block';
+      return;
+    }
+    const { error } = await _supa.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://alugueldechacaras.com/redefinir-senha.html'
+    });
+    if (error) {
+      msg.textContent = 'Erro ao enviar: ' + error.message;
+      msg.style.background = '#fee2e2';
+      msg.style.color = '#b91c1c';
+    } else {
+      msg.textContent = '✅ Se este e-mail estiver cadastrado, você receberá um link de recuperação em instantes.';
+      msg.style.background = '#fdf0e8';
+      msg.style.color = 'var(--terra)';
+    }
+    msg.style.display = 'block';
+  }
+
+  async function fazerLogout() {
+    await _supa.auth.signOut();
+    document.getElementById('painel').classList.remove('ativo');
+    document.getElementById('login-page').style.display = 'flex';
+    document.getElementById('login-email').value = '';
+    document.getElementById('login-senha').value = '';
+  }
+
+  async function abrirPainel(user) {
+    window._authUser = user;
+    const nome = user.user_metadata?.full_name || user.email.split('@')[0];
+    const iniciais = nome.split(' ').map(p=>p[0]).join('').toUpperCase().slice(0,2);
+    const sideNome = document.getElementById('sidebar-nome');
+    const sideAv = document.getElementById('sidebar-avatar');
+    if (sideNome) sideNome.textContent = nome;
+    if (sideAv) sideAv.textContent = iniciais;
+
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('painel').classList.add('ativo');
+    await carregarDadosFornecedor(user.email);
+
+    if (new URLSearchParams(window.location.search).get('editar') === '1') {
+      irParaMeuServico();
+    }
+  }
+
+  function irParaMeuServico() {
+    let alvo = null;
+    document.querySelectorAll('.nav-item').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'meu-servico'")) alvo = b;
+    });
+    mostrarTab('meu-servico', alvo);
+  }
+
+  async function carregarDadosFornecedor(email) {
+    const { data: suppliers } = await _supa
+      .from('suppliers')
+      .select('*')
+      .eq('email', email);
+
+    if (!suppliers || suppliers.length === 0) {
+      mostrarToast('⚠️ Nenhum perfil encontrado com este e-mail.');
+      return;
+    }
+
+    meusPerfis = suppliers;
+    window._meuPerfil = suppliers[0];
+    perfilAtual = suppliers[0];
+    preencherFormularioFornecedor(perfilAtual);
+    renderPickerServicos();
+    preencherConfig();
+    inicializarMascaras();
+  }
+
+  function preencherFormularioFornecedor(s) {
+    // Preencher campos reais do formulario "Meu Servico"
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = (val === null || val === undefined) ? '' : val; };
+    set('ff-nome', s.name);
+    set('ff-whatsapp', s.whatsapp);
+    set('ff-instagram', s.instagram);
+    set('ff-descricao', s.description);
+    set('ff-area', s.service_area);
+    set('ff-valor', s.price_min !== null && s.price_min !== undefined ? s.price_min : '');
+    set('ff-antecedencia', s.min_notice);
+    set('ff-obs-valores', s.price_notes);
+    set('ff-video', s.video_url);
+
+    const catEl = document.getElementById('select-categoria');
+    if (catEl) catEl.value = s.category || '';
+
+    const formatoEl = document.getElementById('ff-formato-valor');
+    if (formatoEl) formatoEl.value = s.price_range || '';
+
+    const pagEl = document.getElementById('ff-pagamento');
+    if (pagEl) pagEl.value = s.payment_methods || '';
+
+    // Diferenciais
+    const tags = s.tags || [];
+    document.querySelectorAll('#tab-meu-servico .tags-grid .tag-check').forEach(function(label) {
+      const canon = MAPA_DIFERENCIAIS[label.textContent.trim()];
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      if (checkbox && canon) {
+        checkbox.checked = tags.includes(canon);
+        label.classList.toggle('selecionado', checkbox.checked);
+      }
+    });
+
+    // Fotos existentes
+    const grid = document.getElementById('fotos-grid');
+    if (grid) {
+      grid.querySelectorAll('.foto-item:not(#foto-vazia)').forEach(el => el.remove());
+      const vazio = document.getElementById('foto-vazia');
+      (s.photos || []).forEach(url => {
+        const div = document.createElement('div');
+        div.className = 'foto-item';
+        div._existingUrl = url;
+        div.innerHTML = '<img src="' + url + '" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"/><button class="foto-remove" onclick="removerFotoForn(this)">✕</button>';
+        if (vazio) grid.insertBefore(div, vazio); else grid.appendChild(div);
+      });
+      atualizarBadgeCapa();
+      const b = document.getElementById('btn-salvar-fotos');
+      if (b) b.style.display = (s.photos || []).length ? 'flex' : 'none';
+    }
+
+    // Estado do anuncio
+    anuncioFornAtivo = !!s.active;
+    sincronizarBotoesAnuncioForn();
+
+    // Stats na visao geral
+    const statNome = document.getElementById('stat-nome-servico');
+    if (statNome) statNome.textContent = s.name;
+    const statCat = document.getElementById('stat-categoria');
+    if (statCat && catEl) statCat.textContent = (catEl.options[catEl.selectedIndex]?.text || s.category || '—').toUpperCase();
+    const statCidade = document.getElementById('stat-cidade');
+    if (statCidade) statCidade.textContent = '📍 ' + (s.city || '—') + (s.state ? ' — ' + s.state : '');
+    const sideNome = document.getElementById('sidebar-nome-forn');
+    if (sideNome) sideNome.textContent = s.name;
+    const sideAvatar = document.getElementById('sidebar-avatar-forn');
+    if (sideAvatar && s.name) sideAvatar.textContent = s.name.trim().split(/\s+/).map(function(w){return w[0];}).slice(0,2).join('').toUpperCase();
+
+    const nomeAtual = document.getElementById('picker-nome-atual-forn');
+    if (nomeAtual) nomeAtual.textContent = s.name;
+  }
+
+  function renderPickerServicos() {
+    const lista = document.getElementById('picker-lista-forn');
+    if (!lista) return;
+    let html = '';
+    meusPerfis.forEach(p => {
+      const ativo = perfilAtual && p.id === perfilAtual.id;
+      html += `<div class="picker-item ${ativo ? 'ativo' : ''}" onclick="selecionarPerfil('${p.id}')">
+        <span class="picker-item-nome">${p.name}</span>
+        <span class="picker-item-status ${p.active ? 'on' : 'off'}">${p.active ? 'ativo' : 'inativo'}</span>
+      </div>`;
+    });
+    html += `<div class="picker-nova" onclick="abrirNovoServico()">➕ Novo serviço</div>`;
+    lista.innerHTML = html;
+
+    const nomeAtual = document.getElementById('picker-nome-atual-forn');
+    if (nomeAtual && perfilAtual) nomeAtual.textContent = perfilAtual.name;
+  }
+
+  function togglePickerServicos(ev) {
+    if (ev) ev.stopPropagation();
+    const lista = document.getElementById('picker-lista-forn');
+    const arrow = document.getElementById('picker-arrow-forn');
+    if (!lista) return;
+    lista.classList.toggle('aberto');
+    if (arrow) arrow.classList.toggle('aberto');
+  }
+
+  function fecharPickerServicos() {
+    const lista = document.getElementById('picker-lista-forn');
+    const arrow = document.getElementById('picker-arrow-forn');
+    if (lista) lista.classList.remove('aberto');
+    if (arrow) arrow.classList.remove('aberto');
+  }
+
+  document.addEventListener('click', function(e) {
+    const picker = document.getElementById('sidebar-picker-forn');
+    if (picker && !picker.contains(e.target)) fecharPickerServicos();
+  });
+
+  function selecionarPerfil(id) {
+    const perfil = meusPerfis.find(p => p.id === id);
+    if (!perfil) return;
+    perfilAtual = perfil;
+    window._meuPerfil = perfil;
+    preencherFormularioFornecedor(perfilAtual);
+    renderPickerServicos();
+    fecharPickerServicos();
+    preencherConfig();
+    inicializarMascaras();
+    mostrarToast(`🎯 Agora exibindo: ${perfil.name}`);
+  }
+
+  function abrirNovoServico() {
+    fecharPickerServicos();
+    document.getElementById('novo-servico-nome').value = '';
+    document.getElementById('novo-servico-categoria').value = '';
+    document.getElementById('novo-servico-cidade').value = '';
+    document.getElementById('novo-servico-whatsapp').value = '';
+    document.getElementById('novo-servico-termos').checked = false;
+    document.getElementById('novo-servico-erro').style.display = 'none';
+    document.getElementById('modal-novo-servico').classList.add('open');
+  }
+
+  function fecharNovoServico() {
+    document.getElementById('modal-novo-servico').classList.remove('open');
+  }
+
+  async function confirmarNovoServico() {
+    const nome = document.getElementById('novo-servico-nome').value.trim();
+    const categoria = document.getElementById('novo-servico-categoria').value;
+    const cidade = document.getElementById('novo-servico-cidade').value.trim();
+    const whatsapp = document.getElementById('novo-servico-whatsapp').value.trim();
+    const erroEl = document.getElementById('novo-servico-erro');
+    erroEl.style.display = 'none';
+
+    if (!nome) { erroEl.textContent = 'Informe o nome do negócio.'; erroEl.style.display = 'block'; return; }
+    if (!categoria) { erroEl.textContent = 'Selecione uma categoria.'; erroEl.style.display = 'block'; return; }
+    if (!whatsapp || whatsapp.replace(/\D/g,'').length < 10) { erroEl.textContent = 'Informe um WhatsApp válido.'; erroEl.style.display = 'block'; return; }
+    const termosAceitos = document.getElementById('novo-servico-termos').checked;
+    if (!termosAceitos) { erroEl.textContent = 'É necessário aceitar o Termo de Responsabilidade do Fornecedor.'; erroEl.style.display = 'block'; return; }
+
+    const btn = document.getElementById('btn-confirmar-novo-servico');
+    btn.disabled = true;
+    btn.textContent = 'Cadastrando...';
+
+    try {
+      const { data: { session } } = await _supa.auth.getSession();
+      if (!session) { erroEl.textContent = 'Sessão expirada. Recarregue a página e entre novamente.'; erroEl.style.display = 'block'; return; }
+
+      const resp = await fetch('https://n8n.alugueldechacaras.com/webhook/adicionar-anuncio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tipo: 'fornecedor',
+          access_token: session.access_token,
+          nome_negocio: nome,
+          categoria, cidade, whatsapp,
+          termos_aceitos: termosAceitos,
+          termos_versao: TERMOS_VERSAO
+        })
+      });
+      const result = await resp.json();
+      if (!result.ok) {
+        erroEl.textContent = result.erro || 'Não foi possível cadastrar. Tente novamente.';
+        erroEl.style.display = 'block';
+        return;
+      }
+
+      fecharNovoServico();
+      await carregarDadosFornecedor(session.user.email);
+      const novo = meusPerfis.find(p => p.id === result.id);
+      if (novo) selecionarPerfil(novo.id);
+      irParaMeuServico();
+      mostrarToast('✅ Serviço cadastrado! Preencha os detalhes abaixo.');
+    } catch (e) {
+      erroEl.textContent = 'Erro de conexão. Tente novamente.';
+      erroEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Cadastrar serviço';
+    }
+  }
+
+  // Verificar sessão ao carregar
+  document.addEventListener('DOMContentLoaded', async () => {
+    let { data: { session } } = await _supa.auth.getSession();
+    if (!session) {
+      // pequena espera para evitar corrida de inicializacao ao vir de outra pagina (ex: apos cadastro com login automatico)
+      await new Promise(r => setTimeout(r, 500));
+      ({ data: { session } } = await _supa.auth.getSession());
+    }
+    if (session) await abrirPainel(session.user);
+  });
+
+  function formatarTelBR(value) {
+    let n = (value || '').replace(/\D/g, '').slice(0, 11);
+    if (n.length <= 2) return n.length ? '(' + n : '';
+    const ddd = n.slice(0, 2);
+    const rest = n.slice(2);
+    let meio, fim;
+    if (rest.length >= 9) { meio = rest.slice(0, 5); fim = rest.slice(5, 9); }
+    else if (rest.length > 4) { meio = rest.slice(0, rest.length - 4); fim = rest.slice(-4); }
+    else { return '(' + ddd + ') ' + rest; }
+    return '(' + ddd + ') ' + meio + '-' + fim;
+  }
+
+  function inicializarMascaras() {
+    ['ff-whatsapp', 'perfil-whatsapp', 'novo-servico-whatsapp'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (!el.placeholder) el.placeholder = '(44) 90000-0000';
+      el.setAttribute('inputmode', 'tel');
+      if (!el._maskAttached) {
+        el._maskAttached = true;
+        el.addEventListener('input', () => { el.value = formatarTelBR(el.value); });
+      }
+      if (el.value) el.value = formatarTelBR(el.value);
+    });
+  }
+
+  function preencherConfig() {
+    const s = id => document.getElementById(id);
+    const u = window._authUser || {};
+    const p = perfilAtual || {};
+    if (s('perfil-nome')) s('perfil-nome').value = p.name || (u.user_metadata && u.user_metadata.full_name) || '';
+    if (s('perfil-email')) { s('perfil-email').value = u.email || p.email || ''; s('perfil-email').setAttribute('readonly', ''); s('perfil-email').style.background = '#f9fafb'; }
+    if (s('perfil-whatsapp')) s('perfil-whatsapp').value = formatarTelBR(p.whatsapp || '');
+    const cpf = s('perfil-cpf');
+    if (cpf && (cpf.value === '000.000.000-00' || !cpf.value)) { cpf.value = ''; cpf.placeholder = 'Opcional'; }
+  }
+
+  function mostrarTab(id, btn) {
+    document.querySelectorAll('.tabs').forEach(t => t.classList.remove('ativo'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
+    const tab = document.getElementById('tab-' + id);
+    if (tab) tab.classList.add('ativo');
+    let navBtn = null;
+    document.querySelectorAll('.nav-item').forEach(n => {
+      const oc = n.getAttribute('onclick') || '';
+      if (oc.includes("'" + id + "'")) navBtn = n;
+    });
+    (navBtn || btn) && (navBtn || btn).classList.add('ativo');
+    if (id === 'meu-servico') inicializarTags();
+    if (id === 'configuracoes') preencherConfig();
+  }
+
+  function selecionarCat(el) {
+    document.querySelectorAll('.cat-item').forEach(c => {
+      c.classList.remove('selecionado');
+      c.querySelector('.cat-check').textContent = '';
+    });
+    el.classList.add('selecionado');
+    el.querySelector('.cat-check').textContent = '✓';
+  }
+
+  function inicializarTags() {
+    document.querySelectorAll('.tag-check').forEach(function(label) {
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      if (!checkbox) return;
+      if (checkbox.checked) label.classList.add('selecionado');
+      else label.classList.remove('selecionado');
+      checkbox.addEventListener('change', function() {
+        if (this.checked) label.classList.add('selecionado');
+        else label.classList.remove('selecionado');
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', inicializarTags);
+
+  function adicionarFotos(input) {
+    const grid = document.getElementById('fotos-grid');
+    Array.from(input.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        if (document.getElementById('foto-vazia')) document.getElementById('foto-vazia').remove();
+        const div = document.createElement('div');
+        div.className = 'foto-item';
+        div._file = file;
+        div.innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"/><button class="foto-remove" onclick="removerFotoForn(this)">✕</button>`;
+        const vazioAtual = document.getElementById('foto-vazia');
+        if (vazioAtual) grid.insertBefore(div, vazioAtual);
+        else grid.appendChild(div);
+        if (!document.getElementById('foto-vazia')) {
+          const novoVazio = document.createElement('div');
+          novoVazio.className = 'foto-item';
+          novoVazio.id = 'foto-vazia';
+          novoVazio.style.cssText = 'background:var(--cinza-bg);border:2px dashed var(--cinza-borda);cursor:pointer;';
+          novoVazio.onclick = () => document.getElementById('input-fotos').click();
+          novoVazio.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cinza);"><span style="font-size:28px;">📸</span><span style="font-size:11px;font-weight:600;text-align:center;">Mais fotos</span></div>';
+          grid.appendChild(novoVazio);
+        }
+        atualizarBadgeCapa();
+        const btnSalvar = document.getElementById('btn-salvar-fotos');
+        if (btnSalvar) btnSalvar.style.display = 'flex';
+      };
+      reader.readAsDataURL(file);
+    });
+    input.value = '';
+  }
+
+  function removerFotoForn(btn) {
+    btn.parentElement.remove();
+    atualizarBadgeCapa();
+    const total = document.querySelectorAll('#fotos-grid .foto-item:not(#foto-vazia)').length;
+    if (total === 0) {
+      const grid = document.getElementById('fotos-grid');
+      if (!document.getElementById('foto-vazia')) {
+        grid.innerHTML = `<div class="foto-item" id="foto-vazia" style="background:var(--cinza-bg);border:2px dashed var(--cinza-borda);cursor:pointer;" onclick="document.getElementById('input-fotos').click()"><div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cinza);"><span style="font-size:28px;">📸</span><span style="font-size:11px;font-weight:600;text-align:center;">Adicionar fotos</span></div></div>`;
+      }
+      const btnSalvar = document.getElementById('btn-salvar-fotos');
+      if (btnSalvar) btnSalvar.style.display = 'none';
+    }
+  }
+
+  function atualizarBadgeCapa() {
+    document.querySelectorAll('.foto-principal-badge').forEach(b => b.remove());
+    const primeira = document.querySelector('#fotos-grid .foto-item:not(#foto-vazia)');
+    if (primeira) {
+      const badge = document.createElement('span');
+      badge.className = 'foto-principal-badge';
+      badge.textContent = 'Capa';
+      primeira.appendChild(badge);
+    }
+  }
+
+  async function salvar(tipo) {
+    if (tipo === 'senha') {
+      const atual = document.getElementById('senha-atual-input')?.value || '';
+      const nova = document.getElementById('senha-nova-input')?.value || '';
+      if (!nova || nova.length < 6) { mostrarToast('⚠️ A nova senha deve ter pelo menos 6 caracteres.'); return; }
+      const { data: { user } } = await _supa.auth.getUser();
+      if (atual && user) {
+        const { error: reAuthErr } = await _supa.auth.signInWithPassword({ email: user.email, password: atual });
+        if (reAuthErr) { mostrarToast('⚠️ Senha atual incorreta.'); return; }
+      }
+      const { error } = await _supa.auth.updateUser({ password: nova });
+      if (error) { mostrarToast('⚠️ Erro ao alterar senha: ' + error.message); return; }
+      document.getElementById('senha-atual-input').value = '';
+      document.getElementById('senha-nova-input').value = '';
+      mostrarToast('✅ Senha alterada!');
+      return;
+    }
+
+    if (!perfilAtual) { mostrarToast('⚠️ Não foi possível identificar seu perfil.'); return; }
+
+    if (tipo === 'servico') {
+      const difMarcados = [];
+      document.querySelectorAll('#tab-meu-servico .tags-grid .tag-check.selecionado').forEach(t => {
+        const canon = MAPA_DIFERENCIAIS[t.textContent.trim()];
+        if (canon) difMarcados.push(canon);
+      });
+      const valoresConhecidos = Object.values(MAPA_DIFERENCIAIS);
+      const difExtras = (perfilAtual.tags || []).filter(t => !valoresConhecidos.includes(t));
+
+      const catEl = document.getElementById('select-categoria');
+
+      const payload = {
+        name: document.getElementById('ff-nome')?.value.trim() || null,
+        whatsapp: document.getElementById('ff-whatsapp')?.value.trim() || null,
+        instagram: document.getElementById('ff-instagram')?.value.trim() || null,
+        description: document.getElementById('ff-descricao')?.value.trim() || null,
+        service_area: document.getElementById('ff-area')?.value.trim() || null,
+        price_min: parseFloat(document.getElementById('ff-valor')?.value) || null,
+        price_range: document.getElementById('ff-formato-valor')?.value || null,
+        payment_methods: document.getElementById('ff-pagamento')?.value || null,
+        min_notice: document.getElementById('ff-antecedencia')?.value.trim() || null,
+        price_notes: document.getElementById('ff-obs-valores')?.value.trim() || null,
+        category: catEl ? catEl.value : null,
+        tags: [...difMarcados, ...difExtras]
+      };
+
+      const { data, error } = await _supa.from('suppliers').update(payload).eq('id', perfilAtual.id).select().maybeSingle();
+      if (error) { mostrarToast('⚠️ Erro ao salvar: ' + error.message); return; }
+      perfilAtual = { ...perfilAtual, ...data };
+      window._meuPerfil = perfilAtual;
+      const statNome = document.getElementById('stat-nome-servico');
+      if (statNome) statNome.textContent = perfilAtual.name;
+      const statCat = document.getElementById('stat-categoria');
+      if (statCat) statCat.textContent = perfilAtual.category || '—';
+      mostrarToast('✅ Serviço salvo com sucesso!');
+      return;
+    }
+
+    if (tipo === 'video') {
+      const video_url = document.getElementById('ff-video')?.value.trim() || null;
+      const { data, error } = await _supa.from('suppliers').update({ video_url }).eq('id', perfilAtual.id).select().maybeSingle();
+      if (error) { mostrarToast('⚠️ Erro ao salvar vídeo: ' + error.message); return; }
+      perfilAtual = { ...perfilAtual, ...data };
+      window._meuPerfil = perfilAtual;
+      mostrarToast('✅ Vídeo salvo!');
+      return;
+    }
+
+    if (tipo === 'fotos') {
+      const itens = Array.from(document.querySelectorAll('#fotos-grid .foto-item:not(#foto-vazia)'));
+      const urls = [];
+      for (const item of itens) {
+        if (item._existingUrl) {
+          urls.push(item._existingUrl);
+        } else if (item._file) {
+          const ext = (item._file.name.split('.').pop() || 'jpg').toLowerCase();
+          const path = perfilAtual.id + '/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.' + ext;
+          const { error: upErr } = await _supa.storage.from('supplier-photos').upload(path, item._file, { upsert: false });
+          if (upErr) { mostrarToast('⚠️ Erro ao enviar foto: ' + upErr.message); continue; }
+          const { data: pub } = _supa.storage.from('supplier-photos').getPublicUrl(path);
+          urls.push(pub.publicUrl);
+          item._existingUrl = pub.publicUrl;
+          delete item._file;
+        }
+      }
+      const { data, error } = await _supa.from('suppliers').update({ photos: urls }).eq('id', perfilAtual.id).select().maybeSingle();
+      if (error) { mostrarToast('⚠️ Erro ao salvar fotos: ' + error.message); return; }
+      perfilAtual = { ...perfilAtual, ...data };
+      window._meuPerfil = perfilAtual;
+      mostrarToast('✅ Fotos salvas!');
+      return;
+    }
+
+    if (tipo === 'config') {
+      if (!perfilAtual) { mostrarToast('⚠️ Selecione um serviço primeiro.'); return; }
+      const nome = document.getElementById('perfil-nome')?.value.trim() || null;
+      const wpp = document.getElementById('perfil-whatsapp')?.value.trim() || null;
+      const { data, error } = await _supa.from('suppliers').update({ name: nome, whatsapp: wpp }).eq('id', perfilAtual.id).select().maybeSingle();
+      if (error) { mostrarToast('⚠️ Erro ao salvar dados: ' + error.message); return; }
+      perfilAtual = { ...perfilAtual, ...data };
+      window._meuPerfil = perfilAtual;
+      const _fw = document.getElementById('ff-whatsapp'); if (_fw) _fw.value = formatarTelBR(wpp || '');
+      const _sn = document.getElementById('sidebar-nome'); if (_sn && nome) _sn.textContent = nome;
+      mostrarToast('✅ Dados atualizados!');
+      return;
+    }
+
+    mostrarToast('✅ Salvo!');
+  }
+</script>
+</body>
+</html>

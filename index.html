@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<base href="/alugueldechacaras/">
+    <meta name="facebook-domain-verification" content="v7v9zwlwrjyquv4jdykp4idyhc9cdk" />
+  <script>if(location.protocol==='http:')location.replace(location.href.replace('http:','https:'));</script>
+  <meta charset="UTF-8"/>
+  <!-- SEGURANÇA -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.googletagmanager.com https://js.mercadopago.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://tathqoyhcuxthsrghrzx.supabase.co https://api.mercadopago.com https://n8n.alugueldechacaras.com; frame-ancestors 'none';"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AluguelDeChácaras.com — Maringá e Região</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E" />
+  <link rel="canonical" href="https://alugueldechacaras.com/"/>
+  <!-- SEO -->
+  <meta name="description" content="Aluguel de Chácaras em Maringá e região. Encontre o espaço ideal para sua festa, aniversário ou evento. Reserve online com segurança e pagamento garantido."/>
+  <meta name="keywords" content="aluguel de chácara, chácara para festa, chácara maringá, aluguel espaço festas, chácara sarandi, chácara paiçandu, chácara marialva, aluguel de espaço para eventos"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="author" content="AluguelDeChácaras.com"/>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Aluguel de Chácaras — Maringá e Região | Reserve Online"/>
+  <meta property="og:description" content="Encontre e reserve chácaras para festas e eventos em Maringá e região. Pagamento seguro, confirmação imediata."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://alugueldechacaras.com/"/>
+  <meta property="og:image" content="https://alugueldechacaras.com/og-image.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:locale" content="pt_BR"/>
+  <meta property="og:site_name" content="AluguelDeChácaras.com"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Aluguel de Chácaras — Maringá e Região"/>
+  <meta name="twitter:description" content="Encontre e reserve chácaras para festas e eventos em Maringá e região."/>
+  <meta name="twitter:image" content="https://alugueldechacaras.com/og-image.jpg"/>
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "AluguelDeChácaras.com",
+    "description": "Plataforma de aluguel de chácaras para festas e eventos em Maringá e região.",
+    "url": "https://alugueldechacaras.com",
+    "telephone": "+55-44-99960-2317",
+    "email": "contato@alugueldechacaras.com",
+    "areaServed": {
+      "@type": "State",
+      "name": "Paraná, Brasil"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Maringá",
+      "addressRegion": "PR",
+      "addressCountry": "BR"
+    },
+    "sameAs": [
+      "https://alugueldechacaras.com"
+    ]
+  }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde-escuro: #1e4d2b;
+      --verde: #2d7a45;
+      --verde-claro: #e8f5ed;
+      --terra: #c8622a;
+      --terra-claro: #fdf0e8;
+      --creme: #faf8f3;
+      --cinza: #6b7280;
+      --cinza-borda: #e5e7eb;
+      --preto: #111827;
+      --branco: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--creme);
+      color: var(--preto);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250,248,243,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--cinza-borda);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      color: var(--verde-escuro);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo span { color: var(--terra); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--cinza);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--verde-escuro); }
+
+    .nav-cta {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--verde-escuro);
+      border: 1.5px solid var(--verde);
+    }
+
+    .btn-outline:hover { background: var(--verde-claro); }
+
+    .btn-primary {
+      background: var(--terra);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #b3561f; }
+
+    .btn-verde {
+      background: var(--verde-escuro);
+      color: #fff;
+    }
+
+    .btn-verde:hover { background: #163820; }
+
+    .btn-lg { padding: 14px 28px; font-size: 16px; border-radius: 10px; }
+
+    /* HERO */
+    .hero {
+      margin-top: 64px;
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--verde-claro);
+      color: var(--verde-escuro);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--verde);
+    }
+
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-size: 58px;
+      line-height: 1.1;
+      color: var(--verde-escuro);
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--terra);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--cinza);
+      max-width: 440px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 52px;
+      padding-top: 32px;
+      border-top: 1px solid var(--cinza-borda);
+    }
+
+    .stat { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 32px;
+      color: var(--verde-escuro);
+      line-height: 1;
+    }
+    .stat-label { font-size: 13px; color: var(--cinza); margin-top: 4px; }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-img-grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 6px;
+      padding: 24px 40px 24px 20px;
+    }
+
+    .hero-img {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-img-overlay {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(4px);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--verde-escuro);
+    }
+
+    /* BUSCA */
+    .busca-section {
+      background: var(--verde-escuro);
+      padding: 48px 80px;
+    }
+
+    .busca-title {
+      font-family: 'Fraunces', serif;
+      font-size: 26px;
+      color: #fff;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .busca-box {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr auto;
+      gap: 12px;
+      background: rgba(255,255,255,0.1);
+      padding: 16px;
+      border-radius: 14px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .busca-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .busca-field label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .busca-field input, .busca-field select {
+      background: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      color: var(--preto);
+    }
+
+    .busca-btn-wrap {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .busca-btn {
+      background: var(--terra);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .busca-btn:hover { background: #b3561f; }
+
+    /* CHÁCARAS */
+    .section {
+      padding: 72px 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--terra);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      color: var(--verde-escuro);
+      line-height: 1.2;
+    }
+
+    .chacaras-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .chacara-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--cinza-borda);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .chacara-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(30,77,43,0.12);
+    }
+
+    .chacara-foto {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+      position: relative;
+    }
+
+    .chacara-foto-placeholder {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      position: relative;
+    }
+
+    .chacara-badge-foto {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .chacara-info { padding: 20px; }
+
+    .chacara-local {
+      font-size: 12px;
+      color: var(--cinza);
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chacara-nome {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      color: var(--verde-escuro);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .chacara-desc {
+      font-size: 13px;
+      color: var(--cinza);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .chacara-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      background: var(--verde-claro);
+      color: var(--verde-escuro);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .chacara-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--cinza-borda);
+    }
+
+    .chacara-preco { font-size: 13px; color: var(--cinza); }
+    .chacara-preco strong { font-size: 18px; color: var(--verde-escuro); font-weight: 700; }
+
+    .btn-contato {
+      background: var(--terra-claro);
+      color: var(--terra);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.15s;
+    }
+
+    .btn-contato:hover { background: #f5e0cf; }
+
+    /* FORNECEDORES */
+    .section-fornecedores { background: #fff; }
+
+    .categorias-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .categoria-card {
+      background: var(--creme);
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .categoria-card:hover {
+      border-color: var(--verde);
+      background: var(--verde-claro);
+      transform: translateY(-2px);
+    }
+
+    .categoria-icon { font-size: 32px; margin-bottom: 10px; }
+    .categoria-nome { font-size: 13px; font-weight: 600; color: var(--verde-escuro); }
+    .categoria-qtd { font-size: 11px; color: var(--cinza); margin-top: 4px; }
+
+    .fornecedores-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .fornecedor-card {
+      background: var(--creme);
+      border: 1px solid var(--cinza-borda);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+
+    .fornecedor-card:hover {
+      border-color: var(--verde);
+      box-shadow: 0 4px 20px rgba(30,77,43,0.08);
+    }
+
+    .fornecedor-avatar {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+      background: var(--verde-claro);
+    }
+
+    .fornecedor-cat {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--terra);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .fornecedor-nome {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--verde-escuro);
+      margin-bottom: 6px;
+    }
+
+    .fornecedor-desc {
+      font-size: 12px;
+      color: var(--cinza);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .fornecedor-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fornecedor-local { font-size: 12px; color: var(--cinza); }
+
+    /* COMO FUNCIONA */
+    .como-section { background: var(--verde-escuro); }
+
+    .como-section .section-eyebrow { color: #7ee8b0; }
+    .como-section .section-title { color: #fff; }
+
+    .como-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .como-item {
+      padding: 32px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .como-num {
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      color: rgba(255,255,255,0.15);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .como-icon { font-size: 32px; margin-bottom: 14px; }
+    .como-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .como-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+    /* ANUNCIE */
+    .anuncie-section {
+      background: var(--terra-claro);
+      padding: 72px 80px;
+    }
+
+    .anuncie-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .anuncie-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      border: 2px solid transparent;
+      transition: border 0.15s;
+    }
+
+    .anuncie-card:hover { border-color: var(--verde); }
+
+    .anuncie-icon { font-size: 40px; margin-bottom: 20px; }
+    .anuncie-title {
+      font-family: 'Fraunces', serif;
+      font-size: 26px;
+      color: var(--verde-escuro);
+      margin-bottom: 12px;
+    }
+
+    .anuncie-desc { font-size: 15px; color: var(--cinza); margin-bottom: 24px; line-height: 1.7; }
+
+    .anuncie-lista {
+      list-style: none;
+      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .anuncie-lista li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--preto);
+    }
+
+    .anuncie-lista li::before {
+      content: '✓';
+      width: 22px; height: 22px;
+      background: var(--verde-claro);
+      color: var(--verde);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .anuncie-preco {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .preco-valor {
+      font-family: 'Fraunces', serif;
+      font-size: 40px;
+      color: var(--verde-escuro);
+      line-height: 1;
+    }
+
+    .preco-label { font-size: 14px; color: var(--cinza); }
+    .preco-free { font-family: 'Fraunces', serif; font-size: 28px; color: var(--verde); }
+
+    /* FOOTER */
+    footer {
+      background: var(--preto);
+      padding: 48px 80px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .footer-logo span { color: var(--terra); }
+    .footer-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+    .footer-col-title { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 14px; transition: color 0.15s; }
+    .footer-links a:hover { color: #fff; }
+
+    .footer-bottom {
+      background: var(--preto);
+      padding: 20px 80px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-overlay { padding: 24px; }
+
+    .modal {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px;
+      width: 100%;
+      max-width: 560px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      animation: slideUp 0.2s ease;
+    }
+
+    .field-row { display: flex; gap: 12px; }
+    .field-row .field { flex: 1; min-width: 0; }
+    @media (max-width: 480px) {
+      .field-row { flex-direction: column; gap: 0; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .modal-title { font-family: 'Fraunces', serif; font-size: 24px; color: var(--verde-escuro); }
+    .modal-sub { font-size: 14px; color: var(--cinza); margin-bottom: 24px; }
+
+    .close-btn {
+      background: #f3f4f6;
+      border: none;
+      border-radius: 8px;
+      width: 32px; height: 32px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .field label { font-size: 13px; font-weight: 600; }
+
+    .field input, .field select, .field textarea {
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border 0.15s;
+    }
+
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--verde); }
+    .field textarea { resize: vertical; min-height: 80px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 48px 24px; }
+      .hero-right { display: none; }
+      .hero-title { font-size: 36px; }
+      .busca-section { padding: 40px 24px; }
+      .busca-box { grid-template-columns: 1fr; }
+      .section { padding: 48px 24px; }
+      .chacaras-grid { grid-template-columns: 1fr; }
+      .categorias-grid { grid-template-columns: repeat(3, 1fr); }
+      .fornecedores-grid { grid-template-columns: repeat(2, 1fr); }
+      .como-grid { grid-template-columns: 1fr; }
+      .anuncie-grid { grid-template-columns: 1fr; }
+      .anuncie-section { padding: 48px 24px; }
+      footer { grid-template-columns: 1fr; padding: 40px 24px; }
+      .footer-bottom { padding: 20px 24px; flex-direction: column; gap: 8px; }
+      #nav-mobile-toggle { display: block !important; }
+      .nav-links.aberto {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 16px 24px;
+        gap: 4px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        z-index: 50;
+      }
+      .nav-links.aberto li { list-style: none; }
+      .nav-links.aberto a { display: block; padding: 12px 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">🌿 Aluguel de <span>Chácaras</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#chacaras">Chácaras</a></li>
+    <li><a href="#fornecedores">Fornecedores</a></li>
+    <li><a href="#como-funciona">Como funciona</a></li>
+    <li><a href="#anuncie">Anuncie</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="#" class="btn btn-outline" onclick="abrirModal('login')">Entrar</a>
+    <a href="#anuncie" class="btn btn-primary">Anunciar</a>
+  </div>
+  <button id="nav-mobile-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links" onclick="toggleMenuMobile()" style="display:none;background:none;border:none;font-size:24px;cursor:pointer;padding:8px;color:#1e4d2b;">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Maringá e região • Paraná</div>
+    <h1 class="hero-title">
+      A chácara <em>perfeita</em> para seu evento
+    </h1>
+    <p class="hero-sub">
+      Encontre chácaras para festas, eventos e lazer em Maringá e região. Solicite sua reserva online com segurança e praticidade.
+    </p>
+    <div class="hero-actions">
+      <a href="#chacaras" class="btn btn-verde btn-lg">Ver chácaras disponíveis</a>
+      <a href="#fornecedores" class="btn btn-outline btn-lg">Fornecedores de eventos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num" id="stat-num-chacaras">…</span>
+        <span class="stat-label">Chácaras cadastradas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-num-fornecedores">…</span>
+        <span class="stat-label">Fornecedores parceiros</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-num-cidades">…</span>
+        <span class="stat-label">Cidades atendidas</span>
+      </div>
+    </div>
+    <script>
+    (async function atualizarHeroStats() {
+      const SB = 'https://tathqoyhcuxthsrghrzx.supabase.co';
+      const AN = 'sb_publishable_fLpPGAodcCvJxPkQ223ABQ_ApJKDLRU';
+      const h = { apikey: AN, Authorization: `Bearer ${AN}` };
+      const norm = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+      try {
+        const [rp, rf] = await Promise.all([
+          fetch(`${SB}/rest/v1/properties?active=eq.true&select=city`, { cache: 'no-store', headers: h }),
+          fetch(`${SB}/rest/v1/suppliers?active=eq.true&select=city`, { cache: 'no-store', headers: h }),
+        ]);
+        const props = await rp.json();
+        const forns = await rf.json();
+        const numChacaras = Array.isArray(props) ? props.length : 0;
+        const numFornecedores = Array.isArray(forns) ? forns.length : 0;
+        const cidades = new Set();
+        (props || []).forEach(p => { if (p.city) cidades.add(norm(p.city)); });
+        (forns || []).forEach(f => { if (f.city) cidades.add(norm(f.city)); });
+
+        const elC = document.getElementById('stat-num-chacaras');
+        const elF = document.getElementById('stat-num-fornecedores');
+        const elCid = document.getElementById('stat-num-cidades');
+        if (elC) elC.textContent = String(numChacaras);
+        if (elF) elF.textContent = numFornecedores > 0 ? String(numFornecedores) : 'Em breve';
+        if (elCid) elCid.textContent = cidades.size > 0 ? String(cidades.size) : '—';
+      } catch (e) {
+        ['stat-num-chacaras','stat-num-fornecedores','stat-num-cidades'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = '—';
+        });
+        console.error(e);
+      }
+    })();
+    </script>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-grid">
+      <div class="hero-img" style="background: linear-gradient(135deg,#2d7a45,#1e4d2b); display:flex; align-items:center; justify-content:center; font-size:80px;">🏡</div>
+      <div class="hero-img" style="background: linear-gradient(135deg,#c8622a,#a04d20); display:flex; align-items:center; justify-content:center; font-size:80px;">🎉</div>
+      <div class="hero-img" style="background: linear-gradient(135deg,#4a9d6f,#2d7a45); display:flex; align-items:center; justify-content:center; font-size:80px;">🌳</div>
+      <div class="hero-img" style="background: linear-gradient(135deg,#e8a87c,#c8622a); display:flex; align-items:center; justify-content:center; font-size:80px;">🎊</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSCA E FILTROS -->
+<section class="busca-section" id="busca">
+  <div class="busca-title">Encontre sua chácara ideal</div>
+
+  <!-- BARRA PRINCIPAL -->
+  <div class="busca-box" style="margin-bottom:16px;">
+    <div class="busca-field" style="flex:2;">
+      <label>Cidade ou região</label>
+      <input type="text" id="f-cidade" placeholder="Ex: Maringá, Sarandi, Paiçandu..."/>
+    </div>
+
+    <div class="busca-field">
+      <label>Número de convidados</label>
+      <select id="f-pessoas">
+        <option value="">Qualquer tamanho</option>
+        <option>Até 50 pessoas</option>
+        <option>50 a 100 pessoas</option>
+        <option>100 a 200 pessoas</option>
+        <option>Mais de 200 pessoas</option>
+      </select>
+    </div>
+    <div class="busca-btn-wrap">
+      <button class="busca-btn" onclick="buscar()">🔍 Buscar</button>
+    </div>
+  </div>
+
+  <!-- FILTROS AVANÇADOS -->
+  <div id="filtros-avancados" style="display:none; background:rgba(255,255,255,0.08); border-radius:12px; padding:20px; margin-bottom:16px;">
+    <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:14px; margin-bottom:14px;">
+
+      <div class="busca-field">
+        <label>Faixa de preço (diária)</label>
+        <select id="f-preco">
+          <option value="">Qualquer preço</option>
+          <option>Até R$ 500</option>
+          <option>R$ 500 a R$ 1.000</option>
+          <option>R$ 1.000 a R$ 2.000</option>
+          <option>Acima de R$ 2.000</option>
+        </select>
+      </div>
+
+      <div class="busca-field">
+        <label>Data do evento</label>
+        <input type="date" id="f-data" style="background:#fff;border:none;border-radius:8px;padding:11px 14px;font-size:14px;font-family:'Inter',sans-serif;outline:none;color:#111827;"/>
+      </div>
+
+      <div class="busca-field">
+        <label>📅 Data de início</label>
+        <input type="date" id="f-data-inicio" style="background:#fff;border:none;border-radius:8px;padding:11px 14px;font-size:14px;font-family:'Inter',sans-serif;outline:none;color:#111827;width:100%;"/>
+      </div>
+      <div class="busca-field">
+        <label>📅 Data de fim</label>
+        <input type="date" id="f-data-fim" style="background:#fff;border:none;border-radius:8px;padding:11px 14px;font-size:14px;font-family:'Inter',sans-serif;outline:none;color:#111827;width:100%;"/>
+      </div>
+
+      <div class="busca-field">
+        <label>Ordenar por</label>
+        <select id="f-ordem">
+          <option>Mais relevantes</option>
+          <option>Menor preço</option>
+          <option>Maior avaliação</option>
+          <option>Mais recentes</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- COMODIDADES -->
+    <div style="margin-bottom:4px;">
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">Comodidades desejadas</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;" id="filtro-comodidades">
+        <label class="filtro-check"><input type="checkbox" value="piscina"/> 🏊 Piscina</label>
+        <label class="filtro-check"><input type="checkbox" value="churrasqueira"/> 🍖 Churrasqueira</label>
+        <label class="filtro-check"><input type="checkbox" value="campo"/> ⚽ Campo de futebol</label>
+        <label class="filtro-check"><input type="checkbox" value="lago"/> 🎣 Lago / Pesca</label>
+        <label class="filtro-check"><input type="checkbox" value="hospedagem"/> 🛌 Hospedagem</label>
+        <label class="filtro-check"><input type="checkbox" value="salao"/> 🎪 Salão coberto</label>
+        <label class="filtro-check"><input type="checkbox" value="quadra"/> 🏐 Quadra</label>
+        <label class="filtro-check"><input type="checkbox" value="playground"/> 🎠 Playground infantil</label>
+        <label class="filtro-check"><input type="checkbox" value="gourmet"/> 🍽️ Espaço gourmet</label>
+        <label class="filtro-check"><input type="checkbox" value="gerador"/> ⚡ Gerador</label>
+        <label class="filtro-check"><input type="checkbox" value="pets"/> 🐾 Aceita pets</label>
+        <label class="filtro-check"><input type="checkbox" value="acessivel"/> ♿ Acessível</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINHA INFERIOR -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+    <button onclick="toggleFiltros()" id="btn-filtros" style="background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.25);border-radius:8px;padding:8px 16px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+      ⚙️ Filtros avançados <span id="filtros-badge" style="display:none;background:var(--terra);border-radius:20px;padding:1px 7px;font-size:11px;">0</span>
+    </button>
+    <div style="color:rgba(255,255,255,0.6);font-size:13px;" id="resultado-count">38 chácaras disponíveis</div>
+    <button onclick="limparFiltros()" style="background:none;border:none;color:rgba(255,255,255,0.5);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:underline;">Limpar filtros</button>
+  </div>
+</section>
+
+<style>
+.filtro-check {
+  display:flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.15);
+  border-radius:8px; padding:6px 12px; cursor:pointer;
+  font-size:13px; font-weight:500; color:rgba(255,255,255,0.85);
+  transition:all 0.15s; user-select:none;
+}
+.filtro-check:hover { background:rgba(255,255,255,0.18); }
+.filtro-check.marcado { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); color:#fff; font-weight:700; }
+.filtro-check input { display:none; }
+</style>
+
+<script>
+  let filtrosAbertos = false;
+
+  function toggleFiltros() {
+    filtrosAbertos = !filtrosAbertos;
+    document.getElementById('filtros-avancados').style.display = filtrosAbertos ? 'block' : 'none';
+    document.getElementById('btn-filtros').innerHTML = filtrosAbertos
+      ? '✕ Fechar filtros'
+      : '⚙️ Filtros avançados <span id="filtros-badge" style="display:none;background:var(--terra);border-radius:20px;padding:1px 7px;font-size:11px;">0</span>';
+  }
+
+  document.addEventListener('click', function(e) {
+    const label = e.target.closest('.filtro-check');
+    if (!label) return;
+    label.classList.toggle('marcado');
+    atualizarBadge();
+    if (window.aplicarFiltros) window.aplicarFiltros();
+  });
+
+  function atualizarBadge() {
+    const marcados = document.querySelectorAll('.filtro-check.marcado').length;
+    const badge = document.getElementById('filtros-badge');
+    if (badge) {
+      badge.style.display = marcados > 0 ? 'inline' : 'none';
+      badge.textContent = marcados;
+    }
+  }
+
+  function buscar() {
+    if (window.aplicarFiltros) window.aplicarFiltros();
+    document.querySelector('#chacaras').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function limparFiltros() {
+    ['f-cidade','f-pessoas','f-preco','f-data','f-data-inicio','f-data-fim'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    const ord = document.getElementById('f-ordem'); if (ord) ord.selectedIndex = 0;
+    document.querySelectorAll('.filtro-check.marcado').forEach(el => el.classList.remove('marcado'));
+    atualizarBadge();
+    if (window.aplicarFiltros) window.aplicarFiltros();
+  }
+</script>
+
+<!-- CHÁCARAS -->
+<section class="section" id="chacaras">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">Disponíveis agora</div>
+      <h2 class="section-title">Chácaras em destaque</h2>
+    </div>
+    <a href="/#chacaras" class="btn btn-outline">Ver todas →</a>
+  </div>
+
+  <div class="chacaras-grid" id="chacaras-grid">
+    <!-- Cards carregados dinamicamente do Supabase -->
+    <div id="chacaras-loading" style="grid-column:1/-1; text-align:center; padding:40px; color:#666; font-size:14px;">
+      ⏳ Carregando propriedades...
+    </div>
+  </div>
+
+  <script>
+  const _SB_H = 'https://tathqoyhcuxthsrghrzx.supabase.co';
+  const _AN_H = 'sb_publishable_fLpPGAodcCvJxPkQ223ABQ_ApJKDLRU';
+  const _paleta = ['linear-gradient(135deg,#c8e6c9,#81c784)','linear-gradient(135deg,#ffe0b2,#ffb74d)','linear-gradient(135deg,#b3e5fc,#4fc3f7)','linear-gradient(135deg,#f8bbd0,#f48fb1)','linear-gradient(135deg,#e8eaf6,#9fa8da)','linear-gradient(135deg,#fff9c4,#ffd54f)','linear-gradient(135deg,#e0f7fa,#4dd0e1)','linear-gradient(135deg,#fce4ec,#f06292)'];
+  const _icones = ['\uD83C\uDFE1','\uD83C\uDF33','\uD83C\uDF89','\uD83C\uDF3F','\uD83C\uDFD5\uFE0F','\uD83C\uDF3B','\uD83C\uDFDE\uFE0F','\uD83C\uDF8A'];
+  const _COMOD = {piscina:'piscina',churrasqueira:'churrasqueira',campo:'campo',lago:'lago',hospedagem:'hospedagem',salao:'salao',quadra:'quadra',playground:'playground',gourmet:'gourmet',gerador:'gerador',pets:'pets',acessivel:'acessib'};
+  let _chacarasAll = [];
+  let _bloqueios = {};
+
+  function _norm(x){ return (x||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  function _datasIntervalo(ini,fim){ const out=[]; const d=new Date(ini+'T12:00:00'); const e=new Date(fim+'T12:00:00'); let g=0; while(d<=e && g<400){ out.push(d.toISOString().split('T')[0]); d.setDate(d.getDate()+1); g++; } return out; }
+
+  function _card(p, idx){
+    const slug = p.slug || p.id;
+    const bg = _paleta[idx % _paleta.length];
+    const icon = _icones[idx % _icones.length];
+    const preco = p.price_per_day ? 'R$ ' + parseFloat(p.price_per_day).toLocaleString('pt-BR', {minimumFractionDigits:0}) + '/dia' : '';
+    const local = [p.city, p.neighborhood].filter(Boolean).join(' \u2014 ');
+    const desc = p.description ? p.description.slice(0,120) + (p.description.length>120?'\u2026':'') : '';
+    const cap = p.max_guests ? ('\uD83D\uDC65 At\u00e9 ' + p.max_guests + ' pessoas') : '';
+    const card = document.createElement('a');
+    card.href = '/' + slug + '/';
+    card.className = 'chacara-card';
+    card.style.cssText = 'text-decoration:none;color:inherit;display:block;';
+    card.innerHTML = `
+      <div class="chacara-foto-placeholder" style="${(p.photos&&p.photos.length)?`background-image:url('${p.photos[0]}');background-size:cover;background-position:center;`:`background: ${bg};`}">
+        ${(p.photos&&p.photos.length)?'':icon}
+      </div>
+      <div class="chacara-info">
+        ${local ? `<div class="chacara-local">\uD83D\uDCCD ${local}</div>` : ''}
+        <div class="chacara-nome">${p.name}</div>
+        ${desc ? `<div class="chacara-desc">${desc}</div>` : ''}
+        <div class="chacara-tags">${cap ? `<span class="tag">${cap}</span>` : ''}</div>
+        <div class="chacara-footer">
+          ${preco ? `<div class="chacara-preco">a partir de <strong>${preco}</strong></div>` : ''}
+          <span class="btn-contato">Solicitar reserva</span>
+        </div>
+      </div>`;
+    return card;
+  }
+
+  function renderChacaras(list){
+    const grid = document.getElementById('chacaras-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    if (!list.length) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#666;font-size:14px;">\uD83D\uDD0D Nenhuma ch\u00e1cara encontrada com esses filtros. <a href="#" onclick="limparFiltros();return false;" style="color:var(--terra);font-weight:600;">Limpar filtros</a></div>';
+      return;
+    }
+    list.forEach((p,idx) => grid.appendChild(_card(p,idx)));
+  }
+
+  function aplicarFiltros(){
+    const g = id => document.getElementById(id);
+    const cidade = _norm((g('f-cidade') ? g('f-cidade').value : '').trim());
+    const pv = g('f-pessoas') ? g('f-pessoas').value : '';
+    const prv = g('f-preco') ? g('f-preco').value : '';
+    const comods = Array.prototype.map.call(document.querySelectorAll('.filtro-check.marcado input'), i => i.value);
+    const di = g('f-data-inicio') ? g('f-data-inicio').value : '';
+    const df = g('f-data-fim') ? g('f-data-fim').value : '';
+    const du = g('f-data') ? g('f-data').value : '';
+    const ordem = g('f-ordem') ? g('f-ordem').value : '';
+
+    let capMin = 0;
+    if (pv.indexOf('50 a 100') >= 0) capMin = 50;
+    else if (pv.indexOf('100 a 200') >= 0) capMin = 100;
+    else if (pv.indexOf('Mais de 200') >= 0) capMin = 200;
+
+    let prMin = 0, prMax = Infinity;
+    if (prv.indexOf('At\u00e9 R$ 500') >= 0) { prMax = 500; }
+    else if (prv.indexOf('500 a R$ 1.000') >= 0) { prMin = 500; prMax = 1000; }
+    else if (prv.indexOf('1.000 a R$ 2.000') >= 0) { prMin = 1000; prMax = 2000; }
+    else if (prv.indexOf('Acima de R$ 2.000') >= 0) { prMin = 2000; }
+
+    let datasReq = [];
+    if (di && df) datasReq = _datasIntervalo(di, df);
+    else if (du) datasReq = [du];
+
+    let list = _chacarasAll.filter(p => {
+      if (cidade) { const hay = _norm([p.city,p.neighborhood,p.address,p.name].filter(Boolean).join(' ')); if (hay.indexOf(cidade) < 0) return false; }
+      if (capMin && (p.max_guests||0) < capMin) return false;
+      const price = parseFloat(p.price_per_day) || 0;
+      if (price < prMin || price > prMax) return false;
+      if (comods.length) { const ams = (p.amenities||[]).map(_norm); for (const c of comods) { const kw = _COMOD[c] || c; if (!ams.some(a => a.indexOf(kw) >= 0)) return false; } }
+      if (datasReq.length) { const bset = _bloqueios[p.id] || {}; if (datasReq.some(d => bset[d])) return false; }
+      return true;
+    });
+
+    if (ordem.indexOf('Menor pre\u00e7o') >= 0) list = list.slice().sort((a,b) => (parseFloat(a.price_per_day)||0) - (parseFloat(b.price_per_day)||0));
+    else if (ordem.indexOf('Mais recentes') >= 0) list = list.slice().sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+
+    renderChacaras(list);
+    const cnt = g('resultado-count');
+    if (cnt) cnt.textContent = list.length + (list.length === 1 ? ' ch\u00e1cara encontrada' : ' ch\u00e1caras encontradas');
+  }
+  window.aplicarFiltros = aplicarFiltros;
+
+  (async function carregarChacaras() {
+    const loading = document.getElementById('chacaras-loading');
+    try {
+      const r = await fetch(`${_SB_H}/rest/v1/properties?active=eq.true&order=created_at.desc&select=id,name,slug,city,address,neighborhood,description,price_per_day,max_guests,amenities,photos,created_at`, { cache: 'no-store', headers: { apikey: _AN_H, Authorization: `Bearer ${_AN_H}` } });
+      const props = await r.json();
+      if (!props || !props.length) { loading.innerHTML = 'Nenhuma propriedade dispon\u00edvel no momento.'; return; }
+      _chacarasAll = props;
+      try {
+        const rb = await fetch(`${_SB_H}/rest/v1/blocked_dates?select=property_id,blocked_date`, { cache: 'no-store', headers: { apikey: _AN_H, Authorization: `Bearer ${_AN_H}` } });
+        const bd = await rb.json();
+        (bd||[]).forEach(x => { (_bloqueios[x.property_id] = _bloqueios[x.property_id] || {})[x.blocked_date] = true; });
+      } catch (e) {}
+      aplicarFiltros();
+      ['f-cidade','f-pessoas','f-preco','f-ordem','f-data','f-data-inicio','f-data-fim'].forEach(id => { const el = document.getElementById(id); if (el) el.addEventListener('input', aplicarFiltros); });
+    } catch(e) { loading.innerHTML = 'Erro ao carregar propriedades. Tente novamente.'; console.error(e); }
+  })();
+  </script>
+</section>
+
+<!-- FORNECEDORES -->
+<section class="section section-fornecedores" id="fornecedores">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">Tudo para seu evento</div>
+      <h2 class="section-title">Fornecedores parceiros</h2>
+    </div>
+  </div>
+
+  <div class="chacaras-grid" id="fornecedores-grid">
+    <div id="fornecedores-loading" style="grid-column:1/-1; text-align:center; padding:40px; color:#666; font-size:14px;">
+      ⏳ Carregando fornecedores...
+    </div>
+  </div>
+
+  <script>
+  (async function carregarFornecedoresHome() {
+    const SUPABASE_URL  = 'https://tathqoyhcuxthsrghrzx.supabase.co';
+    const SUPABASE_ANON = 'sb_publishable_fLpPGAodcCvJxPkQ223ABQ_ApJKDLRU';
+    const grid    = document.getElementById('fornecedores-grid');
+    const loading = document.getElementById('fornecedores-loading');
+
+    const paleta = [
+      'linear-gradient(135deg,#fbd38d,#ed8936)',
+      'linear-gradient(135deg,#b3e5fc,#4fc3f7)',
+      'linear-gradient(135deg,#f8bbd0,#f48fb1)',
+      'linear-gradient(135deg,#c8e6c9,#66bb6a)',
+      'linear-gradient(135deg,#ffe0b2,#ffa726)',
+      'linear-gradient(135deg,#e1bee7,#9c27b0)',
+      'linear-gradient(135deg,#b2dfdb,#00897b)',
+      'linear-gradient(135deg,#fce4ec,#e91e63)',
+    ];
+
+    try {
+      const r = await fetch(
+        `${SUPABASE_URL}/rest/v1/suppliers?active=eq.true&order=created_at.desc&limit=8&select=name,slug,category,city,state,description,whatsapp,price_range,avatar_emoji,rating,rating_count`,
+        { cache: 'no-store', headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } }
+      );
+      const forns = await r.json();
+
+      if (!forns || !forns.length) {
+        loading.innerHTML = 'Nenhum fornecedor cadastrado ainda. <a href="#" onclick="abrirModal(\'cadastro-fornecedor\');return false;" style="color:var(--terra);font-weight:600;">Seja o primeiro a anunciar →</a>';
+        return;
+      }
+
+      loading.remove();
+
+      forns.forEach((f, idx) => {
+        if (!f.slug) return;
+        const bg   = paleta[idx % paleta.length];
+        const icon = f.avatar_emoji || '🎉';
+        const local = [f.city, f.state].filter(Boolean).join(' — ');
+        const desc  = f.description ? f.description.slice(0, 120) + (f.description.length > 120 ? '…' : '') : '';
+        const aval  = f.rating ? `⭐ ${f.rating} (${f.rating_count || 0})` : '';
+
+        const card = document.createElement('a');
+        card.href  = `/fornecedor.html?slug=${encodeURIComponent(f.slug)}`;
+        card.className = 'chacara-card';
+        card.style.cssText = 'text-decoration:none;color:inherit;display:block;';
+        card.innerHTML = `
+          <div class="chacara-foto-placeholder" style="background: ${bg};">
+            ${icon}
+          </div>
+          <div class="chacara-info">
+            ${local ? `<div class="chacara-local">📍 ${local}</div>` : ''}
+            <div class="chacara-nome">${f.name}</div>
+            ${desc ? `<div class="chacara-desc">${desc}</div>` : ''}
+            <div class="chacara-tags">
+              ${f.category ? `<span class="tag">${f.category}</span>` : ''}
+              ${aval ? `<span class="tag">${aval}</span>` : ''}
+            </div>
+            <div class="chacara-footer">
+              ${f.price_range ? `<div class="chacara-preco">${f.price_range}</div>` : ''}
+              <span class="btn-contato">Ver perfil</span>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+    } catch(e) {
+      loading.innerHTML = 'Erro ao carregar fornecedores. Tente novamente.';
+      console.error(e);
+    }
+  })();
+  </script>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section como-section" id="como-funciona">
+  <div class="section-eyebrow">Simples assim</div>
+  <h2 class="section-title">Como funciona</h2>
+
+  <div class="como-grid">
+    <div class="como-item">
+      <div class="como-icon">🔍</div>
+      <div class="como-title">Busque e filtre</div>
+      <div class="como-desc">Pesquise chácaras por cidade e número de convidados. Use os filtros avançados para refinar por data, preço e comodidades.</div>
+    </div>
+    <div class="como-item">
+      <div class="como-icon">📋</div>
+      <div class="como-title">Solicite sua reserva</div>
+      <div class="como-desc">Preencha o formulário com suas datas e evento. O proprietário confirma em até 24h e você paga com segurança pela plataforma.</div>
+    </div>
+    <div class="como-item">
+      <div class="como-icon">🎉</div>
+      <div class="como-title">Aproveite seu evento</div>
+      <div class="como-desc">Após o pagamento, receba o endereço e contato do proprietário. Complete o pacote com nossos fornecedores parceiros.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ANUNCIE -->
+<section class="anuncie-section" id="anuncie">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow" style="color:var(--terra);">Para proprietários e fornecedores</div>
+      <h2 class="section-title">Anuncie na plataforma</h2>
+    </div>
+  </div>
+
+  <div class="anuncie-grid">
+    <div class="anuncie-card">
+      <div class="anuncie-icon">🏡</div>
+      <div class="anuncie-title">Tenho uma chácara</div>
+      <div class="anuncie-desc">Cadastre sua chácara, gerencie reservas pelo painel e receba pagamentos com segurança pela plataforma.</div>
+      <ul class="anuncie-lista">
+        <li>Fotos e vídeos do espaço</li>
+        <li>Calendário de disponibilidade</li>
+        <li>Descrição completa e valores</li>
+        <li>Reservas gerenciadas com segurança pela plataforma</li>
+        <li>Aparece nas buscas da região</li>
+      </ul>
+      <div class="anuncie-preco">
+        <span class="preco-free" style="font-size:28px;">8%</span>
+        <span class="preco-label">de comissão apenas por reserva confirmada — sem mensalidade</span>
+      </div>
+      <button class="btn btn-verde btn-lg" onclick="abrirModal('cadastro-chacara')" style="width:100%; justify-content:center;">Cadastrar minha chácara</button>
+    </div>
+
+    <div class="anuncie-card">
+      <div class="anuncie-icon">🎉</div>
+      <div class="anuncie-title">Sou fornecedor de eventos</div>
+      <div class="anuncie-desc">Apareça para pessoas que estão organizando festas e eventos na região. Seu serviço na frente de quem já está planejando.</div>
+      <ul class="anuncie-lista">
+        <li>Perfil com fotos e descrição</li>
+        <li>Listado na categoria do seu serviço</li>
+        <li>Clientes que já estão planejando eventos</li>
+        <li>Alcance toda a região de Maringá</li>
+        <li>Destaque entre os parceiros</li>
+      </ul>
+      <div class="anuncie-preco">
+        <span class="preco-free">Grátis</span>
+        <span class="preco-label">para fornecedores — sem mensalidade</span>
+      </div>
+      <button class="btn btn-primary btn-lg" onclick="abrirModal('cadastro-fornecedor')" style="width:100%; justify-content:center;">Cadastrar meu serviço</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">🌿 Aluguel de <span>Chácaras</span></div>
+    <div class="footer-desc">A maior plataforma de chácaras para eventos de Maringá e região. Conectamos proprietários, fornecedores e quem quer festejar.</div>
+  </div>
+  <div>
+    <div class="footer-col-title">Chácaras</div>
+    <ul class="footer-links">
+      <li><a href="/#chacaras">Ver todas</a></li>
+      <li><a href="/#chacaras">Maringá</a></li>
+      <li><a href="/#chacaras">Sarandi</a></li>
+      <li><a href="/#chacaras">Paiçandu</a></li>
+      <li><a href="/#chacaras">Marialva</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Fornecedores</div>
+    <ul class="footer-links">
+      <li><a href="/#fornecedores">Brinquedos Infantis</a></li>
+      <li><a href="/#fornecedores">Churrasqueiros</a></li>
+      <li><a href="/#fornecedores">Decoração e Balões</a></li>
+      <li><a href="/#fornecedores">Buffets</a></li>
+      <li><a href="/#fornecedores">DJ e Música</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-col-title">Plataforma</div>
+    <ul class="footer-links">
+      <li><a href="/#como-funciona">Como funciona</a></li>
+      <li><a href="#anuncie">Anuncie sua chácara</a></li>
+      <li><a href="#" onclick="abrirModal('login')">Entrar</a></li>
+      <li><a href="mailto:contato@alugueldechacaras.com">Contato</a></li>
+      <li><a href="/termos.html">Termos</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span class="footer-copy">© 2026 AluguelDeChácaras.com — Maringá, PR</span>
+  <span class="footer-copy">Feito com 💚 no Paraná</span>   <span class="footer-copy">Humberto Vinicius Paulino Baena</span>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-overlay" onclick="fecharModalFora(event)">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  const modais = {
+    login: {
+      titulo: 'Entrar na plataforma',
+      sub: 'Acesse seu painel de proprietário ou fornecedor.',
+      campos: `
+        <div class="field"><label for="home-login-email">E-mail</label><input type="email" id="home-login-email" placeholder="seuemail@exemplo.com"/></div>
+        <div class="field"><label for="home-login-senha">Senha</label><input type="password" id="home-login-senha" placeholder="••••••••"/></div>
+        <div id="home-login-erro" style="display:none;color:#b91c1c;background:#fee2e2;padding:10px 12px;border-radius:8px;font-size:13px;margin-top:8px;"></div>
+        <button class="btn btn-verde" id="home-login-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="fazerLoginHome()">Entrar</button>
+        <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:16px;font-size:13px;color:#6b7280;">
+          <span>Não tem conta? <a href="#anuncie" onclick="fecharModal()" style="color:#2d7a45;font-weight:600;">Cadastre-se</a></span>
+          <a href="#" onclick="mostrarRecuperarSenhaHome();return false;" style="color:#6b7280;font-weight:600;">Esqueci minha senha</a>
+        </div>
+        <div id="home-recuperar-box" style="display:none;margin-top:16px;padding-top:16px;border-top:1px solid #e5e7eb;">
+          <div class="field"><label for="home-recuperar-email">Informe seu e-mail cadastrado</label><input type="email" id="home-recuperar-email" placeholder="seuemail@exemplo.com"/></div>
+          <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="enviarRecuperacaoSenhaHome()">Enviar link de recuperação</button>
+          <div id="home-recuperar-msg" style="display:none;margin-top:12px;padding:10px 12px;border-radius:8px;font-size:13px;text-align:center;"></div>
+        </div>
+      `
+    },
+    reserva: {
+      titulo: 'Solicitar reserva',
+      sub: 'Preencha seus dados e enviaremos sua solicitação ao proprietário.',
+      campos: `
+        <p style="text-align:center;font-size:14px;color:#374151;margin-bottom:16px;">Você será redirecionado para a página da chácara com o formulário completo de reserva.</p>
+        <button class="btn btn-verde" style="width:100%;justify-content:center;margin-top:4px;" onclick="window.location.href='/espaco-verde-festas/'">Ver detalhes e solicitar reserva →</button>
+        <p style="text-align:center;margin-top:12px;font-size:12px;color:#6b7280;">🔒 Endereço e contato liberados somente após confirmação e pagamento.</p>
+      `
+    },
+    'cadastro-chacara': {
+      titulo: 'Cadastrar minha chácara',
+      sub: 'Preencha os dados básicos e comece a receber reservas pela plataforma.',
+      campos: `
+        <div class="field-row">
+          <div class="field"><label for="cad-chacara-nome">Seu nome</label><input type="text" id="cad-chacara-nome" placeholder="Nome completo"/></div>
+          <div class="field"><label for="cad-chacara-whatsapp">WhatsApp</label><input type="text" id="cad-chacara-whatsapp" placeholder="(44) 9 0000-0000"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="cad-chacara-nomenegocio">Nome da chácara</label><input type="text" id="cad-chacara-nomenegocio" placeholder="Ex: Chácara das Palmeiras"/></div>
+          <div class="field"><label for="cad-chacara-cidade">Cidade</label><input type="text" id="cad-chacara-cidade" placeholder="Ex: Maringá, Sarandi..."/></div>
+        </div>
+        <div class="field"><label for="cad-chacara-email">E-mail</label><input type="email" id="cad-chacara-email" placeholder="seuemail@exemplo.com"/></div>
+        <div class="field-row">
+          <div class="field"><label for="cad-chacara-senha">Crie uma senha</label><input type="password" id="cad-chacara-senha" placeholder="Mínimo 6 caracteres" autocomplete="new-password"/></div>
+          <div class="field"><label for="cad-chacara-senha2">Confirme a senha</label><input type="password" id="cad-chacara-senha2" placeholder="Repita a senha" autocomplete="new-password"/></div>
+        </div>
+        <div style="font-size:12px;color:#6b7280;margin-top:-8px;margin-bottom:8px;">Você vai usar seu e-mail e essa senha pra entrar no painel depois.</div>
+        <label class="field" style="display:flex;flex-direction:row;align-items:flex-start;gap:8px;font-weight:400;font-size:13px;color:#374151;margin-top:6px;cursor:pointer;">
+          <input type="checkbox" id="cad-chacara-termos" style="margin-top:3px;flex-shrink:0;width:auto;"/>
+          <span>Li e aceito os <a href="/termos-de-uso.html" target="_blank" style="color:var(--verde);font-weight:600;">Termos de Uso</a>, a <a href="/politica-de-privacidade.html" target="_blank" style="color:var(--verde);font-weight:600;">Política de Privacidade</a> e o <a href="/termo-responsabilidade-proprietario.html" target="_blank" style="color:var(--verde);font-weight:600;">Termo de Responsabilidade do Proprietário</a>.</span>
+        </label>
+        <div id="cad-chacara-erro" style="display:none;color:#b91c1c;background:#fee2e2;padding:10px 12px;border-radius:8px;font-size:13px;margin-top:8px;"></div>
+        <button class="btn btn-verde" id="cad-chacara-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="enviarCadastro('chacara')">Quero me cadastrar!</button>
+      `
+    },
+    'cadastro-fornecedor': {
+      titulo: 'Cadastrar meu serviço',
+      sub: 'Apareça para quem está organizando eventos na região. Cadastro gratuito!',
+      campos: `
+        <div class="field-row">
+          <div class="field"><label for="cad-fornecedor-nome">Seu nome</label><input type="text" id="cad-fornecedor-nome" placeholder="Nome completo"/></div>
+          <div class="field"><label for="cad-fornecedor-whatsapp">WhatsApp</label><input type="text" id="cad-fornecedor-whatsapp" placeholder="(44) 9 0000-0000"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="cad-fornecedor-nomenegocio">Nome do negócio</label><input type="text" id="cad-fornecedor-nomenegocio" placeholder="Ex: DJ Marquinhos Events"/></div>
+          <div class="field"><label for="cad-fornecedor-categoria">Categoria</label>
+            <select id="cad-fornecedor-categoria">
+              <option>Bolos e Doces</option>
+              <option>DJ e Música</option>
+              <option>Chopeiras</option>
+              <option>Decoração e Balões</option>
+              <option>Brinquedos Infantis</option>
+              <option>Buffets</option>
+              <option>Animadores e Recreadores</option>
+              <option>Churrasqueiros</option>
+              <option>Salgados</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="cad-fornecedor-cidade">Cidade</label><input type="text" id="cad-fornecedor-cidade" placeholder="Ex: Maringá"/></div>
+          <div class="field"><label for="cad-fornecedor-email">E-mail</label><input type="email" id="cad-fornecedor-email" placeholder="seuemail@exemplo.com"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="cad-fornecedor-senha">Crie uma senha</label><input type="password" id="cad-fornecedor-senha" placeholder="Mínimo 6 caracteres" autocomplete="new-password"/></div>
+          <div class="field"><label for="cad-fornecedor-senha2">Confirme a senha</label><input type="password" id="cad-fornecedor-senha2" placeholder="Repita a senha" autocomplete="new-password"/></div>
+        </div>
+        <div style="font-size:12px;color:#6b7280;margin-top:-8px;margin-bottom:8px;">Você vai usar seu e-mail e essa senha pra entrar no painel depois.</div>
+        <label class="field" style="display:flex;flex-direction:row;align-items:flex-start;gap:8px;font-weight:400;font-size:13px;color:#374151;margin-top:6px;cursor:pointer;">
+          <input type="checkbox" id="cad-fornecedor-termos" style="margin-top:3px;flex-shrink:0;width:auto;"/>
+          <span>Li e aceito os <a href="/termos-de-uso.html" target="_blank" style="color:var(--verde);font-weight:600;">Termos de Uso</a>, a <a href="/politica-de-privacidade.html" target="_blank" style="color:var(--verde);font-weight:600;">Política de Privacidade</a> e o <a href="/termo-responsabilidade-fornecedor.html" target="_blank" style="color:var(--verde);font-weight:600;">Termo de Responsabilidade do Fornecedor</a>.</span>
+        </label>
+        <div id="cad-fornecedor-erro" style="display:none;color:#b91c1c;background:#fee2e2;padding:10px 12px;border-radius:8px;font-size:13px;margin-top:8px;"></div>
+        <button class="btn btn-primary" id="cad-fornecedor-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="enviarCadastro('fornecedor')">Quero me cadastrar!</button>
+      `
+    }
+  };
+
+  function abrirModal(tipo) {
+    const m = modais[tipo];
+    document.getElementById('modal-content').innerHTML = `
+      <div class="modal-header">
+        <div class="modal-title">${m.titulo}</div>
+        <button class="close-btn" onclick="fecharModal()">✕</button>
+      </div>
+      <div class="modal-sub">${m.sub}</div>
+      ${m.campos}
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function fecharModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  function fecharModalFora(e) {
+    if (e.target === document.getElementById('modal-overlay')) fecharModal();
+  }
+
+  function toggleMenuMobile() {
+    const nav = document.getElementById('nav-links');
+    const btn = document.getElementById('nav-mobile-toggle');
+    const aberto = nav.classList.toggle('aberto');
+    btn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+    btn.textContent = aberto ? '✕' : '☰';
+  }
+
+  const SUPA_URL_HOME  = 'https://tathqoyhcuxthsrghrzx.supabase.co';
+  const SUPA_ANON_HOME = 'sb_publishable_fLpPGAodcCvJxPkQ223ABQ_ApJKDLRU';
+  let _supaHome = null;
+  function getSupaHome() {
+    if (!_supaHome && window.supabase) _supaHome = window.supabase.createClient(SUPA_URL_HOME, SUPA_ANON_HOME);
+    return _supaHome;
+  }
+
+  async function refletirSessaoHome() {
+    const supa = getSupaHome();
+    if (!supa) { setTimeout(refletirSessaoHome, 400); return; }
+    let session = null;
+    try { ({ data: { session } } = await supa.auth.getSession()); } catch (e) { return; }
+    if (!session) return;
+    const cta = document.querySelector('.nav-cta');
+    if (!cta) return;
+    let painel = '/painel-proprietario.html';
+    try { const { data: sup } = await supa.from('suppliers').select('id').eq('email', session.user.email).maybeSingle(); if (sup) painel = '/painel-fornecedor.html'; } catch (e) {}
+    cta.innerHTML = '<a href="' + painel + '" class="btn btn-primary">Meu painel</a> <a href="#" class="btn btn-outline" onclick="sairHome(event)">Sair</a>';
+  }
+  async function sairHome(ev) {
+    if (ev) ev.preventDefault();
+    const supa = getSupaHome();
+    try { if (supa) await supa.auth.signOut(); } catch (e) {}
+    window.location.reload();
+  }
+  window.addEventListener('DOMContentLoaded', refletirSessaoHome);
+  window.addEventListener('pageshow', function(e){ if (e.persisted) window.location.reload(); });
+
+  async function fazerLoginHome() {
+    const email = document.getElementById('home-login-email').value.trim();
+    const senha = document.getElementById('home-login-senha').value;
+    const erro = document.getElementById('home-login-erro');
+    const btn = document.getElementById('home-login-btn');
+    erro.style.display = 'none';
+    if (!email || !senha) {
+      erro.textContent = 'Preencha e-mail e senha.';
+      erro.style.display = 'block';
+      return;
+    }
+    const supa = getSupaHome();
+    if (!supa) {
+      erro.textContent = 'Erro ao carregar autenticação. Recarregue a página e tente novamente.';
+      erro.style.display = 'block';
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Entrando...';
+    const { error } = await supa.auth.signInWithPassword({ email, password: senha });
+    if (error) {
+      erro.textContent = 'E-mail ou senha incorretos.';
+      erro.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Entrar';
+      return;
+    }
+    const { data: sup } = await supa.from('suppliers').select('id').eq('email', email).maybeSingle();
+    window.location.href = sup ? '/painel-fornecedor.html' : '/painel-proprietario.html';
+  }
+
+  if (new URLSearchParams(window.location.search).get('recuperar') === '1') {
+    window.addEventListener('DOMContentLoaded', () => {
+      abrirModal('login');
+      mostrarRecuperarSenhaHome();
+    });
+  }
+
+  function abrirRecuperacaoSenha(email) {
+    fecharModal();
+    abrirModal('login');
+    document.getElementById('home-login-email').value = email;
+    mostrarRecuperarSenhaHome();
+  }
+
+  function mostrarRecuperarSenhaHome() {
+    const box = document.getElementById('home-recuperar-box');
+    const visivel = box.style.display === 'block';
+    box.style.display = visivel ? 'none' : 'block';
+    if (!visivel) {
+      const emailAtual = document.getElementById('home-login-email').value.trim();
+      if (emailAtual) document.getElementById('home-recuperar-email').value = emailAtual;
+    }
+  }
+
+  async function enviarRecuperacaoSenhaHome() {
+    const email = document.getElementById('home-recuperar-email').value.trim();
+    const msg = document.getElementById('home-recuperar-msg');
+    if (!email) {
+      msg.textContent = 'Informe seu e-mail.';
+      msg.style.background = '#fee2e2';
+      msg.style.color = '#b91c1c';
+      msg.style.display = 'block';
+      return;
+    }
+    const supa = getSupaHome();
+    const { error } = await supa.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://alugueldechacaras.com/redefinir-senha.html'
+    });
+    if (error) {
+      msg.textContent = 'Erro ao enviar: ' + error.message;
+      msg.style.background = '#fee2e2';
+      msg.style.color = '#b91c1c';
+    } else {
+      msg.textContent = '✅ Se este e-mail estiver cadastrado, você receberá um link de recuperação em instantes.';
+      msg.style.background = '#e8f5e9';
+      msg.style.color = '#2d7a45';
+    }
+    msg.style.display = 'block';
+  }
+
+  const TERMOS_VERSAO = '3.1';
+
+  function formatarTelBR(value) {
+    let n = (value || '').replace(/\D/g, '').slice(0, 11);
+    if (n.length <= 2) return n.length ? '(' + n : '';
+    const ddd = n.slice(0, 2);
+    const rest = n.slice(2);
+    let meio, fim;
+    if (rest.length >= 9) { meio = rest.slice(0, 5); fim = rest.slice(5, 9); }
+    else if (rest.length > 4) { meio = rest.slice(0, rest.length - 4); fim = rest.slice(-4); }
+    else { return '(' + ddd + ') ' + rest; }
+    return '(' + ddd + ') ' + meio + '-' + fim;
+  }
+
+  function inicializarMascarasCadastro() {
+    ['cad-chacara-whatsapp', 'cad-fornecedor-whatsapp'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.setAttribute('inputmode', 'tel');
+      if (!el._maskAttached) {
+        el._maskAttached = true;
+        el.addEventListener('input', () => { el.value = formatarTelBR(el.value); });
+      }
+      if (el.value) el.value = formatarTelBR(el.value);
+    });
+  }
+  window.addEventListener('DOMContentLoaded', inicializarMascarasCadastro);
+
+  async function enviarCadastro(tipo) {
+    const prefixo = tipo === 'chacara' ? 'cad-chacara' : 'cad-fornecedor';
+    const erroEl = document.getElementById(prefixo + '-erro');
+    const btn = document.getElementById(prefixo + '-btn');
+    erroEl.style.display = 'none';
+
+    const nome = document.getElementById(prefixo + '-nome').value.trim();
+    const whatsapp = document.getElementById(prefixo + '-whatsapp').value.trim();
+    const nomeNegocio = document.getElementById(prefixo + '-nomenegocio').value.trim();
+    const cidade = document.getElementById(prefixo + '-cidade').value.trim();
+    const email = document.getElementById(prefixo + '-email').value.trim();
+    const senha = document.getElementById(prefixo + '-senha').value;
+    const senha2 = document.getElementById(prefixo + '-senha2').value;
+    const categoria = tipo === 'fornecedor' ? document.getElementById('cad-fornecedor-categoria').value : undefined;
+    const termosAceitos = document.getElementById(prefixo + '-termos').checked;
+
+    if (!nome || !whatsapp || !nomeNegocio || !email) {
+      erroEl.textContent = 'Preencha todos os campos obrigatórios.';
+      erroEl.style.display = 'block';
+      return;
+    }
+
+    if (!senha || senha.length < 6) {
+      erroEl.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+      erroEl.style.display = 'block';
+      return;
+    }
+
+    if (senha !== senha2) {
+      erroEl.textContent = 'As senhas não coincidem.';
+      erroEl.style.display = 'block';
+      return;
+    }
+
+    if (!termosAceitos) {
+      erroEl.textContent = 'Você precisa aceitar os Termos de Uso e a Política de Privacidade para continuar.';
+      erroEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    const textoOriginal = btn.textContent;
+    btn.textContent = 'Criando sua conta...';
+
+    try {
+      const r = await fetch('https://n8n.alugueldechacaras.com/webhook/cadastro-novo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo, nome, whatsapp, email, senha, nome_negocio: nomeNegocio, cidade, categoria, termos_aceitos: true, termos_versao: TERMOS_VERSAO })
+      });
+      const data = await r.json();
+      if (!r.ok || !data.ok) {
+        const msg = data.erro || 'Não foi possível enviar seu cadastro. Tente novamente.';
+        if (msg.includes('já possui cadastro')) {
+          const emailEsc = email.replace(/'/g, "\\'");
+          erroEl.innerHTML = msg + ' <a href="#" onclick="fecharModal();abrirModal(\'login\');return false;" style="color:#b91c1c;font-weight:700;text-decoration:underline;">Fazer login</a> · <a href="#" onclick="abrirRecuperacaoSenha(\'' + emailEsc + '\');return false;" style="color:#b91c1c;font-weight:700;text-decoration:underline;">Esqueci minha senha</a>';
+        } else {
+          erroEl.textContent = msg;
+        }
+        erroEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = textoOriginal;
+        return;
+      }
+
+      btn.textContent = 'Entrando...';
+      const supa = getSupaHome();
+      const { error: loginError } = await supa.auth.signInWithPassword({ email, password: senha });
+      if (loginError) {
+        document.getElementById('modal-content').innerHTML = `
+          <div class="modal-header">
+            <div class="modal-title">✅ Conta criada!</div>
+            <button class="close-btn" onclick="fecharModal()">✕</button>
+          </div>
+          <div class="modal-sub">Sua conta foi criada. Faça login com o e-mail e a senha que você cadastrou para preencher os detalhes do seu anúncio.</div>
+          <button class="btn btn-verde" style="width:100%;justify-content:center;margin-top:8px;" onclick="fecharModal();abrirModal('login')">Ir para o login</button>
+        `;
+        return;
+      }
+
+      window.location.href = tipo === 'chacara' ? '/painel-proprietario.html?editar=1' : '/painel-fornecedor.html?editar=1';
+    } catch (e) {
+      erroEl.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
+      erroEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = textoOriginal;
+    }
+  }
+</script>
+
+<!-- CHAT FLUTUANTE COM IA -->
+<style>
+  .chat-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .chat-bubble-hint {
+    background: var(--verde-escuro);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 20px 20px 4px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    animation: fadeInUp 0.4s ease 1s both;
+    cursor: pointer;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .chat-btn {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--verde-escuro);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 6px 24px rgba(30,77,43,0.35);
+    transition: transform 0.2s, background 0.2s;
+    position: relative;
+  }
+
+  .chat-btn:hover { transform: scale(1.08); background: #163820; }
+
+  .chat-notif {
+    position: absolute;
+    top: 0; right: 0;
+    width: 18px; height: 18px;
+    background: var(--terra);
+    border-radius: 50%;
+    border: 2px solid #fff;
+    font-size: 10px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+
+  .chat-window {
+    position: fixed;
+    bottom: 104px;
+    right: 28px;
+    width: 360px;
+    height: 500px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    display: none;
+    flex-direction: column;
+    z-index: 299;
+    overflow: hidden;
+    animation: chatOpen 0.25s ease;
+  }
+
+  @keyframes chatOpen {
+    from { opacity: 0; transform: translateY(16px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .chat-window.open { display: flex; }
+
+  .chat-header {
+    background: var(--verde-escuro);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .chat-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: #7ee8b0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .chat-header-info { flex: 1; }
+  .chat-header-name { color: #fff; font-weight: 700; font-size: 15px; }
+  .chat-header-status { color: rgba(255,255,255,0.6); font-size: 12px; display: flex; align-items: center; gap: 4px; }
+  .chat-header-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #7ee8b0; }
+
+  .chat-close {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 8px;
+    width: 30px; height: 30px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chat-close:hover { background: rgba(255,255,255,0.25); }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #f9fafb;
+  }
+
+  .chat-msg {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+  }
+
+  .chat-msg.user { flex-direction: row-reverse; }
+
+  .chat-msg-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--verde-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .chat-msg.user .chat-msg-avatar { background: var(--terra-claro); }
+
+  .chat-msg-bubble {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 16px 16px 16px 4px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--preto);
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .chat-msg.user .chat-msg-bubble {
+    background: var(--verde-escuro);
+    color: #fff;
+    border-radius: 16px 16px 4px 16px;
+  }
+
+  .chat-typing {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+  }
+
+  .chat-typing-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--verde-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .typing-dots {
+    background: #fff;
+    border-radius: 16px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .typing-dots span {
+    width: 7px; height: 7px;
+    background: #9ca3af;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+  }
+
+  .chat-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 16px 8px;
+    background: #f9fafb;
+  }
+
+  .chat-suggestion {
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.15s;
+  }
+
+  .chat-suggestion:hover { background: #d1ead9; }
+
+  .chat-input-area {
+    padding: 12px 16px;
+    border-top: 1px solid var(--cinza-borda);
+    display: flex;
+    gap: 8px;
+    background: #fff;
+  }
+
+  .chat-input {
+    flex: 1;
+    border: 1.5px solid var(--cinza-borda);
+    border-radius: 24px;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border 0.15s;
+    resize: none;
+  }
+
+  .chat-input:focus { border-color: var(--verde); }
+
+  .chat-send {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--verde-escuro);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+
+  .chat-send:hover { background: #163820; }
+  .chat-send:disabled { background: #9ca3af; cursor: not-allowed; }
+</style>
+
+<!-- FAB -->
+<div class="chat-fab">
+  <div class="chat-bubble-hint" onclick="toggleChat()">💬 Precisa de ajuda para escolher?</div>
+  <button class="chat-btn" onclick="toggleChat()">
+    🌿
+    <span class="chat-notif">1</span>
+  </button>
+</div>
+
+<!-- JANELA DO CHAT -->
+<div class="chat-window" id="chat-window">
+  <div class="chat-header">
+    <div class="chat-avatar">🌿</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Assistente AluguelDeChácaras</div>
+      <div class="chat-header-status">Online agora</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+
+  <div class="chat-messages" id="chat-messages"></div>
+
+  <div class="chat-suggestions" id="chat-suggestions">
+    <button class="chat-suggestion" onclick="enviarSugestao('Quero uma chácara com piscina')">🏊 Com piscina</button>
+    <button class="chat-suggestion" onclick="enviarSugestao('Preciso de uma chácara para festa')">💒 Casamento</button>
+    <button class="chat-suggestion" onclick="enviarSugestao('Quero ver fornecedores de DJ')">🎵 DJ e música</button>
+    <button class="chat-suggestion" onclick="enviarSugestao('Chácaras para até 50 pessoas')">👥 Até 50 pessoas</button>
+  </div>
+
+  <div class="chat-input-area">
+    <input class="chat-input" id="chat-input" type="text" placeholder="Digite sua dúvida..." onkeydown="teclaEnter(event)"/>
+    <button class="chat-send" id="chat-send" onclick="enviarMensagem()">➤</button>
+  </div>
+</div>
+
+<script>
+  // DADOS DAS CHÁCARAS E FORNECEDORES (base de conhecimento da IA)
+  const BASE_CONHECIMENTO = `
+Você é o assistente virtual do site AluguelDeChácaras.com, plataforma de aluguel de chácaras para eventos em Maringá e região do Paraná. Seja simpático, objetivo e use emojis com moderação.
+
+CHÁCARAS CADASTRADAS:
+1. Chácara das Palmeiras — Maringá (Zona Rural)
+   - Capacidade: até 150 pessoas
+   - Estrutura: piscina, churrasqueira coberta, campo de futebol, casa sede, estacionamento
+   - Valor: a partir de R$ 1.200/dia
+   - Ideal para: festas, confraternizações, churrascos
+   - Contato: disponível no site
+
+2. Sítio Boa Vista — Sarandi/PR
+   - Capacidade: até 80 pessoas
+   - Estrutura: lago para pesca, espaço gourmet, hospedagem, área arborizada
+   - Valor: a partir de R$ 900/dia
+   - Ideal para: lazer, final de semana, grupos menores
+
+3. Espaço Verde Festas — Paiçandu/PR
+   - Capacidade: até 200 pessoas
+   - Estrutura: salão coberto, decoração inclusa, estacionamento amplo
+   - Valor: a partir de R$ 2.500/dia
+   - Ideal para: casamentos, debutantes, eventos grandes
+
+FORNECEDORES CADASTRADOS:
+- DJ Marquinhos Events (DJ e Música) — Maringá. Som profissional, iluminação LED inclusa.
+- Doce Arte Confeitaria (Bolos e Doces) — Maringá. Bolos artísticos, docinhos, mesa de doces.
+- Alegria Kids Locações (Brinquedos Infantis) — Sarandi. Pula-pula, escorregador, piscina de bolinhas.
+- Chopp Gelado Maringá (Chopeiras) — Maringá. Aluguel de chopeiras, várias marcas, frete grátis.
+
+CATEGORIAS DE FORNECEDORES DISPONÍVEIS: Bolos e Doces, DJ e Música, Chopeiras, Decoração e Balões, Brinquedos Infantis, Buffets, Animadores e Recreadores, Churrasqueiros, Salgados.
+
+INFORMAÇÕES GERAIS:
+- Reservas feitas com segurança pela plataforma — endereço liberado apenas após pagamento confirmado
+- Comissão de 8% cobrada do proprietário por reserva confirmada — sem custo adicional para o cliente
+- Fornecedores cadastrados gratuitamente na plataforma
+- Cidades atendidas: Maringá, Sarandi, Paiçandu, Marialva e região
+- Para cadastrar chácara ou serviço: clicar em "Anunciar" no menu
+
+Responda sempre em português brasileiro. Se não souber algo, sugira que o visitante use o formulário de contato ou navegue pelo site.
+  `;
+
+  let chatAberto = false;
+  let historico = [];
+  let enviando = false;
+
+  function toggleChat() {
+    chatAberto = !chatAberto;
+    const win = document.getElementById('chat-window');
+    const hint = document.querySelector('.chat-bubble-hint');
+    const notif = document.querySelector('.chat-notif');
+
+    if (chatAberto) {
+      win.classList.add('open');
+      hint.style.display = 'none';
+      notif.style.display = 'none';
+      if (historico.length === 0) mensagemBoasVindas();
+      setTimeout(() => document.getElementById('chat-input').focus(), 300);
+    } else {
+      win.classList.remove('open');
+    }
+  }
+
+  function mensagemBoasVindas() {
+    adicionarMensagem('ia', 'Olá! 👋 Sou o assistente do AluguelDeChácaras.com.\n\nPosso te ajudar a encontrar a chácara ideal para seu evento ou indicar fornecedores de Maringá e região. Como posso ajudar?');
+  }
+
+  function adicionarMensagem(tipo, texto) {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = `chat-msg ${tipo === 'user' ? 'user' : ''}`;
+
+    const avatar = document.createElement('div');
+    avatar.className = 'chat-msg-avatar';
+    avatar.textContent = tipo === 'user' ? '👤' : '🌿';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-msg-bubble';
+    bubble.style.whiteSpace = 'pre-wrap';
+    bubble.textContent = texto;
+
+    div.appendChild(avatar);
+    div.appendChild(bubble);
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+
+    historico.push({ role: tipo === 'user' ? 'user' : 'assistant', content: texto });
+  }
+
+  function mostrarTyping() {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-typing';
+    div.id = 'typing-indicator';
+    div.innerHTML = `
+      <div class="chat-typing-avatar">🌿</div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>
+    `;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removerTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  async function enviarMensagem() {
+    if (enviando) return;
+    const input = document.getElementById('chat-input');
+    const texto = input.value.trim();
+    if (!texto) return;
+
+    input.value = '';
+    document.getElementById('chat-suggestions').style.display = 'none';
+    adicionarMensagem('user', texto);
+    mostrarTyping();
+    enviando = true;
+    document.getElementById('chat-send').disabled = true;
+
+    try {
+      const mensagens = [
+        { role: 'user', content: BASE_CONHECIMENTO + '\n\nAgora responda a conversa abaixo:' },
+        { role: 'assistant', content: 'Entendido! Estou pronto para ajudar os visitantes do AluguelDeChácaras.com.' },
+        ...historico.slice(-10)
+      ];
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 1000,
+          messages: mensagens
+        })
+      });
+
+      const data = await response.json();
+      const resposta = data.content?.map(b => b.text || '').join('') || 'Desculpe, não consegui processar sua pergunta. Tente novamente!';
+
+      removerTyping();
+      adicionarMensagem('ia', resposta);
+    } catch (err) {
+      removerTyping();
+      adicionarMensagem('ia', 'Ops, tive um problema de conexão. Tente novamente em instantes! 🙏');
+    }
+
+    enviando = false;
+    document.getElementById('chat-send').disabled = false;
+  }
+
+  function enviarSugestao(texto) {
+    document.getElementById('chat-input').value = texto;
+    enviarMensagem();
+  }
+
+  function teclaEnter(e) {
+    if (e.key === 'Enter') enviarMensagem();
+  }
+</script>
+</body>
+</html>
+

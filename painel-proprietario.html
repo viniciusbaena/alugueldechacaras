@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<base href="/alugueldechacaras/">
+  <script>if(location.protocol==='http:')location.replace(location.href.replace('http:','https:'));</script>
+  <meta charset="UTF-8"/>
+  <!-- SEGURANÇA -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.googletagmanager.com https://js.mercadopago.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://tathqoyhcuxthsrghrzx.supabase.co https://api.mercadopago.com https://n8n.alugueldechacaras.com https://nominatim.openstreetmap.org; frame-ancestors 'none';"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Proprietário — AluguelDeChácaras.com</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;1,700&family=Inter:wght@400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde-escuro: #1e4d2b;
+      --verde: #2d7a45;
+      --verde-claro: #e8f5ed;
+      --terra: #c8622a;
+      --terra-claro: #fdf0e8;
+      --creme: #faf8f3;
+      --cinza: #6b7280;
+      --cinza-bg: #f3f4f6;
+      --cinza-borda: #e5e7eb;
+      --preto: #111827;
+      --branco: #ffffff;
+      --vermelho: #ef4444;
+      --amarelo: #f59e0b;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--cinza-bg); color: var(--preto); min-height: 100vh; }
+
+    /* LOGIN */
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--verde-escuro) 0%, #2d7a45 100%);
+      padding: 24px;
+    }
+
+    .login-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+    }
+
+    .login-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      color: var(--verde-escuro);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .login-logo span { color: var(--terra); }
+    .login-sub { text-align: center; font-size: 13px; color: var(--cinza); margin-bottom: 36px; }
+    .login-title { font-size: 22px; font-weight: 700; margin-bottom: 24px; color: var(--preto); }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .field label { font-size: 13px; font-weight: 600; color: var(--preto); }
+    .field input, .field select, .field textarea {
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border 0.15s;
+      color: var(--preto);
+      background: #fff;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--verde); }
+    .field textarea { resize: vertical; min-height: 100px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+    }
+
+    .btn-verde { background: var(--verde-escuro); color: #fff; width: 100%; }
+    .btn-verde:hover { background: #163820; }
+    .btn-outline { background: transparent; color: var(--verde-escuro); border: 1.5px solid var(--verde); }
+    .btn-outline:hover { background: var(--verde-claro); }
+    .btn-terra { background: var(--terra); color: #fff; }
+    .btn-terra:hover { background: #b3561f; }
+    .btn-danger { background: #fff; color: var(--vermelho); border: 1.5px solid #fecaca; }
+    .btn-danger:hover { background: #fff5f5; }
+    .btn-sm { padding: 7px 14px; font-size: 13px; }
+    .btn-xs { padding: 5px 10px; font-size: 12px; border-radius: 7px; }
+
+    .login-hint { text-align: center; font-size: 13px; color: var(--cinza); margin-top: 20px; }
+    .login-hint a { color: var(--verde); font-weight: 600; cursor: pointer; }
+
+    /* PAINEL */
+    .painel { display: none; }
+    .painel.ativo { display: flex; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      background: var(--verde-escuro);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 16px;
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      z-index: 50;
+    }
+
+    .sidebar-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 4px;
+      padding: 0 8px;
+    }
+
+    .sidebar-logo span { color: #7ee8b0; }
+    .sidebar-sub { font-size: 11px; color: rgba(255,255,255,0.4); padding: 0 8px; margin-bottom: 32px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .sidebar-picker { margin-bottom: 20px; position: relative; }
+    .picker-atual { width: 100%; display:flex; align-items:center; justify-content:space-between; gap:8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; padding: 10px 12px; cursor:pointer; color:#fff; font-size: 13px; font-weight:600; text-align:left; font-family:'Inter',sans-serif; }
+    .picker-atual:hover { background: rgba(255,255,255,0.14); }
+    .picker-atual-nome { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .picker-arrow { font-size:10px; color:rgba(255,255,255,0.5); flex-shrink:0; transition:transform 0.15s; }
+    .picker-arrow.aberto { transform:rotate(180deg); }
+    .picker-lista { position:absolute; top:calc(100% + 6px); left:0; right:0; background:#fff; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.3); padding:6px; z-index:100; max-height:280px; overflow-y:auto; display:none; }
+    .picker-lista.aberto { display:block; }
+    .picker-item { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:9px 10px; border-radius:7px; cursor:pointer; font-size:13px; color:var(--verde-escuro); }
+    .picker-item:hover { background:var(--verde-claro); }
+    .picker-item.ativo { background:var(--verde-claro); font-weight:700; }
+    .picker-item-nome { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .picker-item-status { font-size:9px; padding:2px 7px; border-radius:20px; font-weight:700; flex-shrink:0; }
+    .picker-item-status.on { background:#dcfce7; color:#166534; }
+    .picker-item-status.off { background:#f3f4f6; color:#6b7280; }
+    .picker-nova { display:flex; align-items:center; gap:8px; padding:9px 10px; border-radius:7px; cursor:pointer; font-size:13px; color:var(--verde); font-weight:700; border-top:1px solid #eee; margin-top:4px; padding-top:11px; }
+    .picker-nova:hover { background:var(--verde-claro); }
+    .sidebar-section { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px; padding: 0 8px; margin: 20px 0 8px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.65);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .nav-item.ativo { background: rgba(255,255,255,0.13); color: #fff; }
+    .nav-icon { font-size: 16px; width: 22px; text-align: center; }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .user-info { display: flex; align-items: center; gap: 10px; padding: 8px; }
+    .user-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #7ee8b0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: var(--verde-escuro); font-size: 14px;
+      flex-shrink: 0;
+    }
+    .user-nome { color: #fff; font-size: 13px; font-weight: 600; }
+    .user-plano { color: rgba(255,255,255,0.4); font-size: 11px; }
+
+    /* MAIN */
+    .main { margin-left: 240px; flex: 1; padding: 32px; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .page-title { font-size: 20px; font-weight: 700; }
+    .page-sub { font-size: 13px; color: var(--cinza); margin-top: 2px; }
+
+    /* TABS */
+    .tabs { display: none; }
+    .tabs.ativo { display: block; }
+
+    /* STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--cinza-borda);
+    }
+
+    .stat-label { font-size: 12px; color: var(--cinza); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .stat-value { font-size: 26px; font-weight: 700; font-family: 'Fraunces', serif; color: var(--verde-escuro); }
+    .stat-tag { display: inline-block; margin-top: 6px; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+    .tag-verde { background: var(--verde-claro); color: var(--verde-escuro); }
+    .tag-amarelo { background: #fef3c7; color: #92400e; }
+    .tag-cinza { background: #f3f4f6; color: #6b7280; }
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--cinza-borda);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--verde-escuro);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* FORM GRID */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-full { grid-column: 1 / -1; }
+    .form-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    /* UPLOAD FOTOS */
+    .upload-area {
+      border: 2px dashed var(--cinza-borda);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      background: var(--creme);
+    }
+
+    .upload-area:hover { border-color: var(--verde); background: var(--verde-claro); }
+    .upload-icon { font-size: 36px; margin-bottom: 10px; }
+    .upload-title { font-weight: 600; font-size: 15px; color: var(--verde-escuro); margin-bottom: 4px; }
+    .upload-sub { font-size: 13px; color: var(--cinza); }
+
+    .fotos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .foto-item {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #c8e6c9, #81c784);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .foto-remove {
+      position: absolute;
+      top: 4px; right: 4px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 24px; height: 24px;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .foto-principal-badge {
+      position: absolute;
+      bottom: 4px; left: 4px;
+      background: var(--verde-escuro);
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    /* TAGS */
+    .tags-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .tag-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--creme);
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: 8px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .tag-check.selecionado {
+      background: var(--verde-claro);
+      border-color: var(--verde);
+      color: var(--verde-escuro);
+      font-weight: 600;
+    }
+
+    .tag-check input { display: none; }
+
+    /* CALENDÁRIO */
+    .calendario-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .calendario-mes {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--verde-escuro);
+    }
+
+    .cal-nav {
+      background: var(--verde-claro);
+      border: none;
+      border-radius: 8px;
+      width: 32px; height: 32px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--verde-escuro);
+    }
+
+    .cal-nav:hover { background: #d1ead9; }
+
+    .calendario-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .cal-dow {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cinza);
+      padding: 4px;
+      text-transform: uppercase;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .cal-day:hover:not(.cal-vazio):not(.cal-passado) { opacity: 0.75; }
+    .cal-day:active:not(.cal-vazio):not(.cal-passado) { transform: scale(0.93); }
+    .cal-day.cal-vazio { cursor: default; }
+    .cal-day.cal-passado { color: #d1d5db; cursor: not-allowed; }
+    .cal-day.disponivel { background: #dcfce7; color: #14532d; font-weight: 700; border: 2px solid #16a34a; border-radius: 8px; }
+    .modo-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; font-family:"Inter",sans-serif; transition:all 0.15s; border:2px solid transparent; }
+    .modo-ativo-verde { background: var(--verde); color: #fff; border-color: var(--verde); }
+    .modo-ativo-vermelho { background: #dc2626; color: #fff; border-color: #dc2626; }
+    .modo-ativo-cinza { background: #6b7280; color: #fff; border-color: #6b7280; }
+    .modo-inativo { background: #fff; color: var(--cinza); border-color: var(--cinza-borda); }
+    .cal-day.indisponivel { background: #fee2e2; color: #991b1b; font-weight: 700; border: 2px solid #dc2626; border-radius: 8px; }
+    .cal-day.hoje { border: 2px solid var(--verde); font-weight: 700; }
+
+    .cal-legenda {
+      display: flex;
+      gap: 16px;
+      margin-top: 14px;
+      font-size: 12px;
+    }
+
+    .legenda-item { display: flex; align-items: center; gap: 6px; }
+    .legenda-cor { width: 14px; height: 14px; border-radius: 4px; }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--verde-escuro);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 999;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .toast.show { display: flex; }
+
+    /* STATUS BADGE */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; }
+    .badge-ativo { background: var(--verde-claro); color: var(--verde-escuro); }
+    .badge-ativo::before { background: var(--verde); }
+    .badge-inativo { background: #f3f4f6; color: #6b7280; }
+    .badge-inativo::before { background: #9ca3af; }
+
+    /* PREVIEW */
+    .preview-card {
+      background: var(--creme);
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .preview-foto {
+      height: 160px;
+      background: linear-gradient(135deg, #c8e6c9, #81c784);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+    }
+
+    .preview-info { padding: 16px; }
+    .preview-nome { font-family: 'Fraunces', serif; font-size: 18px; color: var(--verde-escuro); margin-bottom: 6px; }
+    .preview-local { font-size: 12px; color: var(--cinza); margin-bottom: 8px; }
+    .preview-preco { font-size: 14px; color: var(--cinza); }
+    .preview-preco strong { font-size: 18px; color: var(--verde-escuro); }
+
+
+    @keyframes piscar-borda {
+      0%, 100% { border-color: #f59e0b; box-shadow: 0 0 0 0 rgba(245,158,11,0); }
+      50% { border-color: #d97706; box-shadow: 0 0 0 4px rgba(245,158,11,0.2); }
+    }
+
+    /* RESERVAS */
+    .reserva-card {
+      background: #fff; border-radius: 14px; border: 1px solid var(--cinza-borda);
+      padding: 20px; margin-bottom: 14px; transition: box-shadow 0.15s;
+    }
+    .reserva-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+    .reserva-card.pendente { border-left: 4px solid var(--amarelo); }
+    .reserva-card.confirmada { border-left: 4px solid var(--verde); }
+    .reserva-card.recusada { border-left: 4px solid var(--vermelho); opacity: 0.7; }
+    .reserva-card.concluida { border-left: 4px solid #9ca3af; }
+
+    .reserva-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+    .reserva-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    }
+    .badge-pendente { background: #fef3c7; color: #92400e; }
+    .badge-confirmada { background: var(--verde-claro); color: var(--verde-escuro); }
+    .badge-recusada { background: #fee2e2; color: #991b1b; }
+    .badge-concluida { background: #f3f4f6; color: #6b7280; }
+    .badge-pago { background: #ede9fe; color: #5b21b6; }
+
+    .reserva-cliente { display: flex; align-items: center; gap: 10px; }
+    .cliente-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--verde-claro); color: var(--verde-escuro);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px; flex-shrink: 0;
+    }
+    .cliente-nome { font-weight: 700; font-size: 15px; }
+    .cliente-contato { font-size: 12px; color: var(--cinza); margin-top: 2px; }
+
+    .reserva-infos {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+      background: var(--cinza-bg); border-radius: 10px; padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .reserva-info-item { display: flex; flex-direction: column; gap: 2px; }
+    .reserva-info-label { font-size: 10px; font-weight: 700; color: var(--cinza); text-transform: uppercase; letter-spacing: 0.3px; }
+    .reserva-info-val { font-size: 13px; font-weight: 600; color: var(--preto); }
+
+    .reserva-msg {
+      background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;
+      padding: 10px 14px; font-size: 13px; color: #374151;
+      line-height: 1.5; margin-bottom: 14px; font-style: italic;
+    }
+
+    .reserva-acoes { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-confirmar {
+      background: var(--verde); color: #fff; border: none; border-radius: 8px;
+      padding: 10px 20px; font-size: 13px; font-weight: 700; cursor: pointer;
+      font-family: 'Inter', sans-serif; transition: background 0.15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-confirmar:hover { background: var(--verde-escuro); }
+    .btn-recusar {
+      background: #fff; color: var(--vermelho); border: 1.5px solid #fecaca;
+      border-radius: 8px; padding: 10px 20px; font-size: 13px; font-weight: 700;
+      cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-recusar:hover { background: #fff5f5; }
+    .btn-msg-cliente {
+      background: #f0fdf4; color: var(--verde-escuro); border: 1.5px solid var(--verde-claro);
+      border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s;
+      display: flex; align-items: center; gap: 6px; margin-left: auto;
+    }
+    .btn-msg-cliente:hover { background: var(--verde-claro); }
+
+    .financeiro-resumo {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px;
+    }
+    .fin-card {
+      background: #fff; border-radius: 12px; padding: 18px;
+      border: 1px solid var(--cinza-borda); text-align: center;
+    }
+    .fin-valor { font-family: 'Fraunces', serif; font-size: 26px; color: var(--verde-escuro); font-weight: 700; }
+    .fin-label { font-size: 12px; color: var(--cinza); margin-top: 4px; }
+    .fin-tag { font-size: 11px; font-weight: 600; margin-top: 6px; }
+
+    /* MODAL RECUSAR */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: #fff; border-radius: 16px; padding: 28px; width: 100%; max-width: 440px; animation: slideUp 0.2s ease; }
+    @keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-titulo { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .modal-sub { font-size: 13px; color: var(--cinza); margin-bottom: 18px; }
+
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 20px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-grid, .form-3 { grid-template-columns: 1fr; }
+      .fotos-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-page" id="login-page">
+  <div class="login-card">
+    <div class="login-logo">🌿 Aluguel de <span>Chácaras</span></div>
+    <div class="login-sub">Painel do Proprietário</div>
+    <div class="login-title">Bem-vindo de volta!</div>
+
+    <div class="field">
+      <label for="login-email">E-mail</label>
+      <input type="email" id="login-email" placeholder="seuemail@exemplo.com" />
+    </div>
+    <div class="field">
+      <label for="login-senha">Senha</label>
+      <input type="password" id="login-senha" placeholder="••••••••" />
+    </div>
+
+    <button class="btn btn-verde" onclick="fazerLogin()" style="margin-top:8px;">Entrar no painel</button>
+
+    <div class="login-hint" style="display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+      <span>Ainda não tem conta? <a href="/#anuncie" style="color:var(--verde);font-weight:600;">Cadastre-se</a></span>
+      <a href="#" onclick="mostrarRecuperarSenha();return false;" style="color:var(--cinza);font-weight:600;">Esqueci minha senha</a>
+    </div>
+
+    <div id="recuperar-senha-box" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid var(--cinza-borda);">
+      <div class="field">
+        <label for="recuperar-email">Informe seu e-mail cadastrado</label>
+        <input type="email" id="recuperar-email" placeholder="seuemail@exemplo.com" />
+      </div>
+      <button class="btn btn-outline" onclick="enviarRecuperacaoSenha()" style="width:100%;justify-content:center;">Enviar link de recuperação</button>
+      <div id="recuperar-msg" style="display:none; margin-top:12px; padding:10px 12px; border-radius:8px; font-size:13px; text-align:center;"></div>
+    </div>
+
+    <div id="login-erro" style="display:none; margin-top:16px; padding:12px; background:#fee2e2; border-radius:8px; font-size:13px; color:#b91c1c; text-align:center;"></div>
+    <div id="login-loading" style="display:none; margin-top:16px; text-align:center; color:var(--cinza); font-size:13px;">⏳ Entrando...</div>
+  </div>
+</div>
+
+<!-- PAINEL -->
+<div class="painel" id="painel">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="/index.html" title="Voltar ao site" onclick="window.location.href='/index.html';" style="text-decoration:none;color:inherit;display:block;cursor:pointer;position:relative;z-index:5;"><div class="sidebar-logo">🌿 Aluguel de <span>Chácaras</span></div></a>
+    <div class="sidebar-sub">Painel do Proprietário</div>
+    <div class="sidebar-picker" id="sidebar-picker">
+      <button class="picker-atual" id="picker-atual-btn" onclick="togglePickerChacaras(event)">
+        <span class="picker-atual-nome" id="picker-nome-atual">Carregando...</span>
+        <span class="picker-arrow" id="picker-arrow">▾</span>
+      </button>
+      <div class="picker-lista" id="picker-lista"></div>
+    </div>
+
+    <div class="sidebar-section">Meu Anúncio</div>
+    <button class="nav-item ativo" onclick="mostrarTab('visao-geral', this)">
+      <span class="nav-icon">📊</span> Visão Geral
+    </button>
+    <button class="nav-item" onclick="mostrarTab('reservas', this)" style="position:relative;">
+      <span class="nav-icon">🔔</span> Reservas
+      <span id="badge-reservas" style="background:#ef4444;color:#fff;border-radius:20px;padding:1px 7px;font-size:10px;font-weight:700;margin-left:auto;"></span>
+    </button>
+    <button class="nav-item" onclick="mostrarTab('financeiro', this)">
+      <span class="nav-icon">💰</span> Financeiro
+    </button>
+    <button class="nav-item" onclick="mostrarTab('minha-chacara', this)">
+      <span class="nav-icon">🏡</span> Minha Chácara
+    </button>
+    <button class="nav-item" onclick="mostrarTab('calendario', this)">
+      <span class="nav-icon">📅</span> Disponibilidade
+    </button>
+
+    <div class="sidebar-section">Conta</div>
+    <button class="nav-item" onclick="mostrarTab('configuracoes', this)">
+      <span class="nav-icon">⚙️</span> Configurações
+    </button>
+    <button class="nav-item" onclick="mostrarTab('comissao', this)">
+      <span class="nav-icon">💰</span> Minha Comissão
+    </button>
+
+    <div class="sidebar-bottom">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebar-avatar">?</div>
+        <div>
+          <div class="user-nome" id="sidebar-nome">Proprietário</div>
+          <div class="user-plano">Comissão 8% por reserva</div>
+        </div>
+      </div>
+      <button class="nav-item" onclick="fazerLogout()" style="margin-top:8px; color:rgba(255,255,255,0.4);">
+        <span class="nav-icon">🚪</span> Sair
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- VISÃO GERAL -->
+    <div class="tabs ativo" id="tab-visao-geral">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Visão Geral</div>
+          <div class="page-sub">Acompanhe o desempenho do seu anúncio</div>
+        </div>
+        <span class="status-badge badge-ativo" id="badge-status-anuncio">Anúncio ativo</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Visualizações</div>
+          <div class="stat-value" id="stat-visualizacoes">—</div>
+          <span class="stat-tag tag-verde">este mês</span>
+        </div>
+        <div class="stat-card" style="border:1.5px solid #f59e0b; cursor:pointer;" onclick="mostrarTab('reservas', document.querySelectorAll('.nav-item')[2])">
+          <div class="stat-label">⏳ Aguardando resposta</div>
+          <div class="stat-value" style="color:#92400e;" id="stat-pendentes">0</div>
+          <span class="stat-tag tag-amarelo" id="stat-pendentes-tag">responda já!</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Reservas confirmadas</div>
+          <div class="stat-value" id="stat-confirmadas">0</div>
+          <span class="stat-tag tag-verde">este mês</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Receita líquida</div>
+          <div class="stat-value" id="stat-receita">R$ 0</div>
+          <span class="stat-tag tag-verde">este mês</span>
+        </div>
+      </div>
+
+      <!-- ALERTA RESERVAS PENDENTES -->
+      <div id="alerta-pendentes" style="background:#fffbeb; border:1.5px solid #f59e0b; border-radius:12px; padding:16px 20px; margin-bottom:20px; display:none; align-items:center; justify-content:space-between; gap:16px; animation:piscar-borda 1.5s ease-in-out infinite;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:28px;">🔔</span>
+          <div>
+            <div style="font-weight:700; font-size:14px; color:#92400e;" id="alerta-texto">Você tem solicitações de reserva aguardando resposta</div>
+            <div style="font-size:12px; color:#b45309; margin-top:2px;">Responda em até 24h para não perder a reserva.</div>
+          </div>
+        </div>
+        <button onclick="mostrarTab('reservas', document.querySelectorAll('.nav-item')[2])" class="btn btn-sm" style="background:#f59e0b;color:#fff;border:none;white-space:nowrap;">Ver reservas →</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
+        <div class="card">
+          <div class="card-title">📋 Status do seu anúncio</div>
+          <div class="preview-card">
+            <div class="preview-foto">🏡</div>
+            <div class="preview-info">
+              <div class="preview-nome" id="preview-nome">Chácara das Palmeiras</div>
+              <div class="preview-local" id="preview-local">📍 Maringá — Zona Rural</div>
+              <div style="display:flex; flex-wrap:wrap; gap:6px; margin:8px 0;">
+                <span style="background:var(--verde-claro);color:var(--verde-escuro);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;">🏊 Piscina</span>
+                <span style="background:var(--verde-claro);color:var(--verde-escuro);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;">⚽ Campo</span>
+                <span style="background:var(--verde-claro);color:var(--verde-escuro);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;">🍖 Churrasqueira</span>
+              </div>
+              <div class="preview-preco">a partir de <strong id="preview-preco-valor">R$ —</strong>/dia</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
+            <button class="btn btn-outline btn-sm" onclick="mostrarTab('minha-chacara', document.querySelectorAll('.nav-item')[4])">✏️ Editar anúncio</button>
+            <button class="btn btn-outline btn-sm" onclick="mostrarTab('calendario', null)">📅 Ver calendário</button>
+            <button class="btn btn-sm" id="btn-toggle-anuncio-visao" onclick="toggleAnuncio()" style="background:var(--vermelho);color:#fff;margin-left:auto;">⏸ Pausar anúncio</button>
+          </div>
+          <div id="aviso-cancelamentos-proprietario" style="display:none; margin-top:12px; font-size:12px; color:var(--cinza); background:#f9fafb; border-radius:8px; padding:8px 12px;"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">✅ Completude do perfil</div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:13px;">
+              <span>Informações básicas</span>
+              <span style="color:var(--verde); font-weight:700;">✓</span>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:13px;">
+              <span>Fotos cadastradas</span>
+              <span style="color:var(--verde); font-weight:700;">✓</span>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:13px;">
+              <span>Valores e capacidade</span>
+              <span style="color:var(--verde); font-weight:700;">✓</span>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:13px;">
+              <span>Calendário atualizado</span>
+              <span style="color:var(--amarelo); font-weight:700;">⚠</span>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:13px;">
+              <span>Vídeo cadastrado</span>
+              <span style="color:#d1d5db; font-weight:700;">✗</span>
+            </div>
+            <div style="height:6px; background:#f3f4f6; border-radius:10px; margin-top:8px;">
+              <div style="height:100%; width:72%; background:var(--verde); border-radius:10px;"></div>
+            </div>
+            <div style="font-size:12px; color:var(--cinza); text-align:right;">72% completo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESERVAS -->
+    <div class="tabs" id="tab-reservas">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Reservas</div>
+          <div class="page-sub">Gerencie as solicitações e reservas da sua chácara</div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <select onchange="filtrarReservas(this.value)" style="border:1.5px solid var(--cinza-borda);border-radius:8px;padding:7px 12px;font-size:13px;font-family:'Inter',sans-serif;outline:none;">
+            <option value="todas">Todas</option>
+            <option value="pendente">Pendentes</option>
+            <option value="confirmada">Confirmadas</option>
+            <option value="concluida">Concluídas</option>
+            <option value="recusada">Recusadas</option>
+          </select>
+        </div>
+      </div>
+
+            <!-- DINÂMICO: carregado via Supabase -->
+      <div id="alerta-pendentes" style="display:none; background:#fffbeb; border:1.5px solid #f59e0b; border-radius:12px; padding:16px 20px; margin-bottom:20px; align-items:center; justify-content:space-between; gap:16px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:28px;">🔔</span>
+          <div>
+            <div style="font-weight:700; font-size:14px; color:#92400e;" id="alerta-texto">Você tem solicitações aguardando resposta!</div>
+            <div style="font-size:12px; color:#b45309;">Responda logo para não perder a reserva</div>
+          </div>
+        </div>
+        <button onclick="mostrarTab('reservas', document.querySelectorAll('.nav-item')[1])" class="btn btn-verde btn-sm" style="white-space:nowrap;">Ver reservas →</button>
+      </div>
+
+      <div id="reservas-container" style="padding:20px 0;">
+        <div style="text-align:center; padding:40px; color:var(--cinza);">⏳ Carregando reservas...</div>
+      </div>
+    </div>
+
+    <!-- FINANCEIRO -->
+    <div class="tabs" id="tab-financeiro">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Financeiro</div>
+          <div class="page-sub">Acompanhe seus recebimentos e comissões</div>
+        </div>
+      </div>
+
+      <div class="financeiro-resumo">
+        <div class="fin-card">
+          <div class="fin-valor" id="fin-recebido">R$ 0</div>
+          <div class="fin-label">Recebido este mês</div>
+          <div class="fin-tag" style="color:var(--verde);">✓ já na sua conta</div>
+        </div>
+        <div class="fin-card">
+          <div class="fin-valor" id="fin-a-receber">R$ 0</div>
+          <div class="fin-label">A receber (reservas pagas)</div>
+          <div class="fin-tag" style="color:var(--amarelo);">⏳ após check-out</div>
+        </div>
+        <div class="fin-card">
+          <div class="fin-valor" id="fin-comissao">R$ 0</div>
+          <div class="fin-label">Comissão plataforma (8%)</div>
+          <div class="fin-tag" style="color:var(--cinza);">descontado automaticamente</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📋 Histórico de reservas</div>
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead>
+            <tr style="background:#f9fafb;">
+              <th style="text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; border-bottom:1px solid var(--cinza-borda);">Cliente</th>
+              <th style="text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; border-bottom:1px solid var(--cinza-borda);">Período</th>
+              <th style="text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; border-bottom:1px solid var(--cinza-borda);">Valor bruto</th>
+              <th style="text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; border-bottom:1px solid var(--cinza-borda);">Comissão (8%)</th>
+              <th style="text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; border-bottom:1px solid var(--cinza-borda);">Você recebe</th>
+              <th style="text-align:left; padding:10px 14px; font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; border-bottom:1px solid var(--cinza-borda);">Status</th>
+            </tr>
+          </thead>
+          <tbody id="historico-tbody"><tr><td colspan="6" style="padding:20px;text-align:center;color:var(--cinza)">⏳ Carregando...</td></tr></tbody>
+        </table>
+      </div>
+
+      <div style="background:var(--verde-claro); border-radius:12px; padding:14px 18px; font-size:13px; color:var(--verde-escuro); line-height:1.6;">
+        💳 <strong>Como funciona o repasse:</strong> após o check-out do cliente, o valor líquido (já descontada a comissão de 8%) é transferido automaticamente para sua conta cadastrada no Mercado Pago em até 2 dias úteis.
+      </div>
+    </div>
+
+    <!-- MODAL PRÉ-VISUALIZAÇÃO -->
+    <div class="modal-overlay" id="modal-preview" onclick="if(event.target===this)fecharPreview()" style="z-index:300;">
+      <div style="background:#fff; border-radius:20px; width:100%; max-width:720px; max-height:90vh; overflow-y:auto; animation:slideUp 0.2s ease; position:relative;">
+
+        <!-- Header do modal -->
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 28px; border-bottom:1px solid var(--cinza-borda); position:sticky; top:0; background:#fff; z-index:1; border-radius:20px 20px 0 0;">
+          <div>
+            <div style="font-size:16px; font-weight:700; color:var(--verde-escuro);" class="modal-titulo-texto">👁️ Pré-visualização do anúncio</div>
+            <div style="font-size:12px; color:var(--cinza); margin-top:2px;" class="modal-sub-texto">Assim seu anúncio aparece para os clientes</div>
+          </div>
+          <button onclick="fecharPreview()" style="background:#f3f4f6;border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;">✕</button>
+        </div>
+
+        <!-- Conteúdo do preview -->
+        <div style="padding:28px;">
+
+          <!-- Foto placeholder -->
+          <div id="prev-foto" style="width:100%; height:200px; background:linear-gradient(135deg,#c8e6c9,#81c784); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:80px; margin-bottom:20px; position:relative;">
+            🏡
+            <div style="position:absolute; bottom:12px; right:12px; background:rgba(0,0,0,0.55); color:#fff; font-size:12px; padding:4px 12px; border-radius:20px; font-weight:600;">📷 Suas fotos aparecerão aqui</div>
+          </div>
+
+          <!-- Header info -->
+          <div style="margin-bottom:16px;">
+            <div style="font-size:13px; color:var(--cinza); margin-bottom:6px;">📍 <span id="prev-cidade">—</span></div>
+            <div style="font-family:'Fraunces',serif; font-size:28px; color:var(--verde-escuro); margin-bottom:8px; line-height:1.2;" id="prev-nome">Nome da chácara</div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="color:#f59e0b; font-size:14px;">★★★★★</span>
+              <span style="font-size:13px; color:var(--cinza);">Novo anúncio</span>
+            </div>
+          </div>
+
+          <!-- Tags rápidas -->
+          <div id="prev-tags" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;"></div>
+
+          <hr style="border:none; border-top:1px solid var(--cinza-borda); margin-bottom:20px;"/>
+
+          <!-- Descrição -->
+          <div style="margin-bottom:20px;">
+            <div style="font-size:16px; font-weight:700; color:var(--verde-escuro); margin-bottom:10px;">Sobre a chácara</div>
+            <div id="prev-desc" style="font-size:14px; color:#374151; line-height:1.8;">—</div>
+          </div>
+
+          <hr style="border:none; border-top:1px solid var(--cinza-borda); margin-bottom:20px;"/>
+
+          <!-- Estrutura -->
+          <div style="margin-bottom:20px;">
+            <div style="font-size:16px; font-weight:700; color:var(--verde-escuro); margin-bottom:12px;">Estrutura e comodidades</div>
+            <div id="prev-estrutura" style="display:grid; grid-template-columns: repeat(3,1fr); gap:10px;"></div>
+          </div>
+
+          <hr style="border:none; border-top:1px solid var(--cinza-borda); margin-bottom:20px;"/>
+
+          <!-- Card de reserva simulado -->
+          <div style="background:var(--verde-claro); border:1.5px solid var(--verde); border-radius:14px; padding:20px;">
+            <div style="font-size:13px; color:var(--cinza); margin-bottom:6px;">A partir de</div>
+            <div style="display:flex; align-items:baseline; gap:4px; margin-bottom:14px;">
+              <span style="font-family:'Fraunces',serif; font-size:32px; color:var(--verde-escuro); font-weight:700;" id="prev-valor">R$ —</span>
+              <span style="font-size:14px; color:var(--cinza);">/dia</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+              <div style="background:#fff; border-radius:8px; padding:10px; font-size:12px;">
+                <div style="color:var(--cinza); margin-bottom:2px;">Capacidade</div>
+                <div style="font-weight:700;" id="prev-cap">— pessoas</div>
+              </div>
+              <div style="background:#fff; border-radius:8px; padding:10px; font-size:12px;">
+                <div style="color:var(--cinza); margin-bottom:2px;">Check-in</div>
+                <div style="font-weight:700;">A combinar</div>
+              </div>
+            </div>
+            <div style="background:var(--verde-escuro); color:#fff; border:none; border-radius:10px; padding:13px; font-size:14px; font-weight:700; text-align:center;">
+              📅 Solicitar reserva
+            </div>
+            <div style="font-size:11px; color:var(--verde); text-align:center; margin-top:10px;">🔒 Endereço liberado somente após pagamento</div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div style="padding:16px 28px; border-top:1px solid var(--cinza-borda); display:flex; justify-content:flex-end; gap:10px; position:sticky; bottom:0; background:#fff; border-radius:0 0 20px 20px;">
+          <button onclick="fecharPreview()" class="btn btn-verde btn-sm">✕ Fechar</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MODAL RECUSAR -->
+    <div class="modal-overlay" id="modal-recusar" onclick="if(event.target===this)fecharModalRecusar()">
+      <div class="modal">
+        <div class="modal-titulo">Recusar solicitação</div>
+        <div class="modal-sub">O cliente será notificado. Informe o motivo para ajudá-lo a entender.</div>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;padding:10px;border:1.5px solid var(--cinza-borda);border-radius:8px;" onclick="selecionarMotivo(this)">
+            <input type="radio" name="motivo" style="accent-color:var(--verde-escuro);"/> Data já reservada
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;padding:10px;border:1.5px solid var(--cinza-borda);border-radius:8px;" onclick="selecionarMotivo(this)">
+            <input type="radio" name="motivo"/> Número de pessoas acima da capacidade
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;padding:10px;border:1.5px solid var(--cinza-borda);border-radius:8px;" onclick="selecionarMotivo(this)">
+            <input type="radio" name="motivo"/> Manutenção no período
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;padding:10px;border:1.5px solid var(--cinza-borda);border-radius:8px;" onclick="selecionarMotivo(this)">
+            <input type="radio" name="motivo"/> Outro motivo
+          </label>
+        </div>
+        <textarea id="motivo-texto" placeholder="Mensagem adicional para o cliente (opcional)..." style="width:100%;border:1.5px solid var(--cinza-borda);border-radius:8px;padding:10px;font-family:'Inter',sans-serif;font-size:13px;resize:none;height:70px;outline:none;margin-bottom:16px;"></textarea>
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+          <button onclick="fecharModalRecusar()" style="background:#f3f4f6;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Cancelar</button>
+          <button onclick="recusarConfirmado()" style="background:var(--vermelho);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">Confirmar recusa</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL NOVA CHÁCARA -->
+    <div class="modal-overlay" id="modal-nova-chacara" onclick="if(event.target===this)fecharNovaChacara()">
+      <div class="modal">
+        <div class="modal-titulo">🏡 Cadastrar nova chácara</div>
+        <div class="modal-sub">Ela entrará com o mesmo login. Depois é só preencher os detalhes.</div>
+        <div class="field">
+          <label for="nova-chacara-nome">Nome da chácara</label>
+          <input type="text" id="nova-chacara-nome" placeholder="Ex: Chácara Brasil" />
+        </div>
+        <div class="field">
+          <label for="nova-chacara-cidade">Cidade</label>
+          <input type="text" id="nova-chacara-cidade" placeholder="Ex: Maringá" />
+        </div>
+        <div class="field">
+          <label for="nova-chacara-whatsapp">WhatsApp de contato</label>
+          <input type="text" id="nova-chacara-whatsapp" placeholder="(44) 99999-9999" />
+        </div>
+        <label class="field" style="display:flex;flex-direction:row;align-items:flex-start;gap:8px;font-weight:400;font-size:12px;color:#374151;cursor:pointer;">
+          <input type="checkbox" id="nova-chacara-termos" style="margin-top:3px;flex-shrink:0;width:auto;"/>
+          <span>Li e aceito o <a href="/termo-responsabilidade-proprietario.html" target="_blank" style="color:var(--verde-escuro);font-weight:600;">Termo de Responsabilidade do Proprietário</a> para esta chácara.</span>
+        </label>
+        <div id="nova-chacara-erro" style="display:none; margin-bottom:12px; padding:10px 12px; background:#fee2e2; border-radius:8px; font-size:13px; color:#b91c1c; text-align:center;"></div>
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+          <button onclick="fecharNovaChacara()" style="background:#f3f4f6;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Cancelar</button>
+          <button id="btn-confirmar-nova-chacara" onclick="confirmarNovaChacara()" style="background:var(--verde-escuro);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">Cadastrar chácara</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL CANCELAR RESERVA (PROPRIETÁRIO) -->
+    <div class="modal-overlay" id="modal-cancelar-proprietario" onclick="if(event.target===this)fecharModalCancelarProprietario()">
+      <div class="modal">
+        <div class="modal-titulo">🚫 Cancelar esta reserva?</div>
+        <div class="modal-sub">O cliente recebe <b>100% de reembolso</b> do valor pago, automaticamente. Essa ação não pode ser desfeita.</div>
+        <textarea id="cancelar-proprietario-motivo" placeholder="Motivo do cancelamento (opcional, o cliente vai ver essa mensagem)..." style="width:100%;border:1.5px solid var(--cinza-borda);border-radius:8px;padding:10px;font-family:'Inter',sans-serif;font-size:13px;resize:none;height:70px;outline:none;margin-bottom:12px;"></textarea>
+        <div id="cancelar-proprietario-erro" style="display:none; margin-bottom:12px; padding:10px 12px; background:#fee2e2; border-radius:8px; font-size:13px; color:#b91c1c; text-align:center;"></div>
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+          <button onclick="fecharModalCancelarProprietario()" style="background:#f3f4f6;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Voltar</button>
+          <button id="btn-confirmar-cancelar-proprietario" onclick="confirmarCancelamentoProprietario()" style="background:var(--vermelho);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">Sim, cancelar reserva</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MINHA CHÁCARA -->
+    <div class="tabs" id="tab-minha-chacara">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Minha Chácara</div>
+          <div class="page-sub">Edite as informações do seu anúncio</div>
+        </div>
+        <button class="btn btn-verde btn-sm" onclick="salvar('anuncio')">💾 Salvar alterações</button>
+      </div>
+
+
+      <!-- DICAS DE ANÚNCIO -->
+      <div style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1.5px solid #16a34a; border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+          <span style="font-size:24px;">💡</span>
+          <div>
+            <div style="font-size:15px; font-weight:700; color:#14532d;">Dicas para um anúncio de sucesso</div>
+            <div style="font-size:13px; color:#16a34a;">Anúncios completos recebem até 5x mais contatos</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+
+          <div style="background:#fff; border-radius:12px; padding:16px; border:1px solid #bbf7d0;">
+            <div style="font-size:14px; font-weight:700; color:#14532d; margin-bottom:10px;">📝 Informações essenciais</div>
+            <div style="display:flex; flex-direction:column; gap:7px; font-size:13px; color:#374151;">
+              <div>✅ <strong>Capacidade exata:</strong> ex. "comporta até 150 pessoas sentadas"</div>
+              <div>✅ <strong>Área total:</strong> ex. "5.000 m² de área verde"</div>
+              <div>✅ <strong>Estacionamento:</strong> ex. "vagas para 30 carros dentro da propriedade"</div>
+              <div>✅ <strong>Localização:</strong> ex. "a 8 km do centro de Maringá, acesso asfaltado"</div>
+              <div>✅ <strong>Horários:</strong> ex. "check-in às 10h, devolução até 22h"</div>
+              <div>✅ <strong>Regras:</strong> ex. "permitido som até meia-noite, aceita pets"</div>
+            </div>
+          </div>
+
+          <div style="background:#fff; border-radius:12px; padding:16px; border:1px solid #bbf7d0;">
+            <div style="font-size:14px; font-weight:700; color:#14532d; margin-bottom:10px;">🏗️ Estrutura — seja específico</div>
+            <div style="display:flex; flex-direction:column; gap:7px; font-size:13px; color:#374151;">
+              <div>✅ <strong>Piscina:</strong> ex. "piscina adulto 10x5m + piscina infantil"</div>
+              <div>✅ <strong>Churrasqueira:</strong> ex. "churrasqueira coberta com bancada e pia"</div>
+              <div>✅ <strong>Campo:</strong> ex. "campo de futebol gramado com iluminação"</div>
+              <div>✅ <strong>Casa sede:</strong> ex. "3 quartos, 2 banheiros, cozinha equipada"</div>
+              <div>✅ <strong>Salão:</strong> ex. "salão coberto para 80 pessoas com mesas"</div>
+              <div>✅ <strong>Outros:</strong> lago, quadra, playground, espaço gourmet...</div>
+            </div>
+          </div>
+
+          <div style="background:#fff; border-radius:12px; padding:16px; border:1px solid #bbf7d0;">
+            <div style="font-size:14px; font-weight:700; color:#14532d; margin-bottom:10px;">📷 Fotos que convertem</div>
+            <div style="display:flex; flex-direction:column; gap:7px; font-size:13px; color:#374151;">
+              <div>✅ <strong>Mínimo 8 fotos</strong> — quanto mais, melhor</div>
+              <div>✅ <strong>Foto de capa:</strong> escolha a melhor vista geral da chácara</div>
+              <div>✅ Fotografe em <strong>dia ensolarado</strong>, luz natural</div>
+              <div>✅ Mostre <strong>todos os ambientes:</strong> piscina, churrasqueira, salão, quartos</div>
+              <div>✅ Inclua fotos <strong>com pessoas e eventos</strong> reais — passa confiança</div>
+              <div>❌ Evite fotos escuras, tortas ou de baixa qualidade</div>
+            </div>
+          </div>
+
+          <div style="background:#fff; border-radius:12px; padding:16px; border:1px solid #bbf7d0;">
+            <div style="font-size:14px; font-weight:700; color:#14532d; margin-bottom:10px;">✍️ Descrição que vende</div>
+            <div style="display:flex; flex-direction:column; gap:7px; font-size:13px; color:#374151;">
+              <div>✅ <strong>Comece destacando o diferencial:</strong> ex. "A maior chácara com lago particular de Maringá"</div>
+              <div>✅ <strong>Descreva a experiência:</strong> ex. "Ideal para reunir família e amigos num ambiente tranquilo e arborizado"</div>
+              <div>✅ Mencione <strong>o que está incluso</strong> no valor (mesas, cadeiras, etc.)</div>
+              <div>✅ Informe <strong>o que não está incluso</strong> para evitar surpresas</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:12px; padding:12px 16px; background:#fff; border-radius:10px; border:1px solid #bbf7d0; font-size:13px; color:#374151;">
+          🎬 <strong>Dica extra — Vídeo:</strong> grave um vídeo de 1 a 2 minutos caminhando pela chácara e publique no YouTube ou Instagram. Anúncios com vídeo recebem <strong>3x mais contatos</strong>. Não precisa ser profissional — um vídeo feito no celular já faz diferença!
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏡 Informações básicas</div>
+        <div class="form-grid">
+          <div class="field form-full">
+            <label for="f-nome">Nome da chácara</label>
+            <input type="text" id="f-nome" value="Chácara das Palmeiras"/>
+          </div>
+          <div class="field">
+            <label for="f-cidade">Cidade</label>
+            <input type="text" id="f-cidade" value="Maringá"/>
+          </div>
+          <div class="field">
+            <label for="f-bairro">Bairro / Localidade</label>
+            <input type="text" id="f-bairro" value="Zona Rural"/>
+          </div>
+          <div class="field">
+            <label for="f-whatsapp">WhatsApp para contato</label>
+            <input type="text" id="f-whatsapp" value="(44) 9 9999-9999"/>
+          </div>
+          <div class="field">
+            <label for="f-telefone-alt">Telefone alternativo</label>
+            <input type="text" id="f-telefone-alt" placeholder="Opcional"/>
+          </div>
+          <div class="field form-full">
+            <label for="f-descricao">Descrição do espaço</label>
+            <textarea id="f-descricao">Espaço amplo com piscina, churrasqueira coberta, campo de futebol e casa sede. Ideal para festas, confraternizações e eventos em família. Contamos com estacionamento para 30 carros e área verde com muito verde e sombra.</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💰 Capacidade e valores</div>
+        <div class="form-3">
+          <div class="field">
+            <label for="f-capacidade">Capacidade máxima (pessoas)</label>
+            <input type="number" id="f-capacidade" value="150"/>
+          </div>
+          <div class="field">
+            <label for="f-diaria">Valor diária (R$)</label>
+            <input type="number" id="f-diaria" value="1200"/>
+          </div>
+          <div class="field">
+            <label for="f-fds">Valor fim de semana (R$)</label>
+            <input type="number" id="f-fds" value="1800"/>
+          </div>
+        </div>
+        <button class="btn btn-verde btn-sm" style="margin-top:14px;" onclick="salvar('anuncio')">💾 Salvar capacidade e valores</button>
+        <div class="form-grid" style="margin-top:16px;">
+          <div class="field form-full">
+            <div style="background:var(--verde-claro); border:1.5px solid var(--verde); border-radius:10px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;">
+              <span style="font-size:22px; flex-shrink:0;">💳</span>
+              <div>
+                <div style="font-size:13px; font-weight:700; color:var(--verde-escuro); margin-bottom:4px;">Pagamento gerenciado pela plataforma</div>
+                <div style="font-size:12px; color:#374151; line-height:1.6;">O cliente paga o valor total diretamente pelo AluguelDeChácaras.com.br via Mercado Pago (cartão, Pix ou boleto). Após o check-out, o valor líquido — já descontada a comissão de 8% — é transferido automaticamente para sua conta no Mercado Pago em até 2 dias úteis. Você não precisa cobrar nem negociar pagamento com o cliente.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔒 Informações liberadas só após o pagamento</div>
+        <div style="font-size:12px;color:var(--cinza);margin-bottom:12px;">Estas informações <strong>não aparecem no anúncio público</strong>. O cliente só recebe (por WhatsApp e e-mail) depois de pagar e confirmar a reserva. No anúncio aparece só um <strong>mapa aproximado (raio ~1&nbsp;km)</strong> a partir deste endereço — nunca o ponto exato.</div>
+        <div class="form-grid">
+          <div class="field form-full">
+            <label for="f-endereco-completo">Endereço completo (rua, número, ponto de referência)</label>
+            <input type="text" id="f-endereco-completo" placeholder="Ex: Rua das Palmeiras, 1234 — ao lado do posto, portão verde"/>
+          </div>
+          <div class="field form-full">
+            <label for="f-acesso">Como acessar a chácara (chave, portão, instruções de chegada)</label>
+            <textarea id="f-acesso" placeholder="Ex: A chave fica na portaria do condomínio. Código do portão: 1234. Entre pelos fundos."></textarea>
+          </div>
+        </div>
+        <button class="btn btn-verde btn-sm" style="margin-top:14px;" onclick="salvar('anuncio')">💾 Salvar informações privadas</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏗️ Estrutura e comodidades</div>
+        <div class="form-2" style="margin-bottom:14px;">
+          <div class="field">
+            <label for="f-area-m2">Área aproximada (m²)</label>
+            <input type="number" id="f-area-m2" placeholder="Ex: 5000"/>
+          </div>
+          <div class="field">
+            <label for="f-vagas">Vagas de estacionamento</label>
+            <input type="number" id="f-vagas" placeholder="Ex: 30"/>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--cinza);margin-bottom:12px;">Clique para marcar ou desmarcar as comodidades da sua chácara.</div>
+        <div class="tags-grid" id="tags-estrutura">
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 🏊 Piscina</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 🍖 Churrasqueira</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> ⚽ Campo de futebol</label>
+          <label class="tag-check"><input type="checkbox"/> 🎣 Lago / Pesca</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 🅿️ Estacionamento</label>
+          <label class="tag-check"><input type="checkbox"/> 🛌 Hospedagem / Quartos</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 🏠 Casa sede</label>
+          <label class="tag-check"><input type="checkbox"/> 🎮 Salão de jogos</label>
+          <label class="tag-check"><input type="checkbox"/> 🏐 Quadra poliesportiva</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 💡 Energia elétrica</label>
+          <label class="tag-check selecionado"><input type="checkbox" checked/> 💧 Água encanada</label>
+          <label class="tag-check"><input type="checkbox"/> ♿ Acessibilidade</label>
+          <label class="tag-check"><input type="checkbox"/> 🐾 Aceita pets</label>
+          <label class="tag-check"><input type="checkbox"/> 🍽️ Espaço gourmet</label>
+          <label class="tag-check"><input type="checkbox"/> 🎪 Salão coberto</label>
+          <label class="tag-check"><input type="checkbox"/> 🌳 Pomar</label>
+          <label class="tag-check"><input type="checkbox"/> 🛣️ Acesso asfaltado</label>
+        </div>
+        <button class="btn btn-verde btn-sm" style="margin-top:14px;" onclick="salvar('anuncio')">💾 Salvar estrutura e comodidades</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📋 Regras e informações</div>
+        <div style="font-size:12px;color:var(--cinza);margin-bottom:12px;">Aparece na página pública da chácara, no formato de lista. Escreva uma regra ou informação por linha.</div>
+        <div class="field form-full">
+          <textarea id="f-regras" placeholder="Ex: Som permitido até meia-noite&#10;Não aceita pets&#10;Check-in a partir das 10h&#10;Exige sinal de 50% na reserva"></textarea>
+        </div>
+        <button class="btn btn-verde btn-sm" style="margin-top:14px;" onclick="salvar('anuncio')">💾 Salvar regras e informações</button>
+      </div>
+
+      <!-- FOTOS E VÍDEOS INCORPORADOS -->
+      <div class="card">
+        <div class="card-title">📷 Fotos da chácara</div>
+        <div style="font-size:12px; color:var(--cinza); margin-bottom:14px;">💡 A primeira foto é a principal e aparece como capa do anúncio. Mínimo recomendado: 8 fotos.</div>
+
+        <div class="upload-area" onclick="document.getElementById('input-fotos').click()">
+          <div class="upload-icon">📸</div>
+          <div class="upload-title">Clique para adicionar fotos</div>
+          <div class="upload-sub">JPG, PNG ou WEBP • Até 10MB cada • Máximo 20 fotos</div>
+          <input type="file" id="input-fotos" multiple accept="image/*" style="display:none" onchange="adicionarFotos(this)"/>
+        </div>
+
+        <div class="fotos-grid" id="fotos-grid" style="margin-top:14px;">
+          <div class="foto-item" id="foto-vazia" style="background:var(--cinza-bg); border:2px dashed var(--cinza-borda); cursor:pointer;" onclick="document.getElementById('input-fotos').click()">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cinza);">
+              <span style="font-size:28px;">📸</span>
+              <span style="font-size:11px;font-weight:600;text-align:center;">Adicionar fotos</span>
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-salvar-fotos" class="btn btn-verde" style="display:none; margin-top:14px; width:100%; justify-content:center;" onclick="salvar('fotos')">
+          💾 Salvar fotos
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎬 Vídeo da chácara</div>
+        <div class="field">
+          <label for="input-video">Link do vídeo (YouTube ou Instagram)</label>
+          <input type="text" id="input-video" placeholder="https://youtube.com/watch?v=..."/>
+        </div>
+        <div style="font-size:12px; color:var(--cinza); margin-top:4px;">
+          Anúncios com vídeo recebem 3x mais contatos. Cole o link do YouTube ou Instagram.
+        </div>
+        <button class="btn btn-verde btn-sm" style="margin-top:14px;" onclick="salvar('video')">💾 Salvar vídeo</button>
+      </div>
+
+      <!-- BOTÕES FINAIS -->
+      <div id="aviso-pausado" style="display:none; background:#fee2e2; border:1.5px solid #dc2626; border-radius:10px; padding:12px 16px; margin-bottom:14px; font-size:13px; color:#991b1b; display:none; align-items:center; gap:10px;">
+        <span style="font-size:20px;">⏸</span>
+        <div><strong>Anúncio pausado.</strong> Seu anúncio está fora do ar e não aparece nas buscas. Clique em "Publicar anúncio" para reativar.</div>
+      </div>
+
+      <div style="display:flex; justify-content:center; align-items:center; gap:12px; flex-wrap:wrap; margin-top:8px;">
+        <button class="btn btn-outline" onclick="abrirPreview('pre')">👁️ Pré-visualizar (visão do cliente)</button>
+        <button class="btn btn-verde" onclick="salvar('anuncio')">💾 Salvar alterações</button>
+        <button class="btn btn-sm" id="btn-toggle-anuncio" onclick="toggleAnuncio()">▶ Publicar anúncio</button>
+      </div>
+    </div>
+
+    <!-- CALENDÁRIO -->
+    <div class="tabs" id="tab-calendario">
+      <div class="topbar">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <button class="btn btn-outline btn-sm" onclick="mostrarTab('visao-geral', document.querySelector('.nav-item'))">&#8592; Voltar</button>
+          <div>
+            <div class="page-title">Disponibilidade</div>
+            <div class="page-sub">Selecione o modo e clique nos dias para marcar</div>
+          </div>
+        </div>
+        <button class="btn btn-verde btn-sm" onclick="salvar('calendario')">&#128190; Salvar calendário</button>
+      </div>
+
+      <!-- MODO DE MARCAÇÃO -->
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; background:#fff; padding:14px 20px; border-radius:12px; border:1px solid var(--cinza-borda); flex-wrap:wrap;">
+        <span style="font-size:13px; font-weight:600; color:var(--cinza); margin-right:4px;">Modo de marcação:</span>
+        <button id="modo-disponivel" onclick="setModo('disponivel')" class="modo-btn modo-ativo-verde">&#10003; Disponível</button>
+        <button id="modo-indisponivel" onclick="setModo('indisponivel')" class="modo-btn modo-inativo">&#128683; Indisponível</button>
+        <button id="modo-limpar" onclick="setModo('neutro')" class="modo-btn modo-inativo">&#8629; Limpar</button>
+        <span style="margin-left:auto; font-size:12px; color:var(--cinza);">&#128161; Selecione o modo e clique nos dias</span>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+        <div class="card">
+          <div class="calendario-header">
+            <button class="cal-nav" onclick="mudarMes(-1)">&#8249;</button>
+            <div class="calendario-mes" id="cal-mes-titulo"></div>
+            <button class="cal-nav" onclick="mudarMes(1)">&#8250;</button>
+          </div>
+
+          <div class="calendario-grid" id="calendario-grid"></div>
+
+          <div class="cal-legenda">
+            <div class="legenda-item">
+              <div class="legenda-cor" style="background:#dcfce7; border:2px solid #16a34a;"></div>
+              <span style="font-size:12px; color:var(--cinza);">Disponível</span>
+            </div>
+            <div class="legenda-item">
+              <div class="legenda-cor" style="background:#fee2e2; border:2px solid #dc2626;"></div>
+              <span style="font-size:12px; color:var(--cinza);">Indisponível</span>
+            </div>
+            <div class="legenda-item">
+              <div class="legenda-cor" style="background:#f9fafb; border:1px solid #e5e7eb;"></div>
+              <span style="font-size:12px; color:var(--cinza);">Não definido</span>
+            </div>
+            <div class="legenda-item">
+              <div class="legenda-cor" style="background:#fff; border:2px solid var(--verde);"></div>
+              <span style="font-size:12px; color:var(--cinza);">Hoje</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">&#128203; Resumo — <span id="resumo-mes-nome"></span></div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:#dcfce7; border-radius:10px; border:1.5px solid #16a34a;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:20px;">&#10003;</span>
+                <span style="font-size:13px; font-weight:600; color:#14532d;">Dias disponíveis</span>
+              </div>
+              <span style="font-family:'Fraunces',serif; font-size:26px; color:#16a34a; font-weight:700;" id="count-disp">—</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:#fee2e2; border-radius:10px; border:1.5px solid #dc2626;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:20px;">&#128683;</span>
+                <span style="font-size:13px; font-weight:600; color:#991b1b;">Dias indisponíveis</span>
+              </div>
+              <span style="font-family:'Fraunces',serif; font-size:26px; color:#dc2626; font-weight:700;" id="count-indisp">—</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:#f9fafb; border-radius:10px; border:1.5px solid #e5e7eb;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:20px;">&#63;</span>
+                <span style="font-size:13px; font-weight:600; color:var(--cinza);">Não definidos</span>
+              </div>
+              <span style="font-family:'Fraunces',serif; font-size:26px; color:var(--cinza); font-weight:700;" id="count-neutro">—</span>
+            </div>
+          </div>
+
+          <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--cinza-borda);">
+            <div style="font-size:13px; font-weight:600; margin-bottom:10px; color:var(--verde-escuro);">Ações rápidas para o mês inteiro</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <button class="btn btn-sm" onclick="marcarTodosMes('disponivel')" style="background:#dcfce7;color:#14532d;border:1.5px solid #16a34a;justify-content:flex-start;font-family:'Inter',sans-serif;">&#10003; Marcar todo o mês como disponível</button>
+              <button class="btn btn-sm" onclick="marcarTodosMes('indisponivel')" style="background:#fee2e2;color:#991b1b;border:1.5px solid #dc2626;justify-content:flex-start;font-family:'Inter',sans-serif;">&#128683; Marcar todo o mês como indisponível</button>
+              <button class="btn btn-outline btn-sm" onclick="marcarTodosMes('neutro')" style="justify-content:flex-start;">&#8629; Limpar todas as marcações do mês</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIGURAÇÕES -->
+    <div class="tabs" id="tab-configuracoes">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Configurações</div>
+          <div class="page-sub">Dados da sua conta</div>
+        </div>
+        <button class="btn btn-verde btn-sm" onclick="salvar('config')">💾 Salvar</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">👤 Dados pessoais</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="perfil-nome">Nome completo</label>
+            <input type="text" id="perfil-nome" value="Proprietário"/>
+          </div>
+          <div class="field">
+            <label for="perfil-cpf">CPF</label>
+            <input type="text" id="perfil-cpf" value="000.000.000-00"/>
+          </div>
+          <div class="field">
+            <label for="perfil-email">E-mail</label>
+            <input type="email" id="perfil-email" />
+          </div>
+          <div class="field">
+            <label for="perfil-whatsapp">WhatsApp</label>
+            <input type="text" id="perfil-whatsapp" value="(44) 9 9999-9999"/>
+          </div>
+        </div>
+        <button class="btn btn-verde btn-sm" style="margin-top:14px;" onclick="salvar('config')">💾 Salvar dados pessoais</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔒 Alterar senha</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="senha-atual-input">Senha atual</label>
+            <input type="password" id="senha-atual-input" placeholder="••••••••"/>
+          </div>
+          <div class="field">
+            <label for="senha-nova-input">Nova senha</label>
+            <input type="password" id="senha-nova-input" placeholder="••••••••"/>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-sm" style="margin-top:4px;" onclick="salvar('senha')">Alterar senha</button>
+      </div>
+    </div>
+
+    <!-- PLANO -->
+    <div class="tabs" id="tab-comissao">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Minha Comissão</div>
+          <div class="page-sub">Entenda como funciona o repasse da plataforma</div>
+        </div>
+      </div>
+
+      <!-- COMO FUNCIONA -->
+      <div class="card" style="border:2px solid var(--verde);">
+        <div class="card-title">🌿 Como funciona a comissão</div>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+
+          <div style="display:flex; gap:14px; align-items:flex-start; padding:14px; background:var(--cinza-bg); border-radius:10px;">
+            <span style="font-size:28px; flex-shrink:0;">1️⃣</span>
+            <div>
+              <div style="font-weight:700; font-size:14px; margin-bottom:4px;">Cliente solicita e paga pela plataforma</div>
+              <div style="font-size:13px; color:var(--cinza); line-height:1.6;">Após você confirmar a reserva, o cliente efetua o pagamento integral pelo AluguelDeChácaras.com.br via Mercado Pago. O valor fica retido na plataforma até o check-out.</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; align-items:flex-start; padding:14px; background:var(--cinza-bg); border-radius:10px;">
+            <span style="font-size:28px; flex-shrink:0;">2️⃣</span>
+            <div>
+              <div style="font-weight:700; font-size:14px; margin-bottom:4px;">Comissão de 8% descontada automaticamente</div>
+              <div style="font-size:13px; color:var(--cinza); line-height:1.6;">A plataforma desconta 8% do valor total como comissão pelo serviço de intermediação, marketing e segurança da transação. Esse desconto é feito automaticamente — você não precisa fazer nada.</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; align-items:flex-start; padding:14px; background:var(--cinza-bg); border-radius:10px;">
+            <span style="font-size:28px; flex-shrink:0;">3️⃣</span>
+            <div>
+              <div style="font-weight:700; font-size:14px; margin-bottom:4px;">Você recebe o valor líquido após o check-out</div>
+              <div style="font-size:13px; color:var(--cinza); line-height:1.6;">Após o check-out do cliente, o valor líquido é transferido automaticamente para sua conta no Mercado Pago em até 2 dias úteis. Simples, seguro e sem burocracia.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SIMULADOR -->
+      <div class="card">
+        <div class="card-title">🧮 Simulador de ganhos</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div class="field">
+            <label for="sim-diaria">Valor da diária (R$)</label>
+            <input type="number" id="sim-diaria" value="1200" oninput="simularComissao()" style="border:1.5px solid var(--cinza-borda);border-radius:8px;padding:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;"/>
+          </div>
+          <div class="field">
+            <label for="sim-dias">Número de dias</label>
+            <input type="number" id="sim-dias" value="2" min="1" oninput="simularComissao()" style="border:1.5px solid var(--cinza-borda);border-radius:8px;padding:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;"/>
+          </div>
+        </div>
+        <div style="background:var(--verde-claro); border-radius:12px; padding:20px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; text-align:center;">
+            <div>
+              <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; margin-bottom:6px;">Valor total</div>
+              <div style="font-family:'Fraunces',serif; font-size:24px; color:var(--preto); font-weight:700;" id="sim-total">R$ 2.400</div>
+            </div>
+            <div>
+              <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; margin-bottom:6px;">Comissão (8%)</div>
+              <div style="font-family:'Fraunces',serif; font-size:24px; color:var(--vermelho); font-weight:700;" id="sim-comissao">− R$ 192</div>
+            </div>
+            <div>
+              <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; margin-bottom:6px;">Você recebe</div>
+              <div style="font-family:'Fraunces',serif; font-size:24px; color:var(--verde-escuro); font-weight:700;" id="sim-liquido">R$ 2.208</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VANTAGENS -->
+      <div class="card">
+        <div class="card-title">✅ O que você ganha com a plataforma</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>🎯</span><span>Seu anúncio aparece para clientes da região buscando exatamente o que você oferece</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>💳</span><span>Pagamento seguro e garantido — você recebe mesmo se o cliente não aparecer</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>🤖</span><span>IA responde solicitações no seu WhatsApp automaticamente, mesmo fora do horário</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>📅</span><span>Calendário integrado evita conflitos de reserva automaticamente</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>📊</span><span>Painel com estatísticas de visualizações, contatos e receita</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:10px;background:var(--cinza-bg);border-radius:8px;"><span>⭐</span><span>Sistema de avaliações que aumenta sua credibilidade com novos clientes</span></div>
+        </div>
+        <div style="padding:14px 16px; background:#f0fdf4; border:1.5px solid var(--verde); border-radius:10px; font-size:13px; color:var(--verde-escuro); line-height:1.6;">
+          💡 <strong>Você só paga quando recebe.</strong> Sem mensalidade, sem taxa fixa. A comissão de 8% só é cobrada quando uma reserva é confirmada e paga pelo cliente.
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // Estado do calendário
+  let calMesAtual = new Date().getMonth();
+  let calAnoAtual = new Date().getFullYear();
+  let diasStatus = {}; // { 'YYYY-MM-DD': 'disponivel' | 'indisponivel' | 'neutro' }
+  let propriedadeAtual = null;
+  let minhasPropriedades = [];
+
+  const MAPA_COMODIDADES = {"🏊 Piscina": "piscina", "🍖 Churrasqueira": "churrasqueira", "⚽ Campo de futebol": "campo de futebol", "🎣 Lago / Pesca": "lago / pesca", "🅿️ Estacionamento": "estacionamento", "🛌 Hospedagem / Quartos": "hospedagem / quartos", "🏠 Casa sede": "casa sede", "🎮 Salão de jogos": "salão de jogos", "🏐 Quadra poliesportiva": "quadra poliesportiva", "💡 Energia elétrica": "energia elétrica", "💧 Água encanada": "água encanada", "♿ Acessibilidade": "acessibilidade", "🐾 Aceita pets": "aceita pets", "🍽️ Espaço gourmet": "espaço gourmet", "🎪 Salão coberto": "salão coberto", "🌳 Pomar": "pomar", "🛣️ Acesso asfaltado": "acesso asfaltado"};
+
+  const MAPA_EVENTOS = {"🎂 Aniversários": "aniversários", "💒 Casamentos": "casamentos", "🤝 Confraternizações": "confraternizações", "🏖️ Lazer / Final de semana": "lazer / final de semana", "👔 Eventos corporativos": "eventos corporativos", "🍖 Churrascos": "churrascos", "🎓 Formaturas": "formaturas", "👧 Festas infantis": "festas infantis"};
+
+  // SUPABASE CONFIG
+  const SUPA_URL  = 'https://tathqoyhcuxthsrghrzx.supabase.co';
+  const SUPA_ANON = 'sb_publishable_fLpPGAodcCvJxPkQ223ABQ_ApJKDLRU';
+  const TERMOS_VERSAO = '3.1';
+  const _supa = window.supabase.createClient(SUPA_URL, SUPA_ANON);
+
+  // AUTH
+  async function fazerLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const senha = document.getElementById('login-senha').value;
+    const erro = document.getElementById('login-erro');
+    const loading = document.getElementById('login-loading');
+    erro.style.display = 'none';
+    loading.style.display = 'block';
+
+    const { data, error } = await _supa.auth.signInWithPassword({ email, password: senha });
+    loading.style.display = 'none';
+
+    if (error) {
+      erro.textContent = 'E-mail ou senha incorretos. Tente novamente.';
+      erro.style.display = 'block';
+      return;
+    }
+    await abrirPainel(data.user);
+  }
+
+  function mostrarRecuperarSenha() {
+    const box = document.getElementById('recuperar-senha-box');
+    const visivel = box.style.display === 'block';
+    box.style.display = visivel ? 'none' : 'block';
+    if (!visivel) {
+      const emailAtual = document.getElementById('login-email').value.trim();
+      if (emailAtual) document.getElementById('recuperar-email').value = emailAtual;
+    }
+  }
+
+  async function enviarRecuperacaoSenha() {
+    const email = document.getElementById('recuperar-email').value.trim();
+    const msg = document.getElementById('recuperar-msg');
+    if (!email) {
+      msg.textContent = 'Informe seu e-mail.';
+      msg.style.background = '#fee2e2';
+      msg.style.color = '#b91c1c';
+      msg.style.display = 'block';
+      return;
+    }
+    const { error } = await _supa.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://alugueldechacaras.com/redefinir-senha.html'
+    });
+    if (error) {
+      msg.textContent = 'Erro ao enviar: ' + error.message;
+      msg.style.background = '#fee2e2';
+      msg.style.color = '#b91c1c';
+    } else {
+      msg.textContent = '✅ Se este e-mail estiver cadastrado, você receberá um link de recuperação em instantes.';
+      msg.style.background = 'var(--verde-claro)';
+      msg.style.color = 'var(--verde-escuro)';
+    }
+    msg.style.display = 'block';
+  }
+
+  async function fazerLogout() {
+    await _supa.auth.signOut();
+    document.getElementById('painel').classList.remove('ativo');
+    document.getElementById('login-page').style.display = 'flex';
+    document.getElementById('login-email').value = '';
+    document.getElementById('login-senha').value = '';
+  }
+
+  async function abrirPainel(user) {
+    window._authUser = user;
+    // Update sidebar
+    const nome = user.user_metadata?.full_name || user.email.split('@')[0];
+    const iniciais = nome.split(' ').map(p=>p[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('sidebar-avatar').textContent = iniciais;
+    document.getElementById('sidebar-nome').textContent = nome;
+
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('painel').classList.add('ativo');
+
+    await carregarDados(user.email);
+    renderCalendario();
+
+    if (new URLSearchParams(window.location.search).get('editar') === '1') {
+      irParaMinhaChacara();
+    }
+  }
+
+  function irParaMinhaChacara() {
+    let alvo = null;
+    document.querySelectorAll('.nav-item').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'minha-chacara'")) alvo = b;
+    });
+    mostrarTab('minha-chacara', alvo);
+  }
+
+  async function carregarDados(email) {
+    // 1. Buscar propriedades do proprietário
+    const { data: props } = await _supa
+      .from('properties')
+      .select('*')
+      .eq('owner_email', email);
+
+    if (!props || props.length === 0) {
+      document.getElementById('reservas-container').innerHTML =
+        '<div style="text-align:center;padding:40px;color:var(--cinza);">📭 Nenhuma chácara cadastrada com este e-mail.<br><small>Entre em contato com o suporte.</small></div>';
+      return;
+    }
+
+    const propIds = props.map(p => p.id);
+    minhasPropriedades = props;
+    window._minhaProp = props[0];
+    propriedadeAtual = props[0];
+    await preencherFormularioChacara(propriedadeAtual);
+    atualizarPreviewPropriedade(propriedadeAtual);
+    renderPickerChacaras();
+
+    // 2. Buscar reservas
+    const { data: bookings, error: bookErr } = await _supa
+      .from('bookings')
+      .select('*')
+      .in('property_id', propIds)
+      .order('created_at', { ascending: false });
+
+    if (bookErr) console.warn('Erro ao carregar reservas:', bookErr.message);
+    window._reservas = bookings || [];
+
+    preencherConfig();
+    inicializarMascaras();
+    renderParaPropriedade();
+  }
+
+  function atualizarPreviewPropriedade(prop) {
+    if (!prop) return;
+    const previewNome = document.getElementById('preview-nome');
+    const previewLocal = document.getElementById('preview-local');
+    if (previewNome) previewNome.textContent = prop.name;
+    if (previewLocal) previewLocal.textContent = `📍 ${prop.city||''} — ${prop.address||''}`;
+
+    const previewPreco = document.getElementById('preview-preco-valor');
+    if (previewPreco) previewPreco.textContent = prop.price_per_day ? ('R$ ' + Number(prop.price_per_day).toLocaleString('pt-BR')) : 'R$ —';
+
+    const badge = document.getElementById('badge-status-anuncio');
+    if (badge) {
+      badge.textContent = prop.active ? 'Anúncio ativo' : 'Anúncio inativo';
+      badge.className = 'status-badge ' + (prop.active ? 'badge-ativo' : 'badge-pausado');
+    }
+
+    const nomeAtual = document.getElementById('picker-nome-atual');
+    if (nomeAtual) nomeAtual.textContent = prop.name;
+  }
+
+  function renderPickerChacaras() {
+    const lista = document.getElementById('picker-lista');
+    if (!lista) return;
+    let html = '';
+    minhasPropriedades.forEach(p => {
+      const ativo = propriedadeAtual && p.id === propriedadeAtual.id;
+      html += `<div class="picker-item ${ativo ? 'ativo' : ''}" onclick="selecionarPropriedade('${p.id}')">
+        <span class="picker-item-nome">${p.name}</span>
+        <span class="picker-item-status ${p.active ? 'on' : 'off'}">${p.active ? 'ativo' : 'inativo'}</span>
+      </div>`;
+    });
+    html += `<div class="picker-nova" onclick="abrirNovaChacara()">➕ Nova chácara</div>`;
+    lista.innerHTML = html;
+
+    const nomeAtual = document.getElementById('picker-nome-atual');
+    if (nomeAtual && propriedadeAtual) nomeAtual.textContent = propriedadeAtual.name;
+  }
+
+  function togglePickerChacaras(ev) {
+    if (ev) ev.stopPropagation();
+    const lista = document.getElementById('picker-lista');
+    const arrow = document.getElementById('picker-arrow');
+    if (!lista) return;
+    lista.classList.toggle('aberto');
+    if (arrow) arrow.classList.toggle('aberto');
+  }
+
+  function fecharPickerChacaras() {
+    const lista = document.getElementById('picker-lista');
+    const arrow = document.getElementById('picker-arrow');
+    if (lista) lista.classList.remove('aberto');
+    if (arrow) arrow.classList.remove('aberto');
+  }
+
+  document.addEventListener('click', function(e) {
+    const picker = document.getElementById('sidebar-picker');
+    if (picker && !picker.contains(e.target)) fecharPickerChacaras();
+  });
+
+  async function selecionarPropriedade(id) {
+    const prop = minhasPropriedades.find(p => p.id === id);
+    if (!prop) return;
+    propriedadeAtual = prop;
+    window._minhaProp = prop;
+    await preencherFormularioChacara(propriedadeAtual);
+    atualizarPreviewPropriedade(propriedadeAtual);
+    renderPickerChacaras();
+    fecharPickerChacaras();
+    renderCalendario();
+    preencherConfig();
+    inicializarMascaras();
+    renderParaPropriedade();
+    mostrarToast(`🏡 Agora exibindo: ${prop.name}`);
+  }
+
+  function abrirNovaChacara() {
+    fecharPickerChacaras();
+    document.getElementById('nova-chacara-nome').value = '';
+    document.getElementById('nova-chacara-cidade').value = '';
+    document.getElementById('nova-chacara-whatsapp').value = '';
+    document.getElementById('nova-chacara-termos').checked = false;
+    document.getElementById('nova-chacara-erro').style.display = 'none';
+    document.getElementById('modal-nova-chacara').classList.add('open');
+  }
+
+  function fecharNovaChacara() {
+    document.getElementById('modal-nova-chacara').classList.remove('open');
+  }
+
+  async function confirmarNovaChacara() {
+    const nome = document.getElementById('nova-chacara-nome').value.trim();
+    const cidade = document.getElementById('nova-chacara-cidade').value.trim();
+    const whatsapp = document.getElementById('nova-chacara-whatsapp').value.trim();
+    const erroEl = document.getElementById('nova-chacara-erro');
+    erroEl.style.display = 'none';
+
+    if (!nome) { erroEl.textContent = 'Informe o nome da chácara.'; erroEl.style.display = 'block'; return; }
+    if (!whatsapp || whatsapp.replace(/\D/g,'').length < 10) { erroEl.textContent = 'Informe um WhatsApp válido.'; erroEl.style.display = 'block'; return; }
+    const termosAceitos = document.getElementById('nova-chacara-termos').checked;
+    if (!termosAceitos) { erroEl.textContent = 'É necessário aceitar o Termo de Responsabilidade do Proprietário.'; erroEl.style.display = 'block'; return; }
+
+    const btn = document.getElementById('btn-confirmar-nova-chacara');
+    btn.disabled = true;
+    btn.textContent = 'Cadastrando...';
+
+    try {
+      const { data: { session } } = await _supa.auth.getSession();
+      if (!session) { erroEl.textContent = 'Sessão expirada. Recarregue a página e entre novamente.'; erroEl.style.display = 'block'; return; }
+
+      const resp = await fetch('https://n8n.alugueldechacaras.com/webhook/adicionar-anuncio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tipo: 'chacara',
+          access_token: session.access_token,
+          nome_negocio: nome,
+          cidade, whatsapp,
+          termos_aceitos: termosAceitos,
+          termos_versao: TERMOS_VERSAO
+        })
+      });
+      const result = await resp.json();
+      if (!result.ok) {
+        erroEl.textContent = result.erro || 'Não foi possível cadastrar. Tente novamente.';
+        erroEl.style.display = 'block';
+        return;
+      }
+
+      fecharNovaChacara();
+      await carregarDados(session.user.email);
+      const nova = minhasPropriedades.find(p => p.id === result.id);
+      if (nova) await selecionarPropriedade(nova.id);
+      irParaMinhaChacara();
+      mostrarToast('✅ Chácara cadastrada! Preencha os detalhes abaixo.');
+    } catch (e) {
+      erroEl.textContent = 'Erro de conexão. Tente novamente.';
+      erroEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Cadastrar chácara';
+    }
+  }
+
+  let reservaParaCancelarProprietario = null;
+
+  function abrirModalCancelarProprietario(id) {
+    reservaParaCancelarProprietario = id;
+    document.getElementById('cancelar-proprietario-motivo').value = '';
+    const erro = document.getElementById('cancelar-proprietario-erro');
+    erro.style.display = 'none';
+    document.getElementById('modal-cancelar-proprietario').classList.add('open');
+  }
+
+  function fecharModalCancelarProprietario() {
+    document.getElementById('modal-cancelar-proprietario').classList.remove('open');
+    reservaParaCancelarProprietario = null;
+  }
+
+  async function confirmarCancelamentoProprietario() {
+    if (!reservaParaCancelarProprietario) return;
+    const id = reservaParaCancelarProprietario;
+    const motivo = document.getElementById('cancelar-proprietario-motivo').value.trim();
+    const erroEl = document.getElementById('cancelar-proprietario-erro');
+    erroEl.style.display = 'none';
+    const btn = document.getElementById('btn-confirmar-cancelar-proprietario');
+    btn.disabled = true;
+    btn.textContent = 'Cancelando...';
+
+    try {
+      const { data: { session } } = await _supa.auth.getSession();
+      if (!session) { erroEl.textContent = 'Sessão expirada. Recarregue a página e entre novamente.'; erroEl.style.display = 'block'; return; }
+
+      const resp = await fetch('https://n8n.alugueldechacaras.com/webhook/cancelar-reserva-proprietario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          booking_id: id,
+          access_token: session.access_token,
+          confirmado: true,
+          motivo
+        })
+      });
+      const result = await resp.json();
+      if (!result.success) {
+        erroEl.textContent = result.error || 'Não foi possível cancelar. Tente novamente.';
+        erroEl.style.display = 'block';
+        return;
+      }
+
+      fecharModalCancelarProprietario();
+      const card = document.getElementById('res-' + id);
+      if (card) {
+        const badge = card.querySelector('.reserva-badge');
+        if (badge) { badge.className = 'reserva-badge badge-recusada'; badge.textContent = '✕ Cancelada'; }
+        const acoes = card.querySelector('.reserva-acoes');
+        if (acoes) acoes.innerHTML = `<span style="font-size:12px;color:var(--cinza);">Reserva cancelada. Cliente recebeu 100% de reembolso.</span>`;
+      }
+      if (window._reservas) window._reservas = window._reservas.map(r => r.id === id ? {...r, status: 'cancelled', refund_percentage: 100, refund_amount: result.valor_reembolso} : r);
+      renderParaPropriedade();
+      mostrarToast('✅ Reserva cancelada. Cliente notificado e reembolso de 100% solicitado.');
+    } catch (e) {
+      erroEl.textContent = 'Erro de conexão. Tente novamente.';
+      erroEl.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Sim, cancelar reserva';
+    }
+  }
+
+  function fmtDate(d) {
+    if (!d) return '—';
+    const [y,m,day] = d.split('-');
+    return `${day}/${m}/${y}`;
+  }
+
+  function fmtReal(v) {
+    return 'R$ ' + Number(v||0).toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0});
+  }
+
+  function statusBadge(s) {
+    const map = {
+      owner_notified:   ['⏳ Pendente',            'badge-pendente'],
+      pending:          ['⏳ Pendente',            'badge-pendente'],
+      payment_pending:  ['💳 Aguard. pagamento',   'badge-pendente'],
+      confirmed:        ['✅ Confirmada',           'badge-confirmada'],
+      paid:             ['💰 Paga',                'badge-paga'],
+      completed:        ['✔ Concluída',            'badge-concluida'],
+      cancelled:        ['✕ Cancelada',            'badge-recusada'],
+      rejected:         ['✕ Recusada',             'badge-recusada'],
+    };
+    return map[s] || [s, ''];
+  }
+
+  function renderReservas(bookings) {
+    const pendentes  = bookings.filter(b => ['owner_notified','pending','payment_pending'].includes(b.status));
+    const ativas     = bookings.filter(b => ['confirmed','paid'].includes(b.status));
+    const historico  = bookings.filter(b => ['completed','cancelled','rejected'].includes(b.status));
+
+    // Badge
+    const badgeEl = document.getElementById('badge-reservas');
+    if (badgeEl) { badgeEl.textContent = pendentes.length || ''; badgeEl.style.display = pendentes.length ? '' : 'none'; }
+
+    // Alerta
+    const alerta = document.getElementById('alerta-pendentes');
+    if (alerta) {
+      if (pendentes.length > 0) {
+        alerta.style.display = 'flex';
+        document.getElementById('alerta-texto').textContent =
+          `Você tem ${pendentes.length} solicitaç${pendentes.length>1?'ões':'ão'} aguardando resposta!`;
+      } else {
+        alerta.style.display = 'none';
+      }
+    }
+
+    let html = '';
+
+    if (pendentes.length > 0) {
+      html += `<div style="font-size:12px;font-weight:700;color:var(--cinza);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">⏳ Aguardando resposta (${pendentes.length})</div>`;
+      pendentes.forEach(b => { html += cardReserva(b); });
+    }
+
+    if (ativas.length > 0) {
+      html += `<div style="font-size:12px;font-weight:700;color:var(--cinza);text-transform:uppercase;letter-spacing:0.5px;margin:20px 0 12px;">✅ Reservas confirmadas (${ativas.length})</div>`;
+      ativas.forEach(b => { html += cardReserva(b); });
+    }
+
+    if (historico.length > 0) {
+      html += `<div style="font-size:12px;font-weight:700;color:var(--cinza);text-transform:uppercase;letter-spacing:0.5px;margin:20px 0 12px;">📋 Histórico (${historico.length})</div>`;
+      historico.forEach(b => { html += cardReserva(b); });
+    }
+
+    if (!html) {
+      html = '<div style="text-align:center;padding:60px;color:var(--cinza);">📭 Nenhuma reserva encontrada ainda.</div>';
+    }
+
+    document.getElementById('reservas-container').innerHTML = html;
+
+    // Tabela financeiro
+    const isPending = s => s === 'pending';
+    const tbody = document.getElementById('historico-tbody');
+    if (tbody) {
+      const rows = bookings.map(b => {
+        const [lbl, cls] = statusBadge(b.status);
+        const total = Number(b.total_price||0);
+        const comissao = Number(b.platform_fee||0);
+        const liquido = Number(b.owner_amount||0);
+        return `<tr style="border-bottom:1px solid #f3f4f6;">
+          <td style="padding:12px 14px; font-weight:600;">${b.client_name}</td>
+          <td style="padding:12px 14px; color:var(--cinza);">${fmtDate(b.check_in)} – ${fmtDate(b.check_out)}</td>
+          <td style="padding:12px 14px;">${fmtReal(total)}</td>
+          <td style="padding:12px 14px; color:var(--vermelho);">− ${fmtReal(comissao)}</td>
+          <td style="padding:12px 14px; font-weight:700; color:var(--verde);">${fmtReal(liquido)}</td>
+          <td style="padding:12px 14px;"><span class="reserva-badge ${cls}" style="font-size:11px;">${lbl}</span></td>
+        </tr>`;
+      }).join('');
+      tbody.innerHTML = rows || '<tr><td colspan="6" style="padding:20px;text-align:center;color:var(--cinza)">Nenhuma reserva ainda.</td></tr>';
+    }
+  }
+
+  function cardReserva(b) {
+    const [lbl, cls] = statusBadge(b.status);
+    const initials = b.client_name.split(' ').map(p=>p[0]).join('').toUpperCase().slice(0,2);
+    const isPending = ['owner_notified','pending','payment_pending'].includes(b.status);
+    const wpp = b.client_whatsapp ? b.client_whatsapp.replace(/\D/g,'') : '';
+    const isPaid = b.status === 'paid';
+    const acoesHtml = isPending ? `
+      <div class="reserva-acoes">
+        <button class="btn-confirmar" onclick="confirmarReservaDB('${b.id}', this)">✅ Confirmar reserva</button>
+        <button class="btn-recusar" onclick="recusarReservaDB('${b.id}', this)">✕ Recusar</button>
+        ${wpp ? `<button class="btn-msg-cliente" onclick="msgCliente('${wpp}')">💬 Perguntar ao cliente</button>` : ''}
+      </div>` : ((wpp || isPaid) ? `<div class="reserva-acoes" style="margin-top:8px;">
+        ${wpp ? `<button class="btn-msg-cliente" onclick="msgCliente('${wpp}')">💬 WhatsApp do cliente</button>` : ''}
+        ${isPaid ? `<button class="btn-recusar" onclick="abrirModalCancelarProprietario('${b.id}')">🚫 Cancelar reserva</button>` : ''}
+      </div>` : '');
+
+    return `<div class="reserva-card ${isPending?'pendente':''}" id="res-${b.id}">
+      <div class="reserva-header">
+        <div class="reserva-cliente">
+          <div class="cliente-avatar">${initials}</div>
+          <div>
+            <div class="cliente-nome">${b.client_name}</div>
+            <div class="cliente-contato">📱 ${b.client_whatsapp||'—'} • ${b.client_email||'—'}</div>
+          </div>
+        </div>
+        <span class="reserva-badge ${cls}">${lbl}</span>
+      </div>
+      <div class="reserva-infos">
+        <div class="reserva-info-item"><span class="reserva-info-label">Check-in</span><span class="reserva-info-val">${fmtDate(b.check_in)}</span></div>
+        <div class="reserva-info-item"><span class="reserva-info-label">Check-out</span><span class="reserva-info-val">${fmtDate(b.check_out)}</span></div>
+        <div class="reserva-info-item"><span class="reserva-info-label">Dias / Valor</span><span class="reserva-info-val">${b.total_days||'—'} dias • ${fmtReal(b.total_price)}</span></div>
+        <div class="reserva-info-item"><span class="reserva-info-label">Pessoas</span><span class="reserva-info-val">${b.num_guests||1} pessoas</span></div>
+      </div>
+      ${b.message ? `<div class="reserva-msg">"${b.message}"</div>` : ''}
+      <div style="font-size:11px;color:var(--cinza);margin-bottom:12px;">📅 Solicitado em ${fmtDate(b.created_at?.split('T')[0])}</div>
+      ${acoesHtml}
+    </div>`;
+  }
+
+  async function confirmarReservaDB(id, btn) {
+    btn.disabled = true; btn.textContent = '⏳ Confirmando...';
+    const { error } = await _supa.from('bookings').update({ status: 'confirmed', owner_response: 'accepted', owner_responded_at: new Date().toISOString() }).eq('id', id);
+    if (!error) {
+      mostrarToast('✅ Reserva confirmada!');
+      const card = document.getElementById('res-' + id);
+      if (card) { card.classList.remove('pendente'); card.classList.add('confirmada'); card.querySelector('.reserva-badge').className = 'reserva-badge badge-confirmada'; card.querySelector('.reserva-badge').textContent = '✅ Confirmada'; card.querySelector('.reserva-acoes')?.remove(); }
+      atualizarStats(window._reservas.map(r => r.id === id ? {...r, status: 'confirmed'} : r));
+    } else {
+      btn.disabled = false; btn.textContent = '✅ Confirmar reserva';
+      mostrarToast('Erro ao confirmar. Tente novamente.');
+    }
+  }
+
+  async function recusarReservaDB(id, btn) {
+    if (!confirm('Tem certeza que quer recusar esta reserva?')) return;
+    btn.disabled = true; btn.textContent = '⏳ Recusando...';
+    const { error } = await _supa.from('bookings').update({ status: 'rejected', owner_response: 'rejected', owner_responded_at: new Date().toISOString() }).eq('id', id);
+    if (!error) {
+      mostrarToast('Reserva recusada.');
+      const card = document.getElementById('res-' + id);
+      if (card) { card.classList.remove('pendente'); card.querySelector('.reserva-badge').className = 'reserva-badge badge-recusada'; card.querySelector('.reserva-badge').textContent = '✕ Recusada'; card.querySelector('.reserva-acoes')?.remove(); }
+    } else {
+      btn.disabled = false; btn.textContent = '✕ Recusar';
+      mostrarToast('Erro ao recusar.');
+    }
+  }
+
+  function atualizarStats(bookings) {
+    const pendentes  = bookings.filter(b => ['owner_notified','pending','payment_pending'].includes(b.status)).length;
+    const confirmadas = bookings.filter(b => ['confirmed','paid'].includes(b.status)).length;
+    const receita = bookings.filter(b => b.status === 'paid').reduce((s,b) => s + Number(b.owner_amount||0), 0);
+    const comissao = bookings.filter(b => b.status === 'paid').reduce((s,b) => s + Number(b.platform_fee||0), 0);
+    const aReceber = bookings.filter(b => ['confirmed','payment_pending'].includes(b.status)).reduce((s,b) => s + Number(b.owner_amount||0), 0);
+
+    const el = id => document.getElementById(id);
+    if (el('stat-pendentes')) el('stat-pendentes').textContent = pendentes;
+    if (el('stat-confirmadas')) el('stat-confirmadas').textContent = confirmadas;
+    if (el('stat-receita')) el('stat-receita').textContent = fmtReal(receita);
+    if (el('badge-reservas')) { const _b=el('badge-reservas'); _b.textContent = pendentes || ''; _b.style.display = pendentes ? '' : 'none'; }
+    if (el('fin-recebido')) el('fin-recebido').textContent = fmtReal(receita);
+    if (el('fin-a-receber')) el('fin-a-receber').textContent = fmtReal(aReceber);
+    if (el('fin-comissao')) el('fin-comissao').textContent = fmtReal(comissao);
+  }
+
+  // === Helpers: mascara telefone, escopo por chacara, config (add sessao 02/07) ===
+  function stripCountryCode55(value) {
+    const d = (value || '').toString().replace(/\D/g, '');
+    if (d.length >= 12 && d.startsWith('55')) return d.slice(2);
+    return d;
+  }
+
+  function formatarTelBR(value) {
+    let n = (value || '').replace(/\D/g, '').slice(0, 11);
+    if (n.length <= 2) return n.length ? '(' + n : '';
+    const ddd = n.slice(0, 2);
+    const rest = n.slice(2);
+    let meio, fim;
+    if (rest.length >= 9) { meio = rest.slice(0, 5); fim = rest.slice(5, 9); }
+    else if (rest.length > 4) { meio = rest.slice(0, rest.length - 4); fim = rest.slice(-4); }
+    else { return '(' + ddd + ') ' + rest; }
+    return '(' + ddd + ') ' + meio + '-' + fim;
+  }
+
+  function inicializarMascaras() {
+    ['f-whatsapp', 'f-telefone-alt', 'perfil-whatsapp', 'nova-chacara-whatsapp'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (!el.placeholder) el.placeholder = '(44) 90000-0000';
+      el.setAttribute('inputmode', 'tel');
+      if (!el._maskAttached) {
+        el._maskAttached = true;
+        el.addEventListener('input', () => { el.value = formatarTelBR(el.value); });
+      }
+      if (el.value) el.value = formatarTelBR(el.value);
+    });
+  }
+
+  function preencherConfig() {
+    const s = id => document.getElementById(id);
+    const u = window._authUser || {};
+    const p = propriedadeAtual || {};
+    if (s('perfil-nome')) s('perfil-nome').value = p.owner_name || (u.user_metadata && u.user_metadata.full_name) || '';
+    if (s('perfil-email')) { s('perfil-email').value = u.email || p.owner_email || ''; s('perfil-email').setAttribute('readonly', ''); s('perfil-email').style.background = '#f9fafb'; }
+    if (s('perfil-whatsapp')) s('perfil-whatsapp').value = formatarTelBR(stripCountryCode55(p.owner_whatsapp || ''));
+    const cpf = s('perfil-cpf');
+    if (cpf) { cpf.value = p.cpf || ''; if (!cpf.value) cpf.placeholder = 'Opcional'; }
+  }
+
+  function reservasDaPropriedadeAtual() {
+    const all = window._reservas || [];
+    if (!propriedadeAtual) return all;
+    return all.filter(b => b.property_id === propriedadeAtual.id);
+  }
+
+  function renderParaPropriedade() {
+    const lista = reservasDaPropriedadeAtual();
+    renderReservas(lista);
+    atualizarStats(lista);
+    atualizarAvisoCancelamentosProprietario(lista);
+  }
+
+  function atualizarAvisoCancelamentosProprietario(lista) {
+    const el = document.getElementById('aviso-cancelamentos-proprietario');
+    if (!el) return;
+    const n = (lista || []).filter(b => b.cancelled_by === 'owner').length;
+    if (n > 0) {
+      el.style.display = 'block';
+      el.innerHTML = `📋 Histórico: você cancelou <b>${n}</b> reserva${n > 1 ? 's' : ''} paga${n > 1 ? 's' : ''} como proprietário desta chácara (reembolso de 100% ao cliente em cada caso, conforme o Termo de Responsabilidade do Proprietário).`;
+    } else {
+      el.style.display = 'none';
+    }
+  }
+
+  // Verificar sessão ao carregar
+  document.addEventListener('DOMContentLoaded', async () => {
+    let { data: { session } } = await _supa.auth.getSession();
+    if (!session) {
+      // pequena espera para evitar corrida de inicializacao ao vir de outra pagina (ex: apos cadastro com login automatico)
+      await new Promise(r => setTimeout(r, 500));
+      ({ data: { session } } = await _supa.auth.getSession());
+    }
+    if (session) {
+      await abrirPainel(session.user);
+    }
+    inicializarTags();
+  });
+
+  function mostrarCadastro() {
+    mostrarToast('Para se cadastrar, acesse AluguelDeChácaras.com.br e clique em Anunciar.');
+  }
+
+  // TABS
+  function mostrarTab(id, btn) {
+    document.querySelectorAll('.tabs').forEach(t => t.classList.remove('ativo'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
+    const tab = document.getElementById('tab-' + id);
+    if (tab) tab.classList.add('ativo');
+    let navBtn = null;
+    document.querySelectorAll('.nav-item').forEach(n => {
+      const oc = n.getAttribute('onclick') || '';
+      if (oc.includes("'" + id + "'")) navBtn = n;
+    });
+    (navBtn || btn) && (navBtn || btn).classList.add('ativo');
+    if (id === 'calendario') renderCalendario();
+    if (id === 'minha-chacara') inicializarTags();
+    if (id === 'configuracoes') preencherConfig();
+  }
+
+  // TAGS CLICÁVEIS — inicializar e vincular diretamente cada checkbox
+  function inicializarTags() {
+    document.querySelectorAll('.tag-check').forEach(function(label) {
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      if (!checkbox) return;
+
+      // Sincronizar estado visual com o checkbox
+      if (checkbox.checked) {
+        label.classList.add('selecionado');
+      } else {
+        label.classList.remove('selecionado');
+      }
+
+      // Ao mudar o checkbox, atualizar visual
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          label.classList.add('selecionado');
+        } else {
+          label.classList.remove('selecionado');
+        }
+      });
+    });
+  }
+
+  // inicializarTags chamada dentro do DOMContentLoaded principal (ver acima)
+
+  // Preenche o formulario "Minha Chacara" com os dados reais vindos do Supabase
+  async function preencherFormularioChacara(prop) {
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = (val === null || val === undefined) ? '' : val; };
+    set('f-nome', prop.name);
+    set('f-cidade', prop.city);
+    set('f-bairro', prop.neighborhood);
+    set('f-whatsapp', formatarTelBR(stripCountryCode55(prop.owner_whatsapp)));
+    set('f-telefone-alt', prop.phone_alt);
+    set('f-descricao', prop.description);
+    set('f-capacidade', prop.max_guests);
+    set('f-diaria', prop.price_per_day);
+    set('f-fds', prop.price_weekend);
+    set('f-area-m2', prop.area_m2);
+    set('f-vagas', prop.parking_spots);
+    set('f-regras', prop.rules_info);
+    set('input-video', prop.video_url);
+    set('f-endereco-completo', prop.full_address);
+    set('f-acesso', prop.access_instructions);
+
+    const amenities = prop.amenities || [];
+    document.querySelectorAll('#tags-estrutura .tag-check').forEach(function(label) {
+      const canon = MAPA_COMODIDADES[label.textContent.trim()];
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      if (checkbox && canon) {
+        checkbox.checked = amenities.includes(canon);
+        label.classList.toggle('selecionado', checkbox.checked);
+      }
+    });
+
+    // Fotos ja existentes no Supabase
+    const grid = document.getElementById('fotos-grid');
+    if (grid) {
+      grid.querySelectorAll('.foto-item:not(#foto-vazia)').forEach(el => el.remove());
+      const vazio = document.getElementById('foto-vazia');
+      (prop.photos || []).forEach(url => {
+        const div = document.createElement('div');
+        div.className = 'foto-item';
+        div._existingUrl = url;
+        div.innerHTML = '<img src="' + url + '" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"/><button class="foto-remove" onclick="removerFoto(this)">✕</button>';
+        if (vazio) grid.insertBefore(div, vazio); else grid.appendChild(div);
+      });
+      atualizarBadgePrincipal();
+      if ((prop.photos || []).length) mostrarBtnSalvarFotos();
+    }
+
+    // Estado do anuncio (ativo/pausado)
+    anuncioAtivo = !!prop.active;
+    sincronizarBotoesAnuncio();
+
+    // Bloqueios de calendario
+    inicializarMascaras();
+    await carregarBloqueios(prop.id);
+  }
+
+  async function carregarBloqueios(propId) {
+    const { data } = await _supa.from('blocked_dates').select('blocked_date').eq('property_id', propId);
+    diasStatus = {};
+    (data || []).forEach(r => { diasStatus[r.blocked_date] = 'indisponivel'; });
+    renderCalendario();
+  }
+
+  function sincronizarBotoesAnuncio() {
+    const btn1 = document.getElementById('btn-toggle-anuncio');
+    const btn2 = document.getElementById('btn-toggle-anuncio-visao');
+    const badge = document.getElementById('badge-status-anuncio');
+    const aviso = document.getElementById('aviso-pausado');
+    const btns = [btn1, btn2].filter(Boolean);
+    if (anuncioAtivo) {
+      btns.forEach(b => { b.textContent = '⏸ Pausar anúncio'; b.style.background = 'var(--vermelho)'; b.style.color = '#fff'; b.className = 'btn btn-sm'; });
+      if (badge) { badge.className = 'status-badge badge-ativo'; badge.textContent = 'Anúncio ativo'; }
+      if (aviso) aviso.style.display = 'none';
+    } else {
+      btns.forEach(b => { b.textContent = '▶ Publicar anúncio'; b.style.background = 'var(--verde)'; b.style.color = '#fff'; b.className = 'btn btn-sm'; });
+      if (badge) { badge.className = 'status-badge badge-inativo'; badge.textContent = 'Anúncio pausado'; }
+      if (aviso) aviso.style.display = 'flex';
+    }
+  }
+
+  // FOTOS
+  function adicionarFotos(input) {
+    const grid = document.getElementById('fotos-grid');
+    const vazio = document.getElementById('foto-vazia');
+
+    Array.from(input.files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        // Remover card vazio se existir
+        if (document.getElementById('foto-vazia')) {
+          document.getElementById('foto-vazia').remove();
+        }
+
+        const div = document.createElement('div');
+        div.className = 'foto-item';
+        div._file = file;
+        div.innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"/><button class="foto-remove" onclick="removerFoto(this)">✕</button>`;
+
+        // Inserir antes do card vazio se ainda existir, senão append
+        const vazioAtual = document.getElementById('foto-vazia');
+        if (vazioAtual) {
+          grid.insertBefore(div, vazioAtual);
+        } else {
+          grid.appendChild(div);
+        }
+
+        // Adicionar card vazio de volta no final se não existir
+        if (!document.getElementById('foto-vazia')) {
+          const novoVazio = document.createElement('div');
+          novoVazio.className = 'foto-item';
+          novoVazio.id = 'foto-vazia';
+          novoVazio.style.cssText = 'background:var(--cinza-bg);border:2px dashed var(--cinza-borda);cursor:pointer;';
+          novoVazio.onclick = () => document.getElementById('input-fotos').click();
+          novoVazio.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cinza);"><span style="font-size:28px;">📸</span><span style="font-size:11px;font-weight:600;text-align:center;">Mais fotos</span></div>';
+          grid.appendChild(novoVazio);
+        }
+
+        atualizarBadgePrincipal();
+        mostrarBtnSalvarFotos();
+      };
+      reader.readAsDataURL(file);
+    });
+    input.value = '';
+  }
+
+  function removerFoto(btn) {
+    btn.parentElement.remove();
+    atualizarBadgePrincipal();
+    const totalFotos = document.querySelectorAll('#fotos-grid .foto-item:not(#foto-vazia)').length;
+    if (totalFotos === 0) {
+      // Restaurar estado inicial
+      const grid = document.getElementById('fotos-grid');
+      if (!document.getElementById('foto-vazia')) {
+        grid.innerHTML = `<div class="foto-item" id="foto-vazia" style="background:var(--cinza-bg);border:2px dashed var(--cinza-borda);cursor:pointer;" onclick="document.getElementById('input-fotos').click()"><div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cinza);"><span style="font-size:28px;">📸</span><span style="font-size:11px;font-weight:600;text-align:center;">Adicionar fotos</span></div></div>`;
+      }
+      const btn = document.getElementById('btn-salvar-fotos');
+      if (btn) btn.style.display = 'none';
+    }
+  }
+
+  function atualizarBadgePrincipal() {
+    // Remove todos os badges
+    document.querySelectorAll('.foto-principal-badge').forEach(b => b.remove());
+    // Adiciona na primeira foto real
+    const primeira = document.querySelector('#fotos-grid .foto-item:not(#foto-vazia)');
+    if (primeira) {
+      const badge = document.createElement('span');
+      badge.className = 'foto-principal-badge';
+      badge.textContent = 'Principal';
+      primeira.appendChild(badge);
+    }
+  }
+
+  function mostrarBtnSalvarFotos() {
+    const btn = document.getElementById('btn-salvar-fotos');
+    if (btn) btn.style.display = 'flex';
+  }
+
+  // CALENDÁRIO
+  let modoAtual = 'disponivel';
+  const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const dows = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+
+  function renderCalendario() {
+    const hoje = new Date();
+    const titulo = document.getElementById('cal-mes-titulo');
+    titulo.textContent = `${meses[calMesAtual]} ${calAnoAtual}`;
+
+    const grid = document.getElementById('calendario-grid');
+    grid.innerHTML = '';
+
+    // Cabeçalho dias da semana
+    dows.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'cal-dow';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    const primeiroDia = new Date(calAnoAtual, calMesAtual, 1).getDay();
+    const totalDias = new Date(calAnoAtual, calMesAtual + 1, 0).getDate();
+
+    // Vazios antes
+    for (let i = 0; i < primeiroDia; i++) {
+      const el = document.createElement('div');
+      el.className = 'cal-day cal-vazio';
+      grid.appendChild(el);
+    }
+
+    // Dias
+    for (let d = 1; d <= totalDias; d++) {
+      const key = `${calAnoAtual}-${String(calMesAtual+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const data = new Date(calAnoAtual, calMesAtual, d);
+      const passado = data < new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+
+      const el = document.createElement('div');
+      el.className = 'cal-day';
+      el.textContent = d;
+
+      if (passado) {
+        el.classList.add('cal-passado');
+      } else {
+        const isHoje = d === hoje.getDate() && calMesAtual === hoje.getMonth() && calAnoAtual === hoje.getFullYear();
+        if (isHoje) el.classList.add('hoje');
+
+        const status = diasStatus[key] || 'neutro';
+        if (status === 'disponivel') el.classList.add('disponivel');
+        else if (status === 'indisponivel') el.classList.add('indisponivel');
+
+        el.onclick = () => toggleDia(key, el);
+      }
+
+      grid.appendChild(el);
+    }
+
+    atualizarResumo();
+  }
+
+  function setModo(modo) {
+    modoAtual = modo;
+    const btns = { disponivel: 'modo-disponivel', indisponivel: 'modo-indisponivel', neutro: 'modo-limpar' };
+    const classes = { disponivel: 'modo-ativo-verde', indisponivel: 'modo-ativo-vermelho', neutro: 'modo-ativo-cinza' };
+    ['disponivel','indisponivel','neutro'].forEach(m => {
+      const btn = document.getElementById('modo-' + (m === 'neutro' ? 'limpar' : m));
+      btn.className = 'modo-btn ' + (m === modo ? classes[m] : 'modo-inativo');
+    });
+  }
+
+  function toggleDia(key, el) {
+    diasStatus[key] = modoAtual;
+    el.classList.remove('disponivel', 'indisponivel');
+    if (modoAtual === 'disponivel') el.classList.add('disponivel');
+    else if (modoAtual === 'indisponivel') el.classList.add('indisponivel');
+    atualizarResumo();
+  }
+
+  function mudarMes(delta) {
+    calMesAtual += delta;
+    if (calMesAtual > 11) { calMesAtual = 0; calAnoAtual++; }
+    if (calMesAtual < 0) { calMesAtual = 11; calAnoAtual--; }
+    renderCalendario();
+  }
+
+  function marcarTodosMes(status) {
+    const total = new Date(calAnoAtual, calMesAtual + 1, 0).getDate();
+    const hoje = new Date();
+    for (let d = 1; d <= total; d++) {
+      const key = `${calAnoAtual}-${String(calMesAtual+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const data = new Date(calAnoAtual, calMesAtual, d);
+      if (data >= new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate())) {
+        diasStatus[key] = status;
+      }
+    }
+    renderCalendario();
+  }
+
+  function atualizarResumo() {
+    const total = new Date(calAnoAtual, calMesAtual + 1, 0).getDate();
+    const hoje = new Date();
+    let disp = 0, indisp = 0, neutro = 0;
+
+    for (let d = 1; d <= total; d++) {
+      const key = `${calAnoAtual}-${String(calMesAtual+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const data = new Date(calAnoAtual, calMesAtual, d);
+      if (data >= new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate())) {
+        const s = diasStatus[key] || 'neutro';
+        if (s === 'disponivel') disp++;
+        else if (s === 'indisponivel') indisp++;
+        else neutro++;
+      }
+    }
+
+    document.getElementById('count-disp').textContent = disp;
+    document.getElementById('count-indisp').textContent = indisp;
+    document.getElementById('count-neutro').textContent = neutro;
+  }
+
+  // TOAST
+  function mostrarToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // RESERVAS
+  let reservaParaRecusar = null;
+
+  function confirmarReserva(id) {
+    const card = document.getElementById('reserva-' + id);
+    if (!card) return;
+    const badge = card.querySelector('.reserva-badge');
+    const acoes = card.querySelector('.reserva-acoes');
+    const timer = card.querySelector('[style*="Expira"]') || card.querySelector('.reserva-timer');
+
+    card.classList.remove('pendente');
+    card.classList.add('confirmada');
+    if (badge) { badge.className = 'reserva-badge badge-confirmada'; badge.textContent = '✅ Confirmada'; }
+    if (timer) timer.style.display = 'none';
+    if (acoes) acoes.innerHTML = `<button class="btn-msg-cliente" style="margin-left:0;" onclick="msgCliente('44999999999')">💬 Falar com cliente via WhatsApp</button><div style="margin-left:auto;font-size:12px;color:var(--cinza);display:flex;align-items:center;">Aguardando pagamento do cliente</div>`;
+
+    atualizarBadgeReservas();
+    mostrarToast('✅ Reserva registrada! O cliente recebe o link de pagamento automaticamente via WhatsApp.');
+  }
+
+  function abrirModalRecusar(id) {
+    reservaParaRecusar = id;
+    const overlay = document.getElementById('modal-recusar');
+    if (overlay) overlay.classList.add('open');
+  }
+
+  function fecharModalRecusar() {
+    const overlay = document.getElementById('modal-recusar');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function recusarConfirmado() {
+    if (!reservaParaRecusar) return;
+    const card = document.getElementById('reserva-' + reservaParaRecusar);
+    if (!card) return;
+    const badge = card.querySelector('.reserva-badge');
+    const acoes = card.querySelector('.reserva-acoes');
+
+    card.classList.remove('pendente');
+    card.classList.add('recusada');
+    if (badge) { badge.className = 'reserva-badge badge-recusada'; badge.textContent = '✕ Recusada'; }
+    if (acoes) acoes.innerHTML = `<span style="font-size:12px;color:var(--cinza);">Solicitação recusada. Cliente foi notificado.</span>`;
+
+    fecharModalRecusar();
+    atualizarBadgeReservas();
+    mostrarToast('Reserva recusada. O cliente é notificado automaticamente via WhatsApp.');
+    reservaParaRecusar = null;
+  }
+
+  function atualizarBadgeReservas() {
+    const pendentes = document.querySelectorAll('.reserva-card.pendente').length;
+
+    // 1. Badge na sidebar
+    const badge = document.getElementById('badge-reservas');
+    if (badge) {
+      badge.textContent = pendentes;
+      badge.style.display = pendentes > 0 ? 'inline' : 'none';
+    }
+
+    // 2. Stat card visão geral
+    const statNum = document.getElementById('stat-pendentes');
+    if (statNum) statNum.textContent = pendentes;
+
+    // 3. Título na aba reservas
+    const titulo = document.getElementById('titulo-pendentes');
+    if (titulo) titulo.textContent = '⏳ Aguardando sua resposta (' + pendentes + ')';
+
+    // 4. Alerta na visão geral
+    const alerta = document.getElementById('alerta-pendentes');
+    const alertaTexto = document.getElementById('alerta-texto');
+    if (alerta) {
+      if (pendentes === 0) {
+        alerta.style.display = 'none';
+      } else {
+        alerta.style.display = 'flex';
+        if (alertaTexto) {
+          alertaTexto.textContent = 'Você tem ' + pendentes + ' solicitação' + (pendentes > 1 ? 'ões' : '') + ' de reserva aguardando resposta';
+        }
+      }
+    }
+
+    // 5. Stat card borda amarela — remover destaque se zero pendentes
+    const statCard = statNum ? statNum.closest('.stat-card') : null;
+    if (statCard) {
+      statCard.style.border = pendentes > 0 ? '1.5px solid #f59e0b' : '1px solid var(--cinza-borda)';
+    }
+    const statTag = document.getElementById('stat-pendentes-tag');
+    if (statTag) statTag.textContent = pendentes > 0 ? 'responda já!' : 'nenhuma pendente';
+  }
+
+  function msgCliente(numero) {
+    const msg = encodeURIComponent('Olá! Sou o proprietário da chácara cadastrada no AluguelDeChácaras.com.br. Entro em contato sobre sua solicitação de reserva.');
+    window.open('https://wa.me/55' + numero + '?text=' + msg, '_blank');
+  }
+
+  // TOGGLE ANÚNCIO ATIVO/PAUSADO
+  let anuncioAtivo = true;
+
+  async function toggleAnuncio() {
+    if (!propriedadeAtual) { mostrarToast('⚠️ Não foi possível identificar sua chácara.'); return; }
+    const novoEstado = !anuncioAtivo;
+    const { data, error } = await _supa.from('properties').update({ active: novoEstado }).eq('id', propriedadeAtual.id).select().maybeSingle();
+    if (error) { mostrarToast('⚠️ Erro ao atualizar status: ' + error.message); return; }
+    anuncioAtivo = novoEstado;
+    propriedadeAtual = { ...propriedadeAtual, ...data };
+    sincronizarBotoesAnuncio();
+    mostrarToast(anuncioAtivo ? '✅ Anúncio reativado! Já aparece nas buscas.' : '⏸ Anúncio pausado. Clique em "Publicar anúncio" para reativar.');
+  }
+
+  function abrirPreview(modo) {
+    const dados = coletarDadosAnuncio();
+
+    // Atualizar título e subtítulo do modal conforme modo
+    const modalTitulo = document.querySelector('#modal-preview .modal-titulo-texto');
+    const modalSub = document.querySelector('#modal-preview .modal-sub-texto');
+    if (modalTitulo) {
+      if (modo === 'publicado') {
+        modalTitulo.textContent = '🔗 Ver como o cliente vê';
+        if (modalSub) modalSub.textContent = 'Visualização do anúncio publicado com as alterações salvas';
+      } else {
+        modalTitulo.textContent = '👁️ Pré-visualização';
+        if (modalSub) modalSub.textContent = 'Rascunho com as alterações ainda não salvas';
+      }
+    }
+
+
+    // Nome e localização
+    document.getElementById('prev-nome').textContent = dados.nome || 'Minha Chácara';
+    document.getElementById('prev-cidade').textContent = [dados.cidade, dados.bairro].filter(Boolean).join(' — ') || 'Cidade não informada';
+
+    // Descrição
+    document.getElementById('prev-desc').textContent = dados.desc || 'Descrição não preenchida.';
+
+    // Capacidade e valor
+    document.getElementById('prev-cap').textContent = dados.capacidade ? dados.capacidade + ' pessoas' : '— pessoas';
+    document.getElementById('prev-valor').textContent = dados.diaria ? 'R$ ' + Number(dados.diaria).toLocaleString('pt-BR') : 'R$ —';
+
+    // Foto principal
+    const prevFoto = document.getElementById('prev-foto');
+    const aviso = document.getElementById('prev-foto-aviso');
+    if (dados.fotos && dados.fotos.length > 0) {
+      prevFoto.innerHTML = `<img src="${dados.fotos[0]}" style="width:100%;height:100%;object-fit:cover;"/>`;
+      if (aviso) aviso.style.display = 'none';
+    } else {
+      prevFoto.innerHTML = '🏡';
+      prevFoto.style.fontSize = '80px';
+      if (aviso) aviso.style.display = 'block';
+    }
+
+    // Tags de estrutura selecionadas
+    const tagsEstrutura = document.querySelectorAll('#tags-estrutura .tag-check.selecionado');
+    const prevTags = document.getElementById('prev-tags');
+    prevTags.innerHTML = '';
+    tagsEstrutura.forEach(t => {
+      const span = document.createElement('span');
+      span.style.cssText = 'background:var(--verde-claro);color:var(--verde-escuro);padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;';
+      span.textContent = t.textContent.trim();
+      prevTags.appendChild(span);
+    });
+
+    // Grid de estrutura
+    const prevEstrutura = document.getElementById('prev-estrutura');
+    prevEstrutura.innerHTML = '';
+    tagsEstrutura.forEach(t => {
+      const div = document.createElement('div');
+      div.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fff;border-radius:8px;border:1px solid var(--cinza-borda);font-size:13px;font-weight:500;';
+      div.textContent = t.textContent.trim();
+      prevEstrutura.appendChild(div);
+    });
+    if (tagsEstrutura.length === 0) prevEstrutura.innerHTML = '<div style="font-size:13px;color:var(--cinza);">Nenhuma comodidade selecionada.</div>';
+
+    // Galeria de fotos em miniatura
+    if (dados.fotos && dados.fotos.length > 1) {
+      const existingGal = document.getElementById('prev-galeria-mini');
+      if (!existingGal) {
+        const galDiv = document.createElement('div');
+        galDiv.id = 'prev-galeria-mini';
+        galDiv.style.cssText = 'display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px;';
+        dados.fotos.slice(1, 5).forEach(src => {
+          galDiv.innerHTML += `<img src="${src}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;"/>`;
+        });
+        prevFoto.insertAdjacentElement('afterend', galDiv);
+      } else {
+        existingGal.innerHTML = '';
+        dados.fotos.slice(1, 5).forEach(src => {
+          existingGal.innerHTML += `<img src="${src}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;"/>`;
+        });
+      }
+    }
+
+    // Abrir modal
+    document.getElementById('modal-preview').classList.add('open');
+  }
+
+  function fecharPreview() {
+    document.getElementById('modal-preview').classList.remove('open');
+  }
+
+  function simularComissao() {
+    const diaria = parseFloat(document.getElementById('sim-diaria').value) || 0;
+    const dias = parseInt(document.getElementById('sim-dias').value) || 1;
+    const total = diaria * dias;
+    const comissao = total * 0.08;
+    const liquido = total - comissao;
+    const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 0 });
+    document.getElementById('sim-total').textContent = fmt(total);
+    document.getElementById('sim-comissao').textContent = '− ' + fmt(comissao);
+    document.getElementById('sim-liquido').textContent = fmt(liquido);
+  }
+
+  function coletarDadosAnuncio() {
+    // Textos básicos — usando IDs para garantir os campos corretos
+    const nome       = document.getElementById('f-nome')?.value || '';
+    const cidade     = document.getElementById('f-cidade')?.value || '';
+    const bairro     = document.getElementById('f-bairro')?.value || '';
+    const capacidade = document.getElementById('f-capacidade')?.value || '';
+    const diaria     = document.getElementById('f-diaria')?.value || '';
+    const fds        = document.getElementById('f-fds')?.value || '';
+    const descEl     = document.querySelector('#tab-minha-chacara textarea');
+    const desc       = descEl?.value || '';
+    const video      = document.getElementById('input-video')?.value || '';
+    const wpp        = '';
+
+    // Comodidades selecionadas
+    const comodidades = [];
+    document.querySelectorAll('#tags-estrutura .tag-check.selecionado').forEach(t => {
+      comodidades.push(t.textContent.trim());
+    });
+
+    // Fotos em base64
+    const fotos = [];
+    document.querySelectorAll('#fotos-grid .foto-item:not(#foto-vazia) img').forEach(img => {
+      fotos.push(img.src);
+    });
+
+    return { nome, cidade, bairro, wpp, capacidade, diaria, fds, desc, video, comodidades, fotos };
+  }
+
+  async function salvar(tipo) {
+    if (tipo === 'senha') {
+      const atual = document.getElementById('senha-atual-input')?.value || '';
+      const nova = document.getElementById('senha-nova-input')?.value || '';
+      if (!nova || nova.length < 6) { mostrarToast('⚠️ A nova senha deve ter pelo menos 6 caracteres.'); return; }
+      const { data: { user } } = await _supa.auth.getUser();
+      if (atual && user) {
+        const { error: reAuthErr } = await _supa.auth.signInWithPassword({ email: user.email, password: atual });
+        if (reAuthErr) { mostrarToast('⚠️ Senha atual incorreta.'); return; }
+      }
+      const { error } = await _supa.auth.updateUser({ password: nova });
+      if (error) { mostrarToast('⚠️ Erro ao alterar senha: ' + error.message); return; }
+      document.getElementById('senha-atual-input').value = '';
+      document.getElementById('senha-nova-input').value = '';
+      mostrarToast('✅ Senha alterada!');
+      return;
+    }
+
+    if (!propriedadeAtual) { mostrarToast('⚠️ Não foi possível identificar sua chácara.'); return; }
+
+    if (tipo === 'config') {
+      const nome = document.getElementById('perfil-nome')?.value.trim() || null;
+      const whatsappRaw = document.getElementById('perfil-whatsapp')?.value.trim() || '';
+      const whatsappDigits = whatsappRaw.replace(/\D/g, '');
+      const cpfEl = document.getElementById('perfil-cpf');
+      const cpf = (cpfEl && cpfEl.value.trim() && cpfEl.value.trim() !== '000.000.000-00') ? cpfEl.value.trim() : null;
+      const payloadConfig = {
+        owner_name: nome,
+        owner_whatsapp: whatsappDigits ? (whatsappDigits.length <= 11 ? '55' + whatsappDigits : whatsappDigits) : null,
+        cpf: cpf
+      };
+      const { data, error } = await _supa.from('properties').update(payloadConfig).eq('id', propriedadeAtual.id).select().maybeSingle();
+      if (error) { mostrarToast('⚠️ Erro ao salvar dados pessoais: ' + error.message); return; }
+      propriedadeAtual = { ...propriedadeAtual, ...data };
+      mostrarToast('✅ Dados pessoais salvos!');
+      return;
+    }
+
+    if (tipo === 'anuncio') {
+      const comodidadesMarcadas = [];
+      document.querySelectorAll('#tags-estrutura .tag-check.selecionado').forEach(t => {
+        const canon = MAPA_COMODIDADES[t.textContent.trim()];
+        if (canon) comodidadesMarcadas.push(canon);
+      });
+      const valoresConhecidos = Object.values(MAPA_COMODIDADES);
+      const comodidadesExtras = (propriedadeAtual.amenities || []).filter(a => !valoresConhecidos.includes(a));
+      const amenitiesFinal = [...comodidadesMarcadas, ...comodidadesExtras];
+
+      const payload = {
+        name: document.getElementById('f-nome')?.value.trim() || null,
+        city: document.getElementById('f-cidade')?.value.trim() || null,
+        neighborhood: document.getElementById('f-bairro')?.value.trim() || null,
+        owner_whatsapp: document.getElementById('f-whatsapp')?.value.trim() || null,
+        phone_alt: document.getElementById('f-telefone-alt')?.value.trim() || null,
+        description: document.getElementById('f-descricao')?.value.trim() || null,
+        max_guests: parseInt(document.getElementById('f-capacidade')?.value) || null,
+        price_per_day: parseFloat(document.getElementById('f-diaria')?.value) || null,
+        price_weekend: parseFloat(document.getElementById('f-fds')?.value) || null,
+        amenities: amenitiesFinal,
+        full_address: document.getElementById('f-endereco-completo')?.value.trim() || null,
+        area_m2: parseFloat(document.getElementById('f-area-m2')?.value) || null,
+        parking_spots: parseInt(document.getElementById('f-vagas')?.value) || null,
+        rules_info: document.getElementById('f-regras')?.value.trim() || null,
+        access_instructions: document.getElementById('f-acesso')?.value.trim() || null
+      };
+
+      // Mapa aproximado: geocodifica o endereço (com jitter) — endereço exato nunca vira público
+      const _endMapa = (document.getElementById('f-endereco-completo')?.value || '').trim();
+      if (_endMapa) {
+        try {
+          const _q = encodeURIComponent(_endMapa + ', ' + (document.getElementById('f-cidade')?.value || '') + ', PR, Brasil');
+          const _gr = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + _q, { headers: { 'Accept': 'application/json' } });
+          const _gj = await _gr.json();
+          if (_gj && _gj[0]) {
+            const _jit = () => (Math.random() - 0.5) * 0.007;
+            payload.approx_lat = Math.round((parseFloat(_gj[0].lat) + _jit()) * 100000) / 100000;
+            payload.approx_lng = Math.round((parseFloat(_gj[0].lon) + _jit()) * 100000) / 100000;
+          }
+        } catch (e) { /* geocode falhou: salva sem mapa */ }
+      }
+
+      const { data, error } = await _supa.from('properties').update(payload).eq('id', propriedadeAtual.id).select().maybeSingle();
+      if (error) { mostrarToast('⚠️ Erro ao salvar: ' + error.message); return; }
+      propriedadeAtual = { ...propriedadeAtual, ...data };
+      atualizarPreviewPropriedade(propriedadeAtual);
+      mostrarToast('✅ Anúncio salvo com sucesso!');
+      return;
+    }
+
+    if (tipo === 'video') {
+      const video_url = document.getElementById('input-video')?.value.trim() || null;
+      const { data, error } = await _supa.from('properties').update({ video_url }).eq('id', propriedadeAtual.id).select().maybeSingle();
+      if (error) { mostrarToast('⚠️ Erro ao salvar vídeo: ' + error.message); return; }
+      propriedadeAtual = { ...propriedadeAtual, ...data };
+      mostrarToast('✅ Vídeo salvo!');
+      return;
+    }
+
+    if (tipo === 'fotos') {
+      const _bf = document.getElementById('btn-salvar-fotos');
+      const _bfOrig = _bf ? _bf.innerHTML : '';
+      if (_bf) { _bf.disabled = true; _bf.innerHTML = '⏳ Enviando fotos...'; }
+      const _restoreBf = () => { if (_bf) { _bf.disabled = false; _bf.innerHTML = _bfOrig; } };
+      const itens = Array.from(document.querySelectorAll('#fotos-grid .foto-item:not(#foto-vazia)'));
+      const urls = [];
+      for (const item of itens) {
+        if (item._existingUrl) {
+          urls.push(item._existingUrl);
+        } else if (item._file) {
+          const ext = (item._file.name.split('.').pop() || 'jpg').toLowerCase();
+          const path = propriedadeAtual.id + '/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.' + ext;
+          const { error: upErr } = await _supa.storage.from('property-photos').upload(path, item._file, { upsert: false });
+          if (upErr) { mostrarToast('⚠️ Erro ao enviar foto: ' + upErr.message); continue; }
+          const { data: pub } = _supa.storage.from('property-photos').getPublicUrl(path);
+          urls.push(pub.publicUrl);
+          item._existingUrl = pub.publicUrl;
+          delete item._file;
+        }
+      }
+      const { data, error } = await _supa.from('properties').update({ photos: urls }).eq('id', propriedadeAtual.id).select().maybeSingle();
+      if (error) { _restoreBf(); mostrarToast('⚠️ Erro ao salvar fotos: ' + error.message); return; }
+      propriedadeAtual = { ...propriedadeAtual, ...data };
+      if (_bf) { _bf.innerHTML = '✅ Fotos salvas!'; setTimeout(() => { _bf.innerHTML = _bfOrig; _bf.disabled = false; }, 2500); }
+      mostrarToast('✅ Fotos salvas!');
+      return;
+    }
+
+    if (tipo === 'calendario') {
+      const propId = propriedadeAtual.id;
+      const { data: atuais, error: fetchErr } = await _supa.from('blocked_dates').select('id,blocked_date').eq('property_id', propId);
+      if (fetchErr) { mostrarToast('⚠️ Erro ao ler calendário atual: ' + fetchErr.message); return; }
+      const bloqueadosAtuais = new Map((atuais || []).map(r => [r.blocked_date, r.id]));
+
+      const paraBloquear = Object.entries(diasStatus)
+        .filter(([data, status]) => status === 'indisponivel' && !bloqueadosAtuais.has(data))
+        .map(([data]) => data);
+
+      const paraDesbloquear = [];
+      bloqueadosAtuais.forEach((id, data) => {
+        if (diasStatus[data] !== 'indisponivel') paraDesbloquear.push(id);
+      });
+
+      if (paraBloquear.length) {
+        const rows = paraBloquear.map(d => ({ property_id: propId, blocked_date: d, reason: 'bloqueado_proprietario' }));
+        const { error } = await _supa.from('blocked_dates').insert(rows);
+        if (error) { mostrarToast('⚠️ Erro ao bloquear datas: ' + error.message); return; }
+      }
+      if (paraDesbloquear.length) {
+        const { error } = await _supa.from('blocked_dates').delete().in('id', paraDesbloquear);
+        if (error) { mostrarToast('⚠️ Erro ao liberar datas: ' + error.message); return; }
+      }
+      mostrarToast('✅ Calendário atualizado!');
+      return;
+    }
+
+    if (tipo === 'config') {
+      if (!propriedadeAtual) { mostrarToast('⚠️ Selecione uma chácara primeiro.'); return; }
+      const nome = document.getElementById('perfil-nome')?.value.trim() || null;
+      const wpp = document.getElementById('perfil-whatsapp')?.value.trim() || null;
+      const { data, error } = await _supa.from('properties').update({ owner_name: nome, owner_whatsapp: wpp }).eq('id', propriedadeAtual.id).select().maybeSingle();
+      if (error) { mostrarToast('⚠️ Erro ao salvar dados: ' + error.message); return; }
+      propriedadeAtual = { ...propriedadeAtual, ...data };
+      const _fw = document.getElementById('f-whatsapp'); if (_fw) _fw.value = formatarTelBR(wpp || '');
+      atualizarPreviewPropriedade(propriedadeAtual);
+      mostrarToast('✅ Dados atualizados!');
+      return;
+    }
+
+    mostrarToast('✅ Salvo!');
+  }
+</script>
+</body>
+</html>
