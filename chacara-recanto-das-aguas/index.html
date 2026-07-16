@@ -461,8 +461,8 @@
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="nav-logo">🌿 Aluguel de <span>Chácaras</span></a>
-  <a href="/#chacaras" class="nav-back">← Voltar para resultados</a>
+  <a href="/alugueldechacaras/" class="nav-logo">🌿 Aluguel de <span>Chácaras</span></a>
+  <a href="/alugueldechacaras/#chacaras" class="nav-back">← Voltar para resultados</a>
 </nav>
 
 <!-- GALERIA -->
@@ -582,7 +582,7 @@
       <div class="secao-titulo">Fornecedores para seu evento</div>
       <div style="font-size:14px; color:var(--cinza); margin-bottom:16px;">Parceiros disponíveis para atender nesta chácara e região</div>
       <div class="fornecedores-mini" id="fornecedores-mini-real"></div>
-      <a href="/#fornecedores" style="display:block; text-align:center; margin-top:14px; font-size:14px; font-weight:600; color:var(--terra); text-decoration:none;">Ver todos os fornecedores →</a>
+      <a href="/alugueldechacaras/#fornecedores" style="display:block; text-align:center; margin-top:14px; font-size:14px; font-weight:600; color:var(--terra); text-decoration:none;">Ver todos os fornecedores →</a>
     </div>
 
   </div>
@@ -708,7 +708,7 @@
 
         <div class="campo-reserva" style="display:flex;align-items:flex-start;gap:8px;flex-direction:row;">
           <input type="checkbox" id="r-termos" style="margin-top:3px;flex-shrink:0;width:auto;"/>
-          <span style="font-size:12px;color:#4b5563;">Li e concordo com o <a href="/termo-ciencia-cliente.html" target="_blank" style="color:var(--verde-escuro);font-weight:600;">Termo de Ciência e Responsabilidade do Cliente</a> e os <a href="/termos-de-uso.html" target="_blank" style="color:var(--verde-escuro);font-weight:600;">Termos de Uso</a>.</span>
+          <span style="font-size:12px;color:#4b5563;">Li e concordo com o <a href="/alugueldechacaras/termo-ciencia-cliente.html" target="_blank" style="color:var(--verde-escuro);font-weight:600;">Termo de Ciência e Responsabilidade do Cliente</a> e os <a href="/alugueldechacaras/termos-de-uso.html" target="_blank" style="color:var(--verde-escuro);font-weight:600;">Termos de Uso</a>.</span>
         </div>
 
         <button class="btn-reservar" style="margin-top:12px;" onclick="enviarSolicitacao()">
@@ -737,7 +737,7 @@
         </div>
 
         <div style="font-size:12px; color:var(--cinza); text-align:center; line-height:1.6; margin-bottom:14px;">
-          Enquanto aguarda, que tal já pesquisar <a href="/#fornecedores" style="color:var(--verde); font-weight:600;">fornecedores para seu evento</a>?
+          Enquanto aguarda, que tal já pesquisar <a href="/alugueldechacaras/#fornecedores" style="color:var(--verde); font-weight:600;">fornecedores para seu evento</a>?
         </div>
 
 
@@ -1167,7 +1167,7 @@
     } else {
       texto = `🔒 Cancelamento grátis até <b>${fmt(limite100)}</b>. Depois, 50% de reembolso até <b>${fmt(limite50)}</b>. Sem reembolso depois disso.`;
     }
-    box.innerHTML = texto + ' <a href="/termo-ciencia-cliente.html" target="_blank" style="color:var(--verde-escuro);font-weight:600;">Ver política completa</a>';
+    box.innerHTML = texto + ' <a href="/alugueldechacaras/termo-ciencia-cliente.html" target="_blank" style="color:var(--verde-escuro);font-weight:600;">Ver política completa</a>';
     box.style.display = 'block';
   }
 
