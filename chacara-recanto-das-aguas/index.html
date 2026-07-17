@@ -1593,7 +1593,7 @@
     const bloqueio = verificarBloqueioNoPeriodo(checkin, checkout);
     if (bloqueio) {
       const [ano,mes,dia] = bloqueio.split('-');
-      aviso.textContent = '⚠️ A data ' + dia + '/alugueldechacaras/' + mes + '/alugueldechacaras/' + ano + ' já está reservada. Por favor escolha outro período.';
+      aviso.textContent = '⚠️ A data ' + dia + '/' + mes + '/' + ano + ' já está reservada. Por favor escolha outro período.';
       aviso.style.display = 'block';
     } else {
       aviso.style.display = 'none';
