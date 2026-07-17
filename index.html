@@ -1142,7 +1142,7 @@
     const desc = p.description ? p.description.slice(0,120) + (p.description.length>120?'\u2026':'') : '';
     const cap = p.max_guests ? ('\uD83D\uDC65 At\u00e9 ' + p.max_guests + ' pessoas') : '';
     const card = document.createElement('a');
-    card.href = '/alugueldechacaras/' + slug + '/alugueldechacaras/';
+    card.href = '/alugueldechacaras/' + slug + '/';
     card.className = 'chacara-card';
     card.style.cssText = 'text-decoration:none;color:inherit;display:block;';
     card.innerHTML = `
@@ -1789,7 +1789,7 @@
         return;
       }
 
-      window.location.href = tipo === 'chacara' ? '/painel-proprietario.html?editar=1' : '/painel-fornecedor.html?editar=1';
+      window.location.href = tipo === 'chacara' ? '/alugueldechacaras/painel-proprietario.html?editar=1' : '/alugueldechacaras/painel-fornecedor.html?editar=1';
     } catch (e) {
       erroEl.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
       erroEl.style.display = 'block';

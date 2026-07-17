@@ -1489,7 +1489,7 @@
           urls.push(item._existingUrl);
         } else if (item._file) {
           const ext = (item._file.name.split('.').pop() || 'jpg').toLowerCase();
-          const path = perfilAtual.id + '/alugueldechacaras/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.' + ext;
+          const path = perfilAtual.id + '/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.' + ext;
           const { error: upErr } = await _supa.storage.from('supplier-photos').upload(path, item._file, { upsert: false });
           if (upErr) { mostrarToast('⚠️ Erro ao enviar foto: ' + upErr.message); continue; }
           const { data: pub } = _supa.storage.from('supplier-photos').getPublicUrl(path);
